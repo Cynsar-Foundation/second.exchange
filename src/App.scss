@@ -1,0 +1,207 @@
+@font-face {
+    font-family: Nunito-Regular;
+    src: url('./assets/fonts/Nunito-Regular.ttf');
+}
+
+@font-face {
+    font-family: Nunito-Bold;
+    src: url('./assets/fonts/Nunito-Bold.ttf');
+}
+
+@font-face {
+    font-family: Nunito-ExtraBold;
+    src: url('./assets/fonts/Nunito-ExtraBold.ttf');
+}
+
+@mixin regular-button($width: 50px) {
+    border: 1px solid black;
+    width: $width;
+    background-color: white;
+    font-family: Nunito-Regular;
+    cursor: pointer;
+}
+
+@mixin regular-modal($max-width) {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%, -50%);
+    z-index: 1;
+}
+
+body {
+    font-family: Nunito-Regular;
+}
+
+.WalletModal {
+
+    &__toplevel {
+        background: rgba(49, 49, 49, 0.7);
+        position: fixed;
+        margin: auto;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        transition: opacity 0.2s ease-in;
+        z-index: 1;
+    }
+
+    &__container {
+        @include regular-modal(400px);
+
+        background-color: white;
+        padding: 20px;
+        z-index: 2000;
+    }
+
+    &__buttons-container {
+        margin-top: 15px;
+    }
+
+    &__buttons {
+        @include regular-button(270px);
+        
+        border: none;
+        display: block;
+        padding: 12px;
+        margin: 10px;
+        background-color: rgb(24, 24, 24);
+        text-align: center;
+    
+        &-active {
+            background-color: white;
+            color: black;
+        }
+    }
+
+    &__buttons:hover {
+        cursor: pointer;
+        background-color: black;
+        transform: scale(1.02);
+    }
+
+    &__title {
+        text-align: center;
+        font-size: 17px;
+        font-family: Nunito-Bold;
+        margin-bottom: 12px;
+    }
+    
+    &__header {
+        position: relative;
+    }
+
+    &__close-button {
+        @include regular-button();
+
+        border: none;
+        cursor: pointer;
+        position: absolute;
+        top: 18px;
+        right: 0;
+        z-index: 2100;
+    }
+}
+
+nav {
+    margin: 20px 50px 0 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.NavbarContainer {
+
+    .NavItem {
+        text-decoration: none;
+        color: black;
+        font-family: Nunito-Bold;
+        margin-left: 120px;
+    }
+    
+    .NavLogo {
+        font-size: 25px;
+        text-decoration: none;
+        color: black;
+        font-family: Nunito-Bold;
+    }
+    
+    .NavOptions {
+        margin-top: 8.5px;
+    }
+
+    .WalletConnectButton {
+        @include regular-button(140px);
+    
+        border: 2px solid black;
+        font-family: Nunito-Bold;
+        margin-top: -2px;
+        padding: 10px;
+    }
+}
+
+.MainContent {
+    margin-top: 170px;
+    cursor: default;
+}
+
+.subtitle {
+    font-family: Nunito-Bold;
+    letter-spacing: 3.5px;
+    font-size: 15px;
+    color: #777777;
+    text-align: center;;
+}
+
+.title-line {
+    margin-top: 30px;
+    font-family: Nunito-ExtraBold;
+    font-size: 40px;
+    text-align: center;
+}
+
+.ProfileContainer {
+    position: fixed;
+    bottom: 40px;
+    right: 60px;
+}
+
+.HomeImages {
+    margin-top: 60px;
+    text-align: center;
+    justify-content: space-evenly;
+
+    &__item {
+        object-fit: cover;
+        background-color: rgb(215, 246, 255);
+        border: 1px;
+        padding: 5px;
+        margin: 20px;
+        height: 100px;
+        width: 100px;
+    }
+}
+
+.WalletOptionLogos {
+    display: block;
+    height: 40px;
+    width: 40px;
+    margin-left: 10px;
+    padding-bottom: 8px;
+}
+
+.WalletOptionText {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-top: -34px;
+    margin-left: 75px;
+    color: white;
+    font-family: Nunito-Regular;
+    text-transform: uppercase;
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    z-index: 2101;
+}
