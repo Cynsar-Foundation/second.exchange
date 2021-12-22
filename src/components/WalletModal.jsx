@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-toastify";
 import { useWeb3React, UnsupportedChainIdError } from "@web3-react/core";
 import {
   NoEthereumProviderError,
@@ -159,10 +160,10 @@ export const WalletModal = () => {
                   .getSigner(account)
                   .signMessage("Message to be signed?")
                   .then((signature) => {
-                    window.alert(`Success!\n\n${signature}`);
+                    toast.success(`Success!\n\n${signature}`);
                   })
                   .catch((error) => {
-                    window.alert(
+                    toast.error(
                       "Failure!" +
                         (error && error.message ? `\n\n${error.message}` : "")
                     );
