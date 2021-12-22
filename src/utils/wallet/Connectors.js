@@ -1,4 +1,3 @@
-import Web3 from "web3";
 import { TorusConnector } from "@web3-react/torus-connector";
 import { PortisConnector } from "@web3-react/portis-connector";
 import { InjectedConnector } from "@web3-react/injected-connector";
