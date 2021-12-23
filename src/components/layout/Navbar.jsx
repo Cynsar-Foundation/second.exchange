@@ -1,10 +1,13 @@
 import React from "react";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Web3ReactProvider } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
+import { useMoralis } from "react-moralis";
 
 import { WalletModal } from "../WalletModal";
 import { useWalletModalValue } from "../../context";
+
+import MetaMaskLogo from '../../assets/images/metamask.svg';
 
 function getLibrary(provider) {
     const library = new Web3Provider(provider);
@@ -15,40 +18,41 @@ function getLibrary(provider) {
 export const Navbar = () => {
     const { walletOverlayActive, setWalletOverlayActive } =
         useWalletModalValue();
+    const { isAuthenticated } = useMoralis();
+    console.log("From navbar, moralis: ", isAuthenticated);
 
     return (
-        <Router>
             <div className="NavbarContainer">
                 <nav>
-                    <Link className="NavLogo" to="#">
+                    <Link className={isAuthenticated ? "NavLogo SelectedNavOption" : "NavLogo"} to="/">
                         second.exchange
                     </Link>
                     <div className="NavOptions">
-                        <Link className="NavItem" to="#">
+                        <Link className="NavItem" to="/Explore">
                             Explore
                         </Link>
-                        <Link className="NavItem" to="#">
+                        <Link className="NavItem" to="/Creators">
                             Creators
                         </Link>
-                        <Link className="NavItem" to="#">
+                        <Link className="NavItem" to="/Community">
                             Community
                         </Link>
                     </div>
                     <button
-                        className="WalletConnectButton"
+                        className={isAuthenticated ? "WalletConnectedButton" : "WalletConnectButton"}
                         onClick={() =>
                             setWalletOverlayActive(!walletOverlayActive)
                         }
                     >
-                        Connect Wallet
+                        {isAuthenticated ? <img className="WalletConnectedFigure" src={MetaMaskLogo} alt="metamask" /> : "Connect Wallet"}
+                        {isAuthenticated ? <div className="WalletConnectedText">Connected</div> : ""}
                     </button>
                 </nav>
-            </div>
             {walletOverlayActive && (
                 <Web3ReactProvider getLibrary={getLibrary}>
                     <WalletModal />
                 </Web3ReactProvider>
             )}
-        </Router>
+            </div>
     );
 };

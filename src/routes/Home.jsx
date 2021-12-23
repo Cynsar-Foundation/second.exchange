@@ -1,8 +1,6 @@
 import React from "react";
 import { CgProfile } from 'react-icons/cg';
 
-import { Navbar } from '../components/layout/Navbar';
-
 import CanvasPic from '../assets/images/canvas.jpg';
 import BloggingPic from '../assets/images/blogging.png';
 import NFTPic from '../assets/images/nft.jpg';
@@ -10,7 +8,6 @@ import NFTPic from '../assets/images/nft.jpg';
 export const Home = () => {
     return (
         <div className="Home">
-            <Navbar />
             <div className="MainContent">
             <div className="subtitle">
                 DECENTRALIZED BLOGGING AND NFT PLATFORM

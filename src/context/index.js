@@ -3,7 +3,14 @@ import {
     WalletModalProvider
 } from './wallet-modal-context';
 
+import {
+    useUserAuthValue,
+    UserAuthProvider
+} from './user-auth-context';
+
 export {
     useWalletModalValue,
-    WalletModalProvider
+    WalletModalProvider,
+    useUserAuthValue,
+    UserAuthProvider
 };

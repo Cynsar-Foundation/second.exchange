@@ -1,42 +1,42 @@
 import React from "react";
-import {
-    useWeb3React,
-    UnsupportedChainIdError,
-} from "@web3-react/core";
+import { useWeb3React, UnsupportedChainIdError } from "@web3-react/core";
 import {
     NoEthereumProviderError,
     UserRejectedRequestError as UserRejectedRequestErrorInjected,
 } from "@web3-react/injected-connector";
 import { UserRejectedRequestError as UserRejectedRequestErrorWalletConnect } from "@web3-react/walletconnect-connector";
 import { UserRejectedRequestError as UserRejectedRequestErrorFrame } from "@web3-react/frame-connector";
-import { IoCloseOutline } from 'react-icons/io5';
+import { IoCloseOutline } from "react-icons/io5";
+import { useMoralis } from "react-moralis";
+
 import { useWalletModalValue } from "../context";
-
 import { useEagerConnect } from "../hooks/useEagerConnect";
-import { useInactiveListener } from '../hooks/useInactiveListener';
-import { injected, walletconnect, portis, torus } from "../utils/wallet/Connectors";
+import { useInactiveListener } from "../hooks/useInactiveListener";
+import {
+    walletconnect,
+    portis,
+    torus,
+} from "../utils/wallet/Connectors";
 
-import MetaMaskLogo from '../assets/images/metamask.svg';
-import WalletConnectLogo from '../assets/images/walletconnect.svg';
-import PortisLogo from '../assets/images/portis.svg';
-import TorusLogo from '../assets/images/torus.svg';
+import MetaMaskLogo from "../assets/images/metamask.svg";
+import WalletConnectLogo from "../assets/images/walletconnect.svg";
+import PortisLogo from "../assets/images/portis.svg";
+import TorusLogo from "../assets/images/torus.svg";
 
 const ConnectorNames = {
-    Injected: "MetaMask",
     WalletConnect: "WalletConnect",
     Portis: "Portis",
     Torus: "Torus",
 };
 
 const WalletLogos = {
-    'MetaMask': MetaMaskLogo,
-    'WalletConnect': WalletConnectLogo,
-    'Portis': PortisLogo,
-    'Torus': TorusLogo
-}
+    MetaMask: MetaMaskLogo,
+    WalletConnect: WalletConnectLogo,
+    Portis: PortisLogo,
+    Torus: TorusLogo,
+};
 
 const connectorsByName = {
-    [ConnectorNames.Injected]: injected,
     [ConnectorNames.WalletConnect]: walletconnect,
     [ConnectorNames.Portis]: portis,
     [ConnectorNames.Torus]: torus,
@@ -60,6 +60,7 @@ function getErrorMessage(error) {
 }
 
 export const WalletModal = () => {
+    const { authenticate } = useMoralis();
     const context = useWeb3React();
     const {
         connector,
@@ -83,135 +84,169 @@ export const WalletModal = () => {
 
     useInactiveListener(!triedEager || !!activatingConnector);
 
-    const { walletOverlayActive, setWalletOverlayActive } = useWalletModalValue();
+    const { walletOverlayActive, setWalletOverlayActive } =
+        useWalletModalValue();
 
     return (
         <div className="WalletModal__toplevel">
-            
-        <div className="WalletModal__container">
-
-        <button
-            className="WalletModal__close-button"
-            onClick={() => ( setWalletOverlayActive(!walletOverlayActive))}
-        ><IoCloseOutline size={25} /></button>
-            <div className="WalletModal__header">
-                <div className="WalletModal__title">Connect Wallet</div>
-            </div>
-            <hr />
-            <div className="WalletModal__buttons-container">
-                {Object.keys(connectorsByName).map((name) => {
-                    const currentConnector = connectorsByName[name];
-                    const activating = currentConnector === activatingConnector;
-                    const connected = currentConnector === connector;
-                    const disabled =
-                        !triedEager ||
-                        !!activatingConnector ||
-                        connected ||
-                        !!error;
-
-                    return (
-                        <button
-                            className="WalletModal__buttons"
-                            disabled={disabled}
-                            key={name}
-                            onClick={() => {
-                                setActivatingConnector(currentConnector);
-                                activate(connectorsByName[name]);
-                            }}
-                        >
-                            <div className="WalletModal__buttons-active">
-                                {activating}
-                                {connected}
-                            </div>
-                            {<img className="WalletOptionLogos" src={WalletLogos[name]} alt={name} />}
-                            {<span className="WalletOptionText">{name}</span>}
-                        </button>
-                    );
-                })}
-            </div>
-            <div>
-                {(active || error) && (
+            <div className="WalletModal__container">
+                <button
+                    className="WalletModal__close-button"
+                    onClick={() => setWalletOverlayActive(!walletOverlayActive)}
+                >
+                    <IoCloseOutline size={25} />
+                </button>
+                <div className="WalletModal__header">
+                    <div className="WalletModal__title">Connect Wallet</div>
+                </div>
+                <hr />
+                <div className="WalletModal__buttons-container">
                     <button
+                        className="WalletModal__buttons"
                         onClick={() => {
-                            deactivate();
+                            authenticate();
                         }}
                     >
-                        Deactivate
+                        {
+                            <img
+                                className="WalletOptionLogos"
+                                src={MetaMaskLogo}
+                                alt="MetaMask"
+                            />
+                        }
+                        {
+                            <span className="WalletOptionText">
+                                MetaMask
+                            </span>
+                        }
                     </button>
-                )}
+                    {Object.keys(connectorsByName).map((name) => {
+                        const currentConnector = connectorsByName[name];
+                        const activating =
+                            currentConnector === activatingConnector;
+                        const connected = currentConnector === connector;
+                        const disabled =
+                            !triedEager ||
+                            !!activatingConnector ||
+                            connected ||
+                            !!error;
 
-                {!!error && (
-                    <h4>
-                        {getErrorMessage(error)}
-                    </h4>
-                )}
-            </div>
-
-            <div>
-                {!!(library && account) && (
-                    <button
-                        onClick={() => {
-                            library
-                                .getSigner(account)
-                                .signMessage("Message to be signed?")
-                                .then((signature) => {
-                                    window.alert(`Success!\n\n${signature}`);
-                                })
-                                .catch((error) => {
-                                    window.alert(
-                                        "Failure!" +
-                                            (error && error.message
-                                                ? `\n\n${error.message}`
-                                                : "")
-                                    );
-                                });
-                        }}
-                    >
-                        Sign Message
-                    </button>
-                )}
-                {connector ===
-                    connectorsByName[ConnectorNames.WalletConnect] && (
-                    <button
-                        onClick={() => {
-                            connector.close();
-                        }}
-                    >
-                        Kill WalletConnect Session
-                    </button>
-                )}
-                {connector === connectorsByName[ConnectorNames.Portis] && (
-                    <>
-                        {chainId !== undefined && (
+                        return (
                             <button
+                                className="WalletModal__buttons"
+                                disabled={disabled}
+                                key={name}
                                 onClick={() => {
-                                    connector.changeNetwork(
-                                        chainId === 1 ? 100 : 1
-                                    );
+                                    setActivatingConnector(currentConnector);
+                                    activate(connectorsByName[name]);
                                 }}
                             >
-                                Switch Networks
+                                <div className="WalletModal__buttons-active">
+                                    {activating}
+                                    {connected}
+                                </div>
+                                {
+                                    <img
+                                        className="WalletOptionLogos"
+                                        src={WalletLogos[name]}
+                                        alt={name}
+                                    />
+                                }
+                                {
+                                    <span className="WalletOptionText">
+                                        {name}
+                                    </span>
+                                }
                             </button>
-                        )}
+                        );
+                    })}
+                </div>
+                <div>
+                    {(active || error) && (
+                        <button
+                            onClick={() => {
+                                deactivate();
+                            }}
+                        >
+                            Deactivate
+                        </button>
+                    )}
+
+                    {!!error && (
+                        <h4>
+                            {getErrorMessage(error)}
+                        </h4>
+                    )}
+                </div>
+
+                <div>
+                    {!!(library && account) && (
+                        <button
+                            onClick={() => {
+                                library
+                                    .getSigner(account)
+                                    .signMessage("Message to be signed?")
+                                    .then((signature) => {
+                                        window.alert(
+                                            `Success!\n\n${signature}`
+                                        );
+                                    })
+                                    .catch((error) => {
+                                        window.alert(
+                                            "Failure!" +
+                                                (error && error.message
+                                                    ? `\n\n${error.message}`
+                                                    : "")
+                                        );
+                                    });
+                            }}
+                        >
+                            Sign Message
+                        </button>
+                    )}
+                    {connector ===
+                        connectorsByName[ConnectorNames.WalletConnect] && (
                         <button
                             onClick={() => {
                                 connector.close();
                             }}
                         >
-                            Kill Portis Session
+                            Kill WalletConnect Session
                         </button>
-                    </>
-                )}
-                {connector === connectorsByName[ConnectorNames.Torus] && (
-                    <button
-                        onClick={() => {
-                            connector.close();
-                        }}
-                    >
-                        Kill Torus Session
-                    </button>
-                )}
+                    )}
+                    {connector === connectorsByName[ConnectorNames.Portis] && (
+                        <>
+                            {chainId !== undefined && (
+                                <button
+                                    onClick={() => {
+                                        connector.changeNetwork(
+                                            chainId === 1 ? 100 : 1
+                                        );
+                                    }}
+                                >
+                                    Switch Networks
+                                </button>
+                            )}
+                            <button
+                                onClick={() => {
+                                    connector.close();
+                                }}
+                            >
+                                Kill Portis Session
+                            </button>
+                        </>
+                    )}
+                    {connector === connectorsByName[ConnectorNames.Torus] && (
+                        <button
+                            onClick={() => {
+                                connector.close();
+                            }}
+                        >
+                            Kill Torus Session
+                        </button>
+                    )}
+                </div>
             </div>
-        </div></div>
+        </div>
     );
-}
+};
