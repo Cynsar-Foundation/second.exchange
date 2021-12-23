@@ -82,6 +82,7 @@ html, body {
 
     &__buttons-container {
         margin-top: 15px;
+        margin-bottom: 15px;
     }
 
     &__buttons {
@@ -272,6 +273,26 @@ nav {
     font-size: 16px;
     letter-spacing: 1.5px;
     z-index: 2101;
+}
+
+.WalletOptionOps {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.WalletOptionOpsButton {
+    cursor: pointer;
+    background-color: white;
+    font-family: Nunito-Bold;
+    margin: 0;
+    font-size: 14px;
+    border: 1.5px solid #808080;
+    padding: 4px;
+}
+
+.WalletOptionOpsButton:hover {
+    background-color: #F4F4F4;
 }
 
 .SidebarContainer {

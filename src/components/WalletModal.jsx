@@ -51,13 +51,13 @@ function getErrorMessage(error) {
     ) {
         return "Please authorize this website to access your Ethereum account.";
     } else {
-        console.error(error);
+        toast.error(error);
         return "An unknown error occurred. Check the console for more details.";
     }
 }
 
 export const WalletModal = () => {
-    const { authenticate } = useMoralis();
+    const { authenticate, isAuthenticated, logout } = useMoralis();
     const context = useWeb3React();
     const {
         connector,
@@ -163,81 +163,98 @@ export const WalletModal = () => {
                         );
                     })}
                 </div>
-                <div>
-                    {(active || error) && (
-                        <button onClick={disconnect}>Deactivate</button>
-                    )}
+                <hr />
+                {isAuthenticated && (
+                    <div className="WalletOptionOps">
+                        {(active || error) && (
+                            <button
+                                className="WalletOptionOpsButton"
+                                onClick={() => {
+                                    disconnect();
+                                    logout();
+                                }}
+                            >
+                                Disconnect
+                            </button>
+                        )}
 
-                    {!!error && <h4>{getErrorMessage(error)}</h4>}
-                </div>
+                        {!!error &&
+                            toast.error("Faliure!" + getErrorMessage(error))}
+                    </div>
+                )}
 
-                <div>
-                    {!!(library && account) && (
-                        <button
-                            onClick={() => {
-                                library
-                                    .getSigner(account)
-                                    .signMessage("Message to be signed?")
-                                    .then((signature) => {
-                                        toast.success(
-                                            `Success!\n\n${signature}`
-                                        );
-                                    })
-                                    .catch((error) => {
-                                        toast.error(
-                                            "Failure!" +
-                                                (error && error.message
-                                                    ? `\n\n${error.message}`
-                                                    : "")
-                                        );
-                                    });
-                            }}
-                        >
-                            Sign Message
-                        </button>
-                    )}
-                    {connector ===
-                        connectorsByName[ConnectorNames.WalletConnect] && (
-                        <button
-                            onClick={() => {
-                                connector.close();
-                            }}
-                        >
-                            Kill WalletConnect Session
-                        </button>
-                    )}
-                    {connector === connectorsByName[ConnectorNames.Portis] && (
-                        <>
-                            {chainId !== undefined && (
-                                <button
-                                    onClick={() => {
-                                        connector.changeNetwork(
-                                            chainId === 1 ? 100 : 1
-                                        );
-                                    }}
-                                >
-                                    Switch Networks
-                                </button>
-                            )}
+                {isAuthenticated && (
+                    <div className="WalletOptionOps">
+                        {!!(library && account) && (
+                            <button
+                                className="WalletOptionOpsButton"
+                                onClick={() => {
+                                    library
+                                        .getSigner(account)
+                                        .signMessage("Message to be signed?")
+                                        .then((signature) => {
+                                            toast.success(
+                                                `Success!\n\n${signature}`
+                                            );
+                                        })
+                                        .catch((error) => {
+                                            toast.error(
+                                                "Failure!" +
+                                                    (error && error.message
+                                                        ? `\n\n${error.message}`
+                                                        : "")
+                                            );
+                                        });
+                                }}
+                            >
+                                Sign Message
+                            </button>
+                        )}
+                        {connector ===
+                            connectorsByName[ConnectorNames.WalletConnect] && (
                             <button
                                 onClick={() => {
                                     connector.close();
                                 }}
                             >
-                                Kill Portis Session
+                                Kill WalletConnect Session
                             </button>
-                        </>
-                    )}
-                    {connector === connectorsByName[ConnectorNames.Torus] && (
-                        <button
-                            onClick={() => {
-                                connector.close();
-                            }}
-                        >
-                            Kill Torus Session
-                        </button>
-                    )}
-                </div>
+                        )}
+                        {connector ===
+                            connectorsByName[ConnectorNames.Portis] && (
+                            <>
+                                {chainId !== undefined && (
+                                    <button
+                                        onClick={() => {
+                                            connector.changeNetwork(
+                                                chainId === 1 ? 100 : 1
+                                            );
+                                        }}
+                                    >
+                                        Switch Networks
+                                    </button>
+                                )}
+                                <button
+                                    onClick={() => {
+                                        connector.close();
+                                    }}
+                                >
+                                    Kill Portis Session
+                                </button>
+                            </>
+                        )}
+                        {connector ===
+                            connectorsByName[ConnectorNames.Torus] && (
+                            <button
+                                onClick={() => {
+                                    connector.close();
+                                }}
+                            >
+                                Kill Torus Session
+                            </button>
+                        )}
+                    </div>
+                )}
             </div>
         </div>
     );
