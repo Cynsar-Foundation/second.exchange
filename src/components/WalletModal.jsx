@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-toastify";
 import { useWeb3React, UnsupportedChainIdError } from "@web3-react/core";
 import {
     NoEthereumProviderError,
@@ -12,11 +13,7 @@ import { useMoralis } from "react-moralis";
 import { useWalletModalValue } from "../context";
 import { useEagerConnect } from "../hooks/useEagerConnect";
 import { useInactiveListener } from "../hooks/useInactiveListener";
-import {
-    walletconnect,
-    portis,
-    torus,
-} from "../utils/wallet/Connectors";
+import { walletconnect, portis, torus } from "../utils/wallet/Connectors";
 
 import MetaMaskLogo from "../assets/images/metamask.svg";
 import WalletConnectLogo from "../assets/images/walletconnect.svg";
@@ -87,6 +84,15 @@ export const WalletModal = () => {
     const { walletOverlayActive, setWalletOverlayActive } =
         useWalletModalValue();
 
+    const disconnect = async () => {
+        try {
+            await deactivate();
+            window.location.reload();
+        } catch (ex) {
+            console.log("erros", ex);
+        }
+    };
+
     return (
         <div className="WalletModal__toplevel">
             <div className="WalletModal__container">
@@ -114,11 +120,7 @@ export const WalletModal = () => {
                                 alt="MetaMask"
                             />
                         }
-                        {
-                            <span className="WalletOptionText">
-                                MetaMask
-                            </span>
-                        }
+                        {<span className="WalletOptionText">MetaMask</span>}
                     </button>
                     {Object.keys(connectorsByName).map((name) => {
                         const currentConnector = connectorsByName[name];
@@ -163,20 +165,10 @@ export const WalletModal = () => {
                 </div>
                 <div>
                     {(active || error) && (
-                        <button
-                            onClick={() => {
-                                deactivate();
-                            }}
-                        >
-                            Deactivate
-                        </button>
+                        <button onClick={disconnect}>Deactivate</button>
                     )}
 
-                    {!!error && (
-                        <h4>
-                            {getErrorMessage(error)}
-                        </h4>
-                    )}
+                    {!!error && <h4>{getErrorMessage(error)}</h4>}
                 </div>
 
                 <div>
@@ -187,12 +179,12 @@ export const WalletModal = () => {
                                     .getSigner(account)
                                     .signMessage("Message to be signed?")
                                     .then((signature) => {
-                                        window.alert(
+                                        toast.success(
                                             `Success!\n\n${signature}`
                                         );
                                     })
                                     .catch((error) => {
-                                        window.alert(
+                                        toast.error(
                                             "Failure!" +
                                                 (error && error.message
                                                     ? `\n\n${error.message}`
