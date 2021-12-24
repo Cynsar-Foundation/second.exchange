@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Web3ReactProvider } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
@@ -19,8 +20,9 @@ export const Navbar = () => {
     const { walletOverlayActive, setWalletOverlayActive } =
         useWalletModalValue();
     const { isAuthenticated } = useMoralis();
-    console.log("From navbar, moralis: ", isAuthenticated);
-
+    useEffect(() => {
+        setWalletOverlayActive(false);
+    }, [isAuthenticated])
     return (
             <div className="NavbarContainer">
                 <nav>

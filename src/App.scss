@@ -287,7 +287,7 @@ nav {
     font-family: Nunito-Bold;
     margin: 0;
     font-size: 14px;
-    border: 1.5px solid #808080;
+    border: 1.5px solid black;
     padding: 4px;
 }
 
@@ -329,10 +329,10 @@ nav {
             font-family: Nunito-Bold;
         }
 
-        &__chevron {
+        &__plus {
             display: inline-block;
-            margin-left: 10px;
-            transform: translate(0, -20%);
+            margin-left: 18px;
+            transform: translate(0, -30%);
             cursor: pointer;
         }
     }
@@ -367,6 +367,13 @@ nav {
             width: 15px;
             margin-right: 5px;
             margin-top: 6px;
+        }
+
+        .NFTLogo {
+            width: 20px;
+            height: 20px;
+            margin-right: 0px;
+            margin-top: 3px;
         }
     }
 
@@ -465,4 +472,39 @@ nav {
     cursor: text;
     margin: 3px;
     padding: 10px;
+}
+
+.MetarootModal {
+
+    &__toplevel {
+        background: rgba(49, 49, 49, 0.7);
+        position: fixed;
+        margin: auto;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        transition: opacity 0.2s ease-in;
+        z-index: 1;
+    }
+
+    &__container {
+        @include regular-modal(600px);
+
+        background-color: white;
+        padding: 20px;
+        z-index: 2000;
+    }
+
+    &__close-button {
+        @include regular-button();
+
+        border: none;
+        cursor: pointer;
+        position: absolute;
+        top: 18px;
+        right: 0;
+        z-index: 2100;
+    }
 }

@@ -12,6 +12,7 @@ import { BlogEditor } from "./routes/BlogEditor";
 import { NotFound } from "./routes/NotFound";
 
 import { WalletModalProvider } from "./context";
+import { MetarootModalProvider } from "./context";
 import { Navbar } from "./components/layout/Navbar";
 import { Sidebar } from "./components/layout/Sidebar";
 
@@ -24,35 +25,49 @@ export const App = () => {
     return (
         <Router>
             <WalletModalProvider>
-                <ToastContainer />
-                <Navbar />
-                <div className={isAuthenticated ? "ContentContainer" : ""}>
-                    {isAuthenticated && (
-                        <div className="SidebarDiv">
-                            <Sidebar />
-                        </div>
-                    )}
-                    <div className={isAuthenticated ? "MainContentDiv" : ""}>
-                        <Routes>
-                            <Route path="*" element={<NotFound />} />
-                            {!isAuthenticated && (
-                                <Route path="/" element={<Home />} exact />
-                            )}
-                            {isAuthenticated && (
-                                <Route path="/" element={<Dashboard />} exact />
-                            )}
-                            <Route path="/Explore" element={<Explore />} />
-                            <Route path="/Creators" element={<Creators />} />
-                            <Route path="/Community" element={<Community />} />
-                            {isAuthenticated && (
+                <MetarootModalProvider>
+                    <ToastContainer />
+                    <Navbar />
+                    <div className={isAuthenticated ? "ContentContainer" : ""}>
+                        {isAuthenticated && (
+                            <div className="SidebarDiv">
+                                <Sidebar />
+                            </div>
+                        )}
+                        <div
+                            className={isAuthenticated ? "MainContentDiv" : ""}
+                        >
+                            <Routes>
+                                <Route path="*" element={<NotFound />} />
+                                {!isAuthenticated && (
+                                    <Route path="/" element={<Home />} exact />
+                                )}
+                                {isAuthenticated && (
+                                    <Route
+                                        path="/"
+                                        element={<Dashboard />}
+                                        exact
+                                    />
+                                )}
+                                <Route path="/Explore" element={<Explore />} />
                                 <Route
-                                    path="/WriteBlog"
-                                    element={<BlogEditor />}
+                                    path="/Creators"
+                                    element={<Creators />}
                                 />
-                            )}
-                        </Routes>
+                                <Route
+                                    path="/Community"
+                                    element={<Community />}
+                                />
+                                {isAuthenticated && (
+                                    <Route
+                                        path="/WriteBlog"
+                                        element={<BlogEditor />}
+                                    />
+                                )}
+                            </Routes>
+                        </div>
                     </div>
-                </div>
+                </MetarootModalProvider>
             </WalletModalProvider>
         </Router>
     );

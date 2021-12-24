@@ -59,6 +59,7 @@ function getErrorMessage(error) {
 export const WalletModal = () => {
     const { authenticate, isAuthenticated, logout } = useMoralis();
     const context = useWeb3React();
+
     const {
         connector,
         library,

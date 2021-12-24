@@ -1,66 +1,69 @@
-import React from 'react';
-import { FaChevronDown } from 'react-icons/fa';
-import { IoMdMoon } from 'react-icons/io';
-import { VscBellDot } from 'react-icons/vsc';
-import { IoMdSettings } from 'react-icons/io';
+import React, { useEffect, useState } from "react";
+import { useMoralis } from "react-moralis";
 
-import FemaleAvatar from '../../assets/images/undraw-female-avatar.svg'
-import AvaxLogo from '../../assets/images/avax.svg';
-import NFTSymbol from '../../assets/images/nft-symbol.svg';
+import { IoMdMoon } from "react-icons/io";
+import { VscBellDot } from "react-icons/vsc";
+import { IoMdSettings } from "react-icons/io";
+
+import { MetarootModal } from "../MetarootModal";
+import { UserInfoSectionRect } from "../UserInfoSectionRect";
+import { UserProfileSection } from "../UserProfileSection";
+import { SidebarButton } from "../SidebarButton";
+import { useMetarootModalValue } from "../../context";
+
+import FemaleAvatar from "../../assets/images/undraw-female-avatar.svg";
+import AvaxLogo from "../../assets/images/avax.svg";
+import NFTSymbol from "../../assets/images/nft-symbol.svg";
 
 export const Sidebar = () => {
+    const [userBalance, setUserBalance] = useState("");
+    const { metarootOverlayActive } = useMetarootModalValue();
+    const { Moralis, user } = useMoralis();
+    const userAddress = user.attributes.accounts[0];
+    const userNFTs = 55;
+    let maxAddressLength = 10;
+    let userAddressDisplay = userAddress.substring(0, maxAddressLength) + "...";
+
+    useEffect(() => {
+        Moralis.Web3API.account
+            .getNativeBalance()
+            .then((balance) => setUserBalance(balance));
+    }, [Moralis.Web3API.account, userBalance]);
+
     return (
-        <div className='SidebarContainer'>
-            <div className='UserDetails'>
-                <span><img className="UserProfilePicSidebar" src={FemaleAvatar} alt="female avatar" /></span>
-                <div className='UserDetails__name-details'>
-                    <div className='UserDetails__name'>
-                        Second Exchanger
-                    </div>
-                    <div className='UserDetails__details'>
-                        0x23456...4D5f2aE
-                    </div>
-                </div>
-                <div className="UserDetails__chevron"><FaChevronDown size={24} /></div>
+        <div className="SidebarContainer">
+            <UserProfileSection
+                userProfileImage={FemaleAvatar}
+                userWalletAddress={userAddressDisplay}
+            />
+            <UserInfoSectionRect
+                InfoTitle={"Your Balance"}
+                InfoValue={userBalance["balance"]}
+                InfoImage={AvaxLogo}
+                InfoUnit={"AVAX"}
+            />
+            <UserInfoSectionRect
+                InfoTitle={"Your Items"}
+                InfoValue={userNFTs}
+                InfoImage={NFTSymbol}
+                InfoUnit={"NFTs"}
+                InfoImageClass={"NFTLogo"}
+            />
+            <div className="SidebarButtons">
+                <SidebarButton 
+                    ButtonIcon={<IoMdMoon size={30}/>}
+                    ButtonText={"DarkMode"}
+                />
+                <SidebarButton 
+                    ButtonIcon={<VscBellDot size={30}/>}
+                    ButtonText={"Alerts"}
+                />
+                <SidebarButton 
+                    ButtonIcon={<IoMdSettings size={30}/>}
+                    ButtonText={"Settings"}
+                />
             </div>
-            <div className='SidebarSection'>
-                <div className="SidebarSection__title">
-                    Your Balance
-                </div>
-                <div className="SidebarSection__value">
-                    23,692.15
-                </div>
-                <div className="SidebarSection__unit">
-                    <img className="AvaxLogo" src={AvaxLogo} alt="avax" />
-                    <span>AVAX</span>
-                </div>
-            </div>
-            <div className='SidebarSection'>
-            <div className="SidebarSection__title">
-                    Your Items
-                </div>
-                <div className="SidebarSection__value">
-                    55
-                </div>
-                <div className="SidebarSection__unit">
-                    <img style={{width: '20px', height: '20px', marginRight: 0, marginTop: '3px'}} className="AvaxLogo" src={NFTSymbol} alt="avax" />
-                    <span>NFTs</span>
-                </div>
-            </div>
-            <div className='SidebarButtons'>
-                <div className="SidebarButtons__item">
-                    <IoMdMoon size={30} />
-                    <span className="SidebarButtons__text">Dark Mode</span>
-                </div>
-                <div className="SidebarButtons__item">
-                    <VscBellDot size={30} />
-                    <span className="SidebarButtons__text">Alerts</span>
-                </div>
-                <div className="SidebarButtons__item">
-                    <IoMdSettings size={30} />
-                    <span className="SidebarButtons__text">Settings</span>
-                </div>
-            </div>
+            {metarootOverlayActive && <MetarootModal />}
         </div>
-    )
-}
+    );
+};
