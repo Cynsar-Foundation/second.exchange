@@ -21,7 +21,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 export const App = () => {
     const { isAuthenticated } = useMoralis();
-
+    // All routes should be '/' for custom domain
     return (
         <Router>
             <WalletModalProvider>
@@ -40,27 +40,27 @@ export const App = () => {
                             <Routes>
                                 <Route path="*" element={<NotFound />} />
                                 {!isAuthenticated && (
-                                    <Route path="/" element={<Home />} exact />
+                                    <Route path="/second.exchange" element={<Home />} />
                                 )}
                                 {isAuthenticated && (
                                     <Route
-                                        path="/"
+                                        path="/second.exchange"
                                         element={<Dashboard />}
                                         exact
                                     />
                                 )}
-                                <Route path="/Explore" element={<Explore />} />
+                                <Route path="/second.exchange/Explore" element={<Explore />} />
                                 <Route
-                                    path="/Creators"
+                                    path="/second.exchange/Creators"
                                     element={<Creators />}
                                 />
                                 <Route
-                                    path="/Community"
+                                    path="/second.exchange/Community"
                                     element={<Community />}
                                 />
                                 {isAuthenticated && (
                                     <Route
-                                        path="/WriteBlog"
+                                        path="/second.exchange/WriteBlog"
                                         element={<BlogEditor />}
                                     />
                                 )}

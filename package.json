@@ -14,6 +14,7 @@
     "@web3-react/portis-connector": "^6.1.9",
     "@web3-react/torus-connector": "^6.1.9",
     "@web3-react/walletconnect-connector": "^6.2.8",
+    "@walletconnect/web3-provider": "^1.7.0",
     "draft-js": "^0.11.7",
     "ethers": "^5.5.2",
     "moralis": "^0.0.176",

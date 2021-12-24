@@ -22,21 +22,22 @@ export const Navbar = () => {
     const { isAuthenticated } = useMoralis();
     useEffect(() => {
         setWalletOverlayActive(false);
-    }, [isAuthenticated])
+    }, [isAuthenticated]);
+    // When on custom domain change Link's "to" value to '/route'
     return (
             <div className="NavbarContainer">
                 <nav>
-                    <Link className={isAuthenticated ? "NavLogo SelectedNavOption" : "NavLogo"} to="/">
+                    <Link className={isAuthenticated ? "NavLogo SelectedNavOption" : "NavLogo"} to="/second.exchange/">
                         second.exchange
                     </Link>
                     <div className="NavOptions">
-                        <Link className="NavItem" to="/Explore">
+                        <Link className="NavItem" to="/second.exchange/Explore">
                             Explore
                         </Link>
-                        <Link className="NavItem" to="/Creators">
+                        <Link className="NavItem" to="/second.exchange/Creators">
                             Creators
                         </Link>
-                        <Link className="NavItem" to="/Community">
+                        <Link className="NavItem" to="/second.exchange/Community">
                             Community
                         </Link>
                     </div>

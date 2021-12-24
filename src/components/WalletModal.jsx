@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import { useWeb3React, UnsupportedChainIdError } from "@web3-react/core";
 import {
@@ -59,6 +60,7 @@ function getErrorMessage(error) {
 export const WalletModal = () => {
     const { authenticate, isAuthenticated, logout } = useMoralis();
     const context = useWeb3React();
+    const navigate = useNavigate();
 
     const {
         connector,
@@ -173,6 +175,7 @@ export const WalletModal = () => {
                                 onClick={() => {
                                     disconnect();
                                     logout();
+                                    navigate('/second.exchange');
                                 }}
                             >
                                 Disconnect

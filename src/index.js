@@ -6,8 +6,8 @@ import { App } from "./App";
 
 ReactDOM.render(
     <MoralisProvider
-        appId={process.env.REACT_APP_MORALIS_APP_ID}
-        serverUrl={process.env.REACT_APP_MORALIS_SERVER_URL}
+        appId="Hq0CvClFFiHVNkjTS7x4bISqbRSVLqOyYIG7J3NA"
+        serverUrl="https://hvxpiojoa7ai.usemoralis.com:2053/server"
     >
         <App />
     </MoralisProvider>,

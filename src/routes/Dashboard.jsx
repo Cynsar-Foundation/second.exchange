@@ -7,6 +7,7 @@ import CreateBlog from "../assets/images/create-blog.svg";
 import CreateCanvas from "../assets/images/create-canvas.svg";
 
 export const Dashboard = () => {
+    // When on custom domain change Link's "to" value to '/WriteBlog'
     return (
         <div className="DashboardContainer">
             <div className="Dashboard__col-1">
@@ -17,7 +18,7 @@ export const Dashboard = () => {
                 <div className="CreateSection">
                     <span className="DashboardHeading">Create</span>
                     <div className="CreateOptions">
-                        <Link to='/WriteBlog' className="CreateOptions__item">
+                        <Link to='/second.exchange/WriteBlog' className="CreateOptions__item">
                             <span>
                                 <img src={CreateBlog} alt="create-blog" />
                             </span>
