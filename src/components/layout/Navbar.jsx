@@ -1,10 +1,14 @@
-import React from "react";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useMoralis } from "react-moralis";
 import { Web3ReactProvider } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 
 import { WalletModal } from "../WalletModal";
 import { useWalletModalValue } from "../../context";
+
+import MetaMaskLogo from "../../assets/images/metamask.svg";
 
 function getLibrary(provider) {
   const library = new Web3Provider(provider);

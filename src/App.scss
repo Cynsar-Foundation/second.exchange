@@ -13,6 +13,11 @@
     src: url('./assets/fonts/Nunito-ExtraBold.ttf');
 }
 
+@font-face {
+    font-family: Nunito-SemiBold;
+    src: url('./assets/fonts/Nunito-SemiBold.ttf');
+}
+
 @mixin regular-button($width: 50px) {
     border: 1px solid black;
     width: $width;
@@ -30,8 +35,26 @@
     z-index: 1;
 }
 
-body {
+html, body {
     font-family: Nunito-Regular;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    min-height: 100%;
+    cursor: default;
+}
+
+.ContentContainer {
+    display: flex;
+    border-top: 1px solid #808080;
+}
+
+.SidebarDiv {
+    flex: 0.205;
+}
+
+.MainContentDiv {
+    flex: 0.795;
 }
 
 .WalletModal {
@@ -59,6 +82,7 @@ body {
 
     &__buttons-container {
         margin-top: 15px;
+        margin-bottom: 15px;
     }
 
     &__buttons {
@@ -107,9 +131,22 @@ body {
 }
 
 nav {
-    margin: 20px 50px 0 50px;
+    padding: 20px 50px 15px 50px;
     display: flex;
     justify-content: space-between;
+    height: 40px;
+}
+
+.SelectedNavOption {
+    margin: -20px 0 -15px -50px;
+    width: 312px;
+    color: white !important;
+    background-color: black;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
 }
 
 .NavbarContainer {
@@ -124,8 +161,8 @@ nav {
     .NavLogo {
         font-size: 25px;
         text-decoration: none;
-        color: black;
         font-family: Nunito-Bold;
+        color: black;
     }
     
     .NavOptions {
@@ -140,10 +177,42 @@ nav {
         margin-top: -2px;
         padding: 10px;
     }
+
+    .WalletConnectButton:hover {
+        background-color: #F4F4F4;
+    }
+
+    .WalletConnectedButton {
+        @include regular-button(140px);
+
+        border: 2px solid black;
+        font-family: Nunito-Bold;
+        margin-top: -2px;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .WalletConnectedButton:hover {
+        background-color: #F4F4F4;
+    }
+
+    .WalletConnectedText {
+        display: inline-block;
+        margin-left: 10px;
+        color: #00A32E;
+        font-family: Nunito-Bold;
+    }
+
+    .WalletConnectedFigure {
+        display: inline-block;
+        height: 20px;
+        width: 20px;
+        vertical-align: middle;
+    }
 }
 
 .MainContent {
-    margin-top: 170px;
+    margin-top: 155px;
     cursor: default;
 }
 
@@ -204,4 +273,238 @@ nav {
     font-size: 16px;
     letter-spacing: 1.5px;
     z-index: 2101;
+}
+
+.WalletOptionOps {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.WalletOptionOpsButton {
+    cursor: pointer;
+    background-color: white;
+    font-family: Nunito-Bold;
+    margin: 0;
+    font-size: 14px;
+    border: 1.5px solid black;
+    padding: 4px;
+}
+
+.WalletOptionOpsButton:hover {
+    background-color: #F4F4F4;
+}
+
+.SidebarContainer {
+    align-items: center;
+    text-align: center;
+    border-right: 1px solid #808080;
+
+    .UserDetails {
+        padding-top: 20px;
+        .UserProfilePicSidebar {
+            display: inline-block;
+            height: 50px;
+            width: 50px;
+            transform: translate(0, 8%);
+        }
+
+        &__name-details {
+            display: inline-block;
+            margin-left: 13px;
+            transform: translate(0, -3%);
+            line-height: 24px;
+        }
+
+        &__details {
+            color: #858585;
+            font-size: 12px;
+            font-family: Nunito-SemiBold;
+            text-align: left;
+            margin-left: 1px;
+        }
+
+        &__name {
+            font-size: 19px;
+            font-family: Nunito-Bold;
+        }
+
+        &__plus {
+            display: inline-block;
+            margin-left: 18px;
+            transform: translate(0, -30%);
+            cursor: pointer;
+        }
+    }
+
+    .SidebarSection {
+        margin: 0 auto;
+        margin-top: 25px;
+        padding: 5px;
+        background-color: #F4F4F4;
+        line-height: 30px;
+        font-family: Nunito-SemiBold;
+        width: 210px;
+
+        &__title {
+            font-size: 13px;
+            color: #808080;
+        }
+
+        &__value {
+            font-size: 25px;
+        }
+
+        &__unit {
+            font-size: 12px;
+            color: #808080;
+            display: flex;
+            justify-content: center;
+        }
+
+        .AvaxLogo {
+            height: 15px;
+            width: 15px;
+            margin-right: 5px;
+            margin-top: 6px;
+        }
+
+        .NFTLogo {
+            width: 20px;
+            height: 20px;
+            margin-right: 0px;
+            margin-top: 3px;
+        }
+    }
+
+    .SidebarButtons {
+        display: inline-block;
+        text-align: justify;
+        margin-top: 150px;
+        padding-bottom: 18px;
+        margin-left: -120px;
+
+        &__item {
+            display: flex;
+            margin-top: 30px;
+            cursor: pointer;
+        }
+
+        &__text {
+            font-family: Nunito-Bold;
+            font-size: 18px;
+            margin-left: 20px;
+        }
+    }
+}
+
+.DashboardContainer {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    margin: 3px;
+    grid-gap: 3px;
+    width: 99.5%;
+    height: 99%;
+
+    .Dashboard {
+        &__col-1 {
+            grid-template-rows: 3fr 1fr;
+        }
+        &__col-1-row-1 {
+            border: 1px solid #808080;
+            height: 59.5%;
+            margin-bottom: 3px;
+        }
+
+        &__col-1-row-2 {
+            border: 1px solid #808080;
+            height: 39.455%;
+        }
+        
+        &__col-2 {
+            border: 1px solid #808080;
+        }
+    }
+
+    .DashboardHeading {
+        font-family: Nunito-Bold;
+        font-size: 20px;
+    }
+
+    .CreateSection {
+        font-family: Nunito-SemiBold;
+        display: inline-block;
+        position: absolute;
+        top: 60%;
+        margin-left: 30px;
+        cursor: pointer;
+        .CreateOptions {
+            margin-left: 40px;
+            margin-top: 25px;
+            &__item {
+                margin-top: 25px;
+                color: #808080;
+                text-decoration: none;
+            }
+
+            &__item:hover {
+                color: black;
+            }
+
+            &__item-text {
+                margin-left: 20px;
+            }
+        }
+    }
+}
+
+.NotFoundContainer {
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    font-family: Nunito-Bold;
+    font-size: 30px;
+}
+
+.BlogEditorContainer {
+    border: 1px solid #808080;
+    min-height: 6em;
+    cursor: text;
+    margin: 3px;
+    padding: 10px;
+}
+
+.MetarootModal {
+
+    &__toplevel {
+        background: rgba(49, 49, 49, 0.7);
+        position: fixed;
+        margin: auto;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        transition: opacity 0.2s ease-in;
+        z-index: 1;
+    }
+
+    &__container {
+        @include regular-modal(600px);
+
+        background-color: white;
+        padding: 20px;
+        z-index: 2000;
+    }
+
+    &__close-button {
+        @include regular-button();
+
+        border: none;
+        cursor: pointer;
+        position: absolute;
+        top: 18px;
+        right: 0;
+        z-index: 2100;
+    }
 }
