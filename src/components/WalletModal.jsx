@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useWeb3React, UnsupportedChainIdError } from "@web3-react/core";
 import {
@@ -97,33 +97,33 @@ export const WalletModal = () => {
     };
 
     return (
-        <div className="WalletModal__toplevel">
-            <div className="WalletModal__container">
+        <div className="wallet-modal__top-level">
+            <div className="wallet-modal__container">
                 <button
-                    className="WalletModal__close-button"
+                    className="wallet-modal__close-button"
                     onClick={() => setWalletOverlayActive(!walletOverlayActive)}
                 >
                     <IoCloseOutline size={25} />
                 </button>
-                <div className="WalletModal__header">
-                    <div className="WalletModal__title">Connect Wallet</div>
+                <div className="wallet-modal__header">
+                    <div className="wallet-modal__title">Connect Wallet</div>
                 </div>
                 <hr />
-                <div className="WalletModal__buttons-container">
+                <div className="wallet-modal__buttons-container">
                     <button
-                        className="WalletModal__buttons"
+                        className="wallet-modal__buttons"
                         onClick={() => {
                             authenticate();
                         }}
                     >
                         {
                             <img
-                                className="WalletOptionLogos"
+                                className="wallet-option-logos"
                                 src={MetaMaskLogo}
                                 alt="MetaMask"
                             />
                         }
-                        {<span className="WalletOptionText">MetaMask</span>}
+                        {<span className="wallet-option-text">MetaMask</span>}
                     </button>
                     {Object.keys(connectorsByName).map((name) => {
                         const currentConnector = connectorsByName[name];
@@ -138,7 +138,7 @@ export const WalletModal = () => {
 
                         return (
                             <button
-                                className="WalletModal__buttons"
+                                className="wallet-modal__buttons"
                                 disabled={disabled}
                                 key={name}
                                 onClick={() => {
@@ -146,19 +146,19 @@ export const WalletModal = () => {
                                     activate(connectorsByName[name]);
                                 }}
                             >
-                                <div className="WalletModal__buttons-active">
+                                <div className="wallet-modal__buttons-active">
                                     {activating}
                                     {connected}
                                 </div>
                                 {
                                     <img
-                                        className="WalletOptionLogos"
+                                        className="wallet-option-logos"
                                         src={WalletLogos[name]}
                                         alt={name}
                                     />
                                 }
                                 {
-                                    <span className="WalletOptionText">
+                                    <span className="wallet-option-text">
                                         {name}
                                     </span>
                                 }
@@ -168,14 +168,14 @@ export const WalletModal = () => {
                 </div>
                 <hr />
                 {isAuthenticated && (
-                    <div className="WalletOptionOps">
+                    <div className="wallet-option-ops">
                         {(active || error) && (
                             <button
-                                className="WalletOptionOpsButton"
+                                className="wallet-option-ops-button"
                                 onClick={() => {
                                     disconnect();
                                     logout();
-                                    navigate('/second.exchange');
+                                    navigate("/second.exchange");
                                 }}
                             >
                                 Disconnect
@@ -188,10 +188,10 @@ export const WalletModal = () => {
                 )}
 
                 {isAuthenticated && (
-                    <div className="WalletOptionOps">
+                    <div className="wallet-option-ops">
                         {!!(library && account) && (
                             <button
-                                className="WalletOptionOpsButton"
+                                className="wallet-option-ops-button"
                                 onClick={() => {
                                     library
                                         .getSigner(account)

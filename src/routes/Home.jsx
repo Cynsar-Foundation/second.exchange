@@ -7,8 +7,8 @@ import NFTPic from '../assets/images/nft.jpg';
 
 export const Home = () => {
     return (
-        <div className="Home">
-            <div className="MainContent">
+        <div className="home">
+            <div className="main-content">
             <div className="subtitle">
                 DECENTRALIZED BLOGGING AND NFT PLATFORM
             </div>
@@ -17,12 +17,12 @@ export const Home = () => {
                 Buy and sell as NFTs,<br />
                 Support your favorite creators.
             </div>
-            <div className="HomeImages">
-                <img className="HomeImages__item" src={CanvasPic} alt="collaborate on canvas" />
-                <img className="HomeImages__item" src={BloggingPic} alt="write and publish blogs" />
-                <img className="HomeImages__item" src={NFTPic} alt="trade NFTs" />
+            <div className="home-images">
+                <img className="home-images__item" src={CanvasPic} alt="collaborate on canvas" />
+                <img className="home-images__item" src={BloggingPic} alt="write and publish blogs" />
+                <img className="home-images__item" src={NFTPic} alt="trade NFTs" />
             </div>
-            <div className="ProfileContainer">
+            <div className="profile-container">
                 <CgProfile size={42} />
             </div>
             </div>

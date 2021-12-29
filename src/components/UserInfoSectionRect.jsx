@@ -1,14 +1,14 @@
 import React from 'react';
 
 export const UserInfoSectionRect = ({ InfoTitle, InfoValue, InfoImage, InfoUnit, InfoImageClass=''}) => {
-    return(
-        <div className="SidebarSection">
-            <div className="SidebarSection__title">{InfoTitle}</div>
-            <div className="SidebarSection__value">
+    return (
+        <div className="sidebar-section">
+            <div className="sidebar-section__title">{InfoTitle}</div>
+            <div className="sidebar-section__value">
                 {InfoValue}
             </div>
-            <div className="SidebarSection__unit">
-                <img className={InfoImageClass + "AvaxLogo"} src={InfoImage} alt="avax" />
+            <div className="sidebar-section__unit">
+                <img className={InfoImageClass + "avax-logo"} src={InfoImage} alt="avax" />
                 <span>{InfoUnit}</span>
             </div>
         </div>

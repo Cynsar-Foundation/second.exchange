@@ -2,9 +2,9 @@ import React from 'react';
 
 export const SidebarButton = ({ ButtonIcon, ButtonText}) => {
     return(
-        <div className="SidebarButtons__item">
+        <div className="sidebar-buttons__item">
             {ButtonIcon}
-            <span className="SidebarButtons__text">{ButtonText}</span>
+            <span className="sidebar-buttons__text">{ButtonText}</span>
         </div>
     );
 }

@@ -13,7 +13,7 @@ export const BlogEditor = () => {
     }
 
     return (
-        <div className="BlogEditorContainer" onClick={focusEditor}>
+        <div className="blog-editor-container" onClick={focusEditor}>
             <Editor
                 ref={editor}
                 editorState={editorState}
