@@ -1,15 +1,15 @@
-import React from "react";
+import React, { FC } from "react";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import { useMoralis } from "react-moralis";
 import { ToastContainer } from "react-toastify";
 
-import { Home } from "./routes/Home";
-import { Dashboard } from "./routes/Dashboard";
-import { Explore } from "./routes/Explore";
-import { Creators } from "./routes/Creators";
-import { Community } from "./routes/Community";
-import { BlogEditor } from "./routes/BlogEditor";
-import { NotFound } from "./routes/NotFound";
+import { Home } from "./views/Home";
+import { Dashboard } from "./views/Dashboard";
+import { Explore } from "./views/Explore";
+import { Creators } from "./views/Creators";
+import { Community } from "./views/Community";
+import { BlogEditor } from "./views/BlogEditor";
+import { NotFound } from "./views/NotFound";
 
 import { WalletModalProvider } from "./context";
 import { MetarootModalProvider } from "./context";
@@ -19,7 +19,7 @@ import { Sidebar } from "./components/layout/Sidebar";
 import "./App.scss";
 import "react-toastify/dist/ReactToastify.css";
 
-export const App = () => {
+export const App:FC = () => {
     const { isAuthenticated } = useMoralis();
     // All routes should be '/' for custom domain
     return (
@@ -46,7 +46,6 @@ export const App = () => {
                                     <Route
                                         path="/second.exchange"
                                         element={<Dashboard />}
-                                        exact
                                     />
                                 )}
                                 <Route path="/second.exchange/Explore" element={<Explore />} />
