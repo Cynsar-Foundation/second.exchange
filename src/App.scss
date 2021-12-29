@@ -1,510 +1,517 @@
 @font-face {
-    font-family: Nunito-Regular;
-    src: url('./assets/fonts/Nunito-Regular.ttf');
+  font-family: Nunito-Regular;
+  src: url("./assets/fonts/Nunito-Regular.ttf");
 }
 
 @font-face {
-    font-family: Nunito-Bold;
-    src: url('./assets/fonts/Nunito-Bold.ttf');
+  font-family: Nunito-Bold;
+  src: url("./assets/fonts/Nunito-Bold.ttf");
 }
 
 @font-face {
-    font-family: Nunito-ExtraBold;
-    src: url('./assets/fonts/Nunito-ExtraBold.ttf');
+  font-family: Nunito-ExtraBold;
+  src: url("./assets/fonts/Nunito-ExtraBold.ttf");
 }
 
 @font-face {
-    font-family: Nunito-SemiBold;
-    src: url('./assets/fonts/Nunito-SemiBold.ttf');
+  font-family: Nunito-SemiBold;
+  src: url("./assets/fonts/Nunito-SemiBold.ttf");
 }
 
 @mixin regular-button($width: 50px) {
-    border: 1px solid black;
-    width: $width;
-    background-color: white;
-    font-family: Nunito-Regular;
-    cursor: pointer;
+  border: 1px solid black;
+  width: $width;
+  background-color: white;
+  font-family: Nunito-Regular;
+  cursor: pointer;
 }
 
 @mixin regular-modal($max-width) {
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform:translate(-50%, -50%);
-    z-index: 1;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
 }
 
-html, body {
-    font-family: Nunito-Regular;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    min-height: 100%;
-    cursor: default;
+html,
+body {
+  font-family: Nunito-Regular;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  min-height: 100%;
+  cursor: default;
 }
 
 .ContentContainer {
-    display: flex;
-    border-top: 1px solid #808080;
+  display: flex;
+  border-top: 1px solid #808080;
 }
 
 .SidebarDiv {
-    flex: 0.205;
+  flex: 0.205;
 }
 
 .MainContentDiv {
-    flex: 0.795;
+  flex: 0.795;
 }
 
 .WalletModal {
+  &__toplevel {
+    background: rgba(49, 49, 49, 0.7);
+    position: fixed;
+    margin: auto;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transition: opacity 0.2s ease-in;
+    z-index: 1;
+  }
 
-    &__toplevel {
-        background: rgba(49, 49, 49, 0.7);
-        position: fixed;
-        margin: auto;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        transition: opacity 0.2s ease-in;
-        z-index: 1;
+  &__container {
+    @include regular-modal(400px);
+
+    background-color: white;
+    padding: 20px;
+    z-index: 2000;
+  }
+
+  &__buttons-container {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  &__buttons {
+    @include regular-button(270px);
+
+    border: none;
+    display: block;
+    padding: 12px;
+    margin: 10px;
+    background-color: rgb(24, 24, 24);
+    text-align: center;
+
+    &-active {
+      background-color: white;
+      color: black;
     }
+  }
 
-    &__container {
-        @include regular-modal(400px);
+  &__buttons:hover {
+    cursor: pointer;
+    background-color: black;
+    transform: scale(1.02);
+  }
 
-        background-color: white;
-        padding: 20px;
-        z-index: 2000;
-    }
+  &__title {
+    text-align: center;
+    font-size: 17px;
+    font-family: Nunito-Bold;
+    margin-bottom: 12px;
+  }
 
-    &__buttons-container {
-        margin-top: 15px;
-        margin-bottom: 15px;
-    }
+  &__header {
+    position: relative;
+  }
 
-    &__buttons {
-        @include regular-button(270px);
-        
-        border: none;
-        display: block;
-        padding: 12px;
-        margin: 10px;
-        background-color: rgb(24, 24, 24);
-        text-align: center;
-    
-        &-active {
-            background-color: white;
-            color: black;
-        }
-    }
+  &__close-button {
+    @include regular-button();
 
-    &__buttons:hover {
-        cursor: pointer;
-        background-color: black;
-        transform: scale(1.02);
-    }
-
-    &__title {
-        text-align: center;
-        font-size: 17px;
-        font-family: Nunito-Bold;
-        margin-bottom: 12px;
-    }
-    
-    &__header {
-        position: relative;
-    }
-
-    &__close-button {
-        @include regular-button();
-
-        border: none;
-        cursor: pointer;
-        position: absolute;
-        top: 18px;
-        right: 0;
-        z-index: 2100;
-    }
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 18px;
+    right: 0;
+    z-index: 2100;
+  }
 }
 
 nav {
-    padding: 20px 50px 15px 50px;
-    display: flex;
-    justify-content: space-between;
-    height: 40px;
+  padding: 20px 50px 15px 50px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .SelectedNavOption {
-    margin: -20px 0 -15px -50px;
-    width: 312px;
-    color: white !important;
-    background-color: black;
-    border: 1px solid black;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
+  margin: -20px 0 -15px -50px;
+  width: 312px;
+  color: white !important;
+  background-color: black;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
 }
 
 .NavbarContainer {
+  .NavItem {
+    text-decoration: none;
+    color: black;
+    font-family: Nunito-Bold;
+    margin-left: 120px;
+  }
 
-    .NavItem {
-        text-decoration: none;
-        color: black;
-        font-family: Nunito-Bold;
-        margin-left: 120px;
-    }
-    
-    .NavLogo {
-        font-size: 25px;
-        text-decoration: none;
-        font-family: Nunito-Bold;
-        color: black;
-    }
-    
-    .NavOptions {
-        margin-top: 8.5px;
-    }
+  .NavLogo {
+    font-size: 25px;
+    text-decoration: none;
+    font-family: Nunito-Bold;
+    color: black;
+  }
 
-    .WalletConnectButton {
-        @include regular-button(140px);
-    
-        border: 2px solid black;
-        font-family: Nunito-Bold;
-        margin-top: -2px;
-        padding: 10px;
-    }
+  .NavOptions {
+    margin-top: 8.5px;
+  }
 
-    .WalletConnectButton:hover {
-        background-color: #F4F4F4;
-    }
+  .WalletConnectButton {
+    @include regular-button(140px);
 
-    .WalletConnectedButton {
-        @include regular-button(140px);
+    border: 2px solid black;
+    font-family: Nunito-Bold;
+    margin-top: -2px;
+    padding: 10px;
+  }
 
-        border: 2px solid black;
-        font-family: Nunito-Bold;
-        margin-top: -2px;
-        padding: 10px;
-        text-align: center;
-    }
+  .WalletConnectButton:hover {
+    background-color: #f4f4f4;
+  }
 
-    .WalletConnectedButton:hover {
-        background-color: #F4F4F4;
-    }
+  .WalletConnectedButton {
+    @include regular-button(140px);
 
-    .WalletConnectedText {
-        display: inline-block;
-        margin-left: 10px;
-        color: #00A32E;
-        font-family: Nunito-Bold;
-    }
+    border: 2px solid black;
+    font-family: Nunito-Bold;
+    margin-top: -2px;
+    padding: 10px;
+    text-align: center;
+  }
 
-    .WalletConnectedFigure {
-        display: inline-block;
-        height: 20px;
-        width: 20px;
-        vertical-align: middle;
-    }
+  .WalletConnectedButton:hover {
+    background-color: #f4f4f4;
+  }
+
+  .WalletConnectedText {
+    display: inline-block;
+    margin-left: 10px;
+    color: #00a32e;
+    font-family: Nunito-Bold;
+  }
+
+  .WalletConnectedFigure {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    vertical-align: middle;
+  }
 }
 
 .MainContent {
-    margin-top: 155px;
-    cursor: default;
+  margin-top: 155px;
+  cursor: default;
 }
 
 .subtitle {
-    font-family: Nunito-Bold;
-    letter-spacing: 3.5px;
-    font-size: 15px;
-    color: #777777;
-    text-align: center;;
+  font-family: Nunito-Bold;
+  letter-spacing: 3.5px;
+  font-size: 15px;
+  color: #777777;
+  text-align: center;
 }
 
 .title-line {
-    margin-top: 30px;
-    font-family: Nunito-ExtraBold;
-    font-size: 40px;
-    text-align: center;
+  margin-top: 30px;
+  font-family: Nunito-ExtraBold;
+  font-size: 40px;
+  text-align: center;
 }
 
 .ProfileContainer {
-    position: fixed;
-    bottom: 40px;
-    right: 60px;
+  position: fixed;
+  bottom: 40px;
+  right: 60px;
 }
 
 .HomeImages {
-    margin-top: 60px;
-    text-align: center;
-    justify-content: space-evenly;
+  margin-top: 60px;
+  text-align: center;
+  justify-content: space-evenly;
 
-    &__item {
-        object-fit: cover;
-        background-color: rgb(215, 246, 255);
-        border: 1px;
-        padding: 5px;
-        margin: 20px;
-        height: 100px;
-        width: 100px;
-    }
+  &__item {
+    object-fit: cover;
+    background-color: rgb(215, 246, 255);
+    border: 1px;
+    padding: 5px;
+    margin: 20px;
+    height: 100px;
+    width: 100px;
+  }
 }
 
 .WalletOptionLogos {
-    display: block;
-    height: 40px;
-    width: 40px;
-    margin-left: 10px;
-    padding-bottom: 8px;
+  display: block;
+  height: 40px;
+  width: 40px;
+  margin-left: 10px;
+  padding-bottom: 8px;
 }
 
 .WalletOptionText {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    margin-top: -34px;
-    margin-left: 75px;
-    color: white;
-    font-family: Nunito-Regular;
-    text-transform: uppercase;
-    font-size: 16px;
-    letter-spacing: 1.5px;
-    z-index: 2101;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-top: -34px;
+  margin-left: 75px;
+  color: white;
+  font-family: Nunito-Regular;
+  text-transform: uppercase;
+  font-size: 16px;
+  letter-spacing: 1.5px;
+  z-index: 2101;
 }
 
 .WalletOptionOps {
-    display: flex;
-    justify-content: center;
-    margin-top: 8px;
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
 }
 
 .WalletOptionOpsButton {
-    cursor: pointer;
-    background-color: white;
-    font-family: Nunito-Bold;
-    margin: 0;
-    font-size: 14px;
-    border: 1.5px solid black;
-    padding: 4px;
+  cursor: pointer;
+  background-color: white;
+  font-family: Nunito-Bold;
+  margin: 0;
+  font-size: 14px;
+  border: 1.5px solid black;
+  padding: 4px;
 }
 
 .WalletOptionOpsButton:hover {
-    background-color: #F4F4F4;
+  background-color: #f4f4f4;
 }
 
 .SidebarContainer {
-    align-items: center;
-    text-align: center;
-    border-right: 1px solid #808080;
+  align-items: center;
+  text-align: center;
+  border-right: 1px solid #808080;
 
-    .UserDetails {
-        padding-top: 20px;
-        .UserProfilePicSidebar {
-            display: inline-block;
-            height: 50px;
-            width: 50px;
-            transform: translate(0, 8%);
-        }
-
-        &__name-details {
-            display: inline-block;
-            margin-left: 13px;
-            transform: translate(0, -3%);
-            line-height: 24px;
-        }
-
-        &__details {
-            color: #858585;
-            font-size: 12px;
-            font-family: Nunito-SemiBold;
-            text-align: left;
-            margin-left: 1px;
-        }
-
-        &__name {
-            font-size: 19px;
-            font-family: Nunito-Bold;
-        }
-
-        &__plus {
-            display: inline-block;
-            margin-left: 18px;
-            transform: translate(0, -30%);
-            cursor: pointer;
-        }
+  .UserDetails {
+    padding-top: 20px;
+    .UserProfilePicSidebar {
+      display: inline-block;
+      height: 50px;
+      width: 50px;
+      transform: translate(0, 8%);
     }
 
-    .SidebarSection {
-        margin: 0 auto;
-        margin-top: 25px;
-        padding: 5px;
-        background-color: #F4F4F4;
-        line-height: 30px;
-        font-family: Nunito-SemiBold;
-        width: 210px;
-
-        &__title {
-            font-size: 13px;
-            color: #808080;
-        }
-
-        &__value {
-            font-size: 25px;
-        }
-
-        &__unit {
-            font-size: 12px;
-            color: #808080;
-            display: flex;
-            justify-content: center;
-        }
-
-        .AvaxLogo {
-            height: 15px;
-            width: 15px;
-            margin-right: 5px;
-            margin-top: 6px;
-        }
-
-        .NFTLogo {
-            width: 20px;
-            height: 20px;
-            margin-right: 0px;
-            margin-top: 3px;
-        }
+    &__name-details {
+      display: inline-block;
+      margin-left: 13px;
+      transform: translate(0, -3%);
+      line-height: 24px;
     }
 
-    .SidebarButtons {
-        display: inline-block;
-        text-align: justify;
-        margin-top: 150px;
-        padding-bottom: 18px;
-        margin-left: -120px;
-
-        &__item {
-            display: flex;
-            margin-top: 30px;
-            cursor: pointer;
-        }
-
-        &__text {
-            font-family: Nunito-Bold;
-            font-size: 18px;
-            margin-left: 20px;
-        }
+    &__details {
+      color: #858585;
+      font-size: 12px;
+      font-family: Nunito-SemiBold;
+      text-align: left;
+      margin-left: 1px;
     }
+
+    &__name {
+      font-size: 19px;
+      font-family: Nunito-Bold;
+    }
+
+    &__plus {
+      display: inline-block;
+      margin-left: 18px;
+      transform: translate(0, -30%);
+      cursor: pointer;
+    }
+  }
+
+  .SidebarSection {
+    margin: 0 auto;
+    margin-top: 25px;
+    padding: 5px;
+    background-color: #f4f4f4;
+    line-height: 30px;
+    font-family: Nunito-SemiBold;
+    width: 210px;
+
+    &__title {
+      font-size: 13px;
+      color: #808080;
+    }
+
+    &__value {
+      font-size: 25px;
+    }
+
+    &__unit {
+      font-size: 12px;
+      color: #808080;
+      display: flex;
+      justify-content: center;
+    }
+
+    .AvaxLogo {
+      height: 15px;
+      width: 15px;
+      margin-right: 5px;
+      margin-top: 6px;
+    }
+
+    .NFTLogo {
+      width: 20px;
+      height: 20px;
+      margin-right: 0px;
+      margin-top: 3px;
+    }
+  }
+
+  .SidebarButtons {
+    display: inline-block;
+    text-align: justify;
+    margin-top: 150px;
+    padding-bottom: 18px;
+    margin-left: -120px;
+
+    &__item {
+      display: flex;
+      margin-top: 30px;
+      cursor: pointer;
+    }
+
+    &__text {
+      font-family: Nunito-Bold;
+      font-size: 18px;
+      margin-left: 20px;
+    }
+  }
 }
 
 .DashboardContainer {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    margin: 3px;
-    grid-gap: 3px;
-    width: 99.5%;
-    height: 99%;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  margin: 3px;
+  grid-gap: 3px;
+  width: 99.5%;
+  height: 99%;
 
-    .Dashboard {
-        &__col-1 {
-            grid-template-rows: 3fr 1fr;
-        }
-        &__col-1-row-1 {
-            border: 1px solid #808080;
-            height: 59.5%;
-            margin-bottom: 3px;
-        }
-
-        &__col-1-row-2 {
-            border: 1px solid #808080;
-            height: 39.455%;
-        }
-        
-        &__col-2 {
-            border: 1px solid #808080;
-        }
+  .Dashboard {
+    &__col-1 {
+      grid-template-rows: 3fr 1fr;
+    }
+    &__col-1-row-1 {
+      border: 1px solid #808080;
+      height: 59.5%;
+      margin-bottom: 3px;
     }
 
-    .DashboardHeading {
-        font-family: Nunito-Bold;
-        font-size: 20px;
+    &__col-1-row-2 {
+      border: 1px solid #808080;
+      height: 39.455%;
     }
 
-    .CreateSection {
-        font-family: Nunito-SemiBold;
-        display: inline-block;
-        position: absolute;
-        top: 60%;
-        margin-left: 30px;
-        cursor: pointer;
-        .CreateOptions {
-            margin-left: 40px;
-            margin-top: 25px;
-            &__item {
-                margin-top: 25px;
-                color: #808080;
-                text-decoration: none;
-            }
-
-            &__item:hover {
-                color: black;
-            }
-
-            &__item-text {
-                margin-left: 20px;
-            }
-        }
+    &__col-2 {
+      border: 1px solid #808080;
     }
+  }
+
+  .DashboardHeading {
+    font-family: Nunito-Bold;
+    font-size: 20px;
+  }
+
+  .CreateSection {
+    font-family: Nunito-SemiBold;
+    display: inline-block;
+    position: absolute;
+    top: 60%;
+    margin-left: 30px;
+    cursor: pointer;
+    .CreateOptions {
+      margin-left: 40px;
+      margin-top: 25px;
+      &__item {
+        margin-top: 25px;
+        color: #808080;
+        text-decoration: none;
+      }
+
+      &__item:hover {
+        color: black;
+      }
+
+      &__item-text {
+        margin-left: 20px;
+      }
+    }
+  }
 }
 
 .NotFoundContainer {
-    position: absolute;
-    top: 50%;
-    left: 25%;
-    font-family: Nunito-Bold;
-    font-size: 30px;
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  font-family: Nunito-Bold;
+  font-size: 30px;
 }
 
 .BlogEditorContainer {
-    border: 1px solid #808080;
-    min-height: 6em;
-    cursor: text;
-    margin: 3px;
-    padding: 10px;
+  border: 1px solid #808080;
+  min-height: 6em;
+  cursor: text;
+  margin: 3px;
+  padding: 10px;
 }
 
 .MetarootModal {
+  &__toplevel {
+    background: rgba(49, 49, 49, 0.7);
+    position: fixed;
+    margin: auto;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transition: opacity 0.2s ease-in;
+    z-index: 1;
+  }
 
-    &__toplevel {
-        background: rgba(49, 49, 49, 0.7);
-        position: fixed;
-        margin: auto;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        transition: opacity 0.2s ease-in;
-        z-index: 1;
+  &__container {
+    @include regular-modal(600px);
+
+    background-color: white;
+    padding: 20px;
+    z-index: 2000;
+  }
+
+  &__close-button {
+    @include regular-button();
+
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 18px;
+    right: 0;
+    z-index: 2100;
+  }
+}
+.User_collection {
+  margin: 20px;
+  .Collection_main {
+    > img {
+      max-width: 255px;
+      max-height: 255px;
+      margin-bottom: 12px;
     }
-
-    &__container {
-        @include regular-modal(600px);
-
-        background-color: white;
-        padding: 20px;
-        z-index: 2000;
-    }
-
-    &__close-button {
-        @include regular-button();
-
-        border: none;
-        cursor: pointer;
-        position: absolute;
-        top: 18px;
-        right: 0;
-        z-index: 2100;
-    }
+  }
 }
