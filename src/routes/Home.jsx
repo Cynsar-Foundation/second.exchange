@@ -10,12 +10,12 @@ export const Home = () => {
         <div className="home">
             <div className="main-content">
             <div className="subtitle">
-                DECENTRALIZED BLOGGING AND NFT PLATFORM
+                Create your community, voice collective and share wealth, <p> The first exchange was only benefitting few , lets reclaim the space of our attention and re-distribute what is ours (all of us) </p>
             </div>
             <div className="title-line">
-                Publish blogs,<br />
-                Buy and sell as NFTs,<br />
-                Support your favorite creators.
+                Create communities,<br />
+                Share values,<br />
+                Support your favorite creators, <br/>
             </div>
             <div className="home-images">
                 <img className="home-images__item" src={CanvasPic} alt="collaborate on canvas" />
