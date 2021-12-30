@@ -7,23 +7,24 @@ export const useInactiveListener = (suppress = false) => {
     const { active, error, activate } = useWeb3React();
 
     useEffect(() => {
+        // @ts-ignore
         const { ethereum } = window;
         if (ethereum && ethereum.on && !active && !error && !suppress) {
             const handleConnect = () => {
                 //        console.log("Handling 'connect' event")
                 activate(injected);
             };
-            const handleChainChanged = (chainId) => {
+            const handleChainChanged = () => {
                 //        console.log("Handling 'chainChanged' event with payload", chainId)
                 activate(injected);
             };
-            const handleAccountsChanged = (accounts) => {
+            const handleAccountsChanged = (accounts: string) => {
                 //        console.log("Handling 'accountsChanged' event with payload", accounts)
                 if (accounts.length > 0) {
                     activate(injected);
                 }
             };
-            const handleNetworkChanged = (networkId) => {
+            const handleNetworkChanged = () => {
                 //        console.log("Handling 'networkChanged' event with payload", networkId)
                 activate(injected);
             };

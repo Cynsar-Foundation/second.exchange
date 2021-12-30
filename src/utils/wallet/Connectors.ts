@@ -13,6 +13,7 @@ export const injected = new InjectedConnector({
 });
 
 export const walletconnect = new WalletConnectConnector({
+  // @ts-ignore
   rpc: { 1: RPC_URLS[1] },
   qrcode: true,
 });

@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-export const SidebarButton = ({ ButtonIcon, ButtonText}) => {
+interface IProps {
+    ButtonIcon: any,
+    ButtonText: string
+}
+
+export const SidebarButton: FC<IProps> = ({ ButtonIcon, ButtonText }) => {
     return(
         <div className="sidebar-buttons__item">
             {ButtonIcon}

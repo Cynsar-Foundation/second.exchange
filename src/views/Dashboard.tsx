@@ -18,7 +18,7 @@ export const Dashboard = () => {
                 <div className="create-section">
                     <span className="dashboard-heading">Create</span>
                     <div className="create-options">
-                        <Link to='/second.exchange/WriteBlog' className="create-options__item">
+                        <Link to='/second.exchange/editor' className="create-options__item">
                             <span>
                                 <img src={CreateBlog} alt="create-blog" />
                             </span>
