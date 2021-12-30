@@ -31,11 +31,12 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform:translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     z-index: 1;
 }
 
-html, body {
+html,
+body {
     font-family: Nunito-Regular;
     margin: 0;
     padding: 0;
@@ -87,14 +88,14 @@ html, body {
 
     &__buttons {
         @include regular-button(270px);
-        
+
         border: none;
         display: block;
         padding: 12px;
         margin: 10px;
         background-color: rgb(24, 24, 24);
         text-align: center;
-    
+
         &-active {
             background-color: white;
             color: black;
@@ -113,7 +114,7 @@ html, body {
         font-family: Nunito-Bold;
         margin-bottom: 12px;
     }
-    
+
     &__header {
         position: relative;
     }
@@ -157,21 +158,21 @@ nav {
         font-family: Nunito-Bold;
         margin-left: 120px;
     }
-    
+
     .nav-logo {
         font-size: 25px;
         text-decoration: none;
         font-family: Nunito-Bold;
         color: black;
     }
-    
+
     .nav-options {
         margin-top: 8.5px;
     }
 
     .wallet-connect-button {
         @include regular-button(140px);
-    
+
         border: 2px solid black;
         font-family: Nunito-Bold;
         margin-top: -2px;
@@ -221,7 +222,8 @@ nav {
     letter-spacing: 3.5px;
     font-size: 15px;
     color: #777777;
-    text-align: center;;
+    text-align: center;
+    ;
 }
 
 .title-line {
@@ -302,6 +304,7 @@ nav {
 
     .user-details {
         padding-top: 20px;
+
         .user-profile-pic-sidebar {
             display: inline-block;
             height: 50px;
@@ -410,6 +413,7 @@ nav {
         &__col-1 {
             grid-template-rows: 3fr 1fr;
         }
+
         &__col-1-row-1 {
             border: 1px solid #808080;
             height: 59.5%;
@@ -420,7 +424,7 @@ nav {
             border: 1px solid #808080;
             height: 39.455%;
         }
-        
+
         &__col-2 {
             border: 1px solid #808080;
         }
@@ -442,6 +446,7 @@ nav {
         .create-options {
             margin-left: 40px;
             margin-top: 25px;
+
             &__item {
                 margin-top: 25px;
                 color: #808080;
@@ -507,5 +512,67 @@ nav {
         top: 18px;
         right: 0;
         z-index: 2100;
+    }
+}
+.blog-editor {
+    padding: 10px;
+    width: 75rem;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
+    .blog-title {
+        margin-top: 60px;
+        left: 340px;
+        position: absolute;
+        border: none;
+        text-align: left;
+        font-size: 40px;
+    }
+
+    .blog-title:focus {
+        outline: none;
+    }
+
+    .blog-formatting-button {
+        @include regular-button(90px);
+        border: none;
+        background-color: #F4F4F4;
+        padding: 0.5rem 1rem;
+        font-family: Nunito-SemiBold;
+        margin: 0 3px 0 3px;
+        font-size: 12px;
+    }
+
+    .blog-formatting-button:hover {
+        background-color: white;
+    }
+
+    .DraftEditor-root {
+        border: 1px solid #eee;
+        margin: 2rem 0;
+        margin-top: 90px;
+    }
+
+    .DraftEditor-editorContainer {
+        padding: 1.5rem;
+    }
+
+    .public-DraftEditor-content {
+        min-height: 20rem;
+        cursor: text;
+        font-family: Nunito-Regular;
+    }
+
+    .blog-ops-button {
+        @include regular-button(100px);
+        font-size: 15px;
+        font-family: Nunito-SemiBold;
+        padding: 3px;
+        margin: 0 10px 10px 0;
+    }
+
+    .blog-ops-button:hover {
+        background-color: #f4f4f4;
     }
 }

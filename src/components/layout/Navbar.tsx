@@ -10,7 +10,7 @@ import { useWalletModalValue } from "../../context";
 
 import MetaMaskLogo from "../../assets/images/metamask.svg";
 
-function getLibrary(provider) {
+function getLibrary(provider: any) {
     const library = new Web3Provider(provider);
     library.pollingInterval = 12000;
     return library;
@@ -38,13 +38,13 @@ export const Navbar = () => {
                     second.exchange
                 </Link>
                 <div className="nav-options">
-                    <Link className="nav-item" to="/second.exchange/Explore">
+                    <Link className="nav-item" to="/second.exchange/explore">
                         Explore
                     </Link>
-                    <Link className="nav-item" to="/second.exchange/Creators">
+                    <Link className="nav-item" to="/second.exchange/creators">
                         Creators
                     </Link>
-                    <Link className="nav-item" to="/second.exchange/Community">
+                    <Link className="nav-item" to="/second.exchange/community">
                         Community
                     </Link>
                 </div>

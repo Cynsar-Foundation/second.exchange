@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useMetarootModalValue } from "../context";
 
 import { BsPlusLg } from "react-icons/bs";
 
-export const UserProfileSection = ({ userProfileImage, userWalletAddress }) => {
+interface IProps {
+    userProfileImage: any,
+    userWalletAddress: string
+}
+
+export const UserProfileSection: FC<IProps> = ({ userProfileImage, userWalletAddress }) => {
     const { metarootOverlayActive, setMetarootOverlayActive } =
         useMetarootModalValue();
 

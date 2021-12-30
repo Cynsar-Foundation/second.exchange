@@ -40,7 +40,7 @@ const connectorsByName = {
     [ConnectorNames.Torus]: torus,
 };
 
-function getErrorMessage(error) {
+function getErrorMessage(error: any) {
     if (error instanceof NoEthereumProviderError) {
         return "No Ethereum browser extension detected, install MetaMask on desktop or visit from a dApp browser on mobile.";
     } else if (error instanceof UnsupportedChainIdError) {
@@ -142,6 +142,7 @@ export const WalletModal = () => {
                                 disabled={disabled}
                                 key={name}
                                 onClick={() => {
+                                    // @ts-ignore
                                     setActivatingConnector(currentConnector);
                                     activate(connectorsByName[name]);
                                 }}
@@ -153,6 +154,7 @@ export const WalletModal = () => {
                                 {
                                     <img
                                         className="wallet-option-logos"
+                                        // @ts-ignore
                                         src={WalletLogos[name]}
                                         alt={name}
                                     />
@@ -196,12 +198,12 @@ export const WalletModal = () => {
                                     library
                                         .getSigner(account)
                                         .signMessage("Message to be signed?")
-                                        .then((signature) => {
+                                        .then((signature: any) => {
                                             toast.success(
                                                 `Success!\n\n${signature}`
                                             );
                                         })
-                                        .catch((error) => {
+                                        .catch((error: any) => {
                                             toast.error(
                                                 "Failure!" +
                                                     (error && error.message
@@ -218,6 +220,7 @@ export const WalletModal = () => {
                             connectorsByName[ConnectorNames.WalletConnect] && (
                             <button
                                 onClick={() => {
+                                    // @ts-ignore
                                     connector.close();
                                 }}
                             >
@@ -230,6 +233,7 @@ export const WalletModal = () => {
                                 {chainId !== undefined && (
                                     <button
                                         onClick={() => {
+                                            // @ts-ignore
                                             connector.changeNetwork(
                                                 chainId === 1 ? 100 : 1
                                             );
@@ -240,6 +244,7 @@ export const WalletModal = () => {
                                 )}
                                 <button
                                     onClick={() => {
+                                        // @ts-ignore
                                         connector.close();
                                     }}
                                 >
@@ -251,6 +256,7 @@ export const WalletModal = () => {
                             connectorsByName[ConnectorNames.Torus] && (
                             <button
                                 onClick={() => {
+                                    // @ts-ignore
                                     connector.close();
                                 }}
                             >
