@@ -38,13 +38,13 @@ export const Navbar = () => {
                     second.exchange
                 </Link>
                 <div className="nav-options">
-                    <Link className="nav-item" to="/second.exchange/Explore">
+                    <Link className="nav-item" to="/second.exchange/explore">
                         Explore
                     </Link>
-                    <Link className="nav-item" to="/second.exchange/Creators">
+                    <Link className="nav-item" to="/second.exchange/creators">
                         Creators
                     </Link>
-                    <Link className="nav-item" to="/second.exchange/Community">
+                    <Link className="nav-item" to="/second.exchange/community">
                         Community
                     </Link>
                 </div>

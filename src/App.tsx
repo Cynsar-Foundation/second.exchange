@@ -48,18 +48,18 @@ export const App:FC = () => {
                                         element={<Dashboard />}
                                     />
                                 )}
-                                <Route path="/second.exchange/Explore" element={<Explore />} />
+                                <Route path="/second.exchange/explore" element={<Explore />} />
                                 <Route
-                                    path="/second.exchange/Creators"
+                                    path="/second.exchange/creators"
                                     element={<Creators />}
                                 />
                                 <Route
-                                    path="/second.exchange/Community"
+                                    path="/second.exchange/community"
                                     element={<Community />}
                                 />
                                 {isAuthenticated && (
                                     <Route
-                                        path="/second.exchange/WriteBlog"
+                                        path="/second.exchange/editor"
                                         element={<BlogEditor />}
                                     />
                                 )}
