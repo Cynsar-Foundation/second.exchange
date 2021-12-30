@@ -31,7 +31,7 @@ export const Sidebar = () => {
     }, [Moralis.Web3API.account, userBalance]);
 
     return (
-        <div className="SidebarContainer">
+        <div className="sidebar-container">
             <UserProfileSection
                 userProfileImage={FemaleAvatar}
                 userWalletAddress={userAddressDisplay}
@@ -47,9 +47,9 @@ export const Sidebar = () => {
                 InfoValue={userNFTs}
                 InfoImage={NFTSymbol}
                 InfoUnit={"NFTs"}
-                InfoImageClass={"NFTLogo"}
+                InfoImageClass={"NFT-logo"}
             />
-            <div className="SidebarButtons">
+            <div className="sidebar-buttons">
                 <SidebarButton 
                     ButtonIcon={<IoMdMoon size={30}/>}
                     ButtonText={"DarkMode"}

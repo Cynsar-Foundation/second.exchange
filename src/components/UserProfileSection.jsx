@@ -8,22 +8,22 @@ export const UserProfileSection = ({ userProfileImage, userWalletAddress }) => {
         useMetarootModalValue();
 
     return(
-        <div className="UserDetails">
+        <div className="user-details">
             <span>
                 <img
-                    className="UserProfilePicSidebar"
+                    className="user-profile-pic-sidebar"
                     src={userProfileImage}
                     alt="female avatar"
                 />
             </span>
-            <div className="UserDetails__name-details">
-                <div className="UserDetails__name">Second Exchanger</div>
-                <div className="UserDetails__details">
+            <div className="user-details__name-details">
+                <div className="user-details__name">Second Exchanger</div>
+                <div className="user-details__details">
                     {userWalletAddress}
                 </div>
             </div>
             <div
-                className="UserDetails__plus"
+                className="user-details__plus"
                 onClick={() =>
                     setMetarootOverlayActive(!metarootOverlayActive)
                 }

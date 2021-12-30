@@ -28,14 +28,14 @@ export const App = () => {
                 <MetarootModalProvider>
                     <ToastContainer />
                     <Navbar />
-                    <div className={isAuthenticated ? "ContentContainer" : ""}>
+                    <div className={isAuthenticated ? "content-container" : ""}>
                         {isAuthenticated && (
-                            <div className="SidebarDiv">
+                            <div className="sidebar-div">
                                 <Sidebar />
                             </div>
                         )}
                         <div
-                            className={isAuthenticated ? "MainContentDiv" : ""}
+                            className={isAuthenticated ? "main-content-div" : ""}
                         >
                             <Routes>
                                 <Route path="*" element={<NotFound />} />
