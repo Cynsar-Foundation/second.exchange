@@ -3,13 +3,13 @@ import { useMoralis } from "react-moralis";
 import { ToastContainer } from "react-toastify";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 
-import { Home } from "./routes/Home";
-import { Explore } from "./routes/Explore";
-import { Creators } from "./routes/Creators";
-import { NotFound } from "./routes/NotFound";
-import { Dashboard } from "./routes/Dashboard";
-import { Community } from "./routes/Community";
-import { BlogEditor } from "./routes/BlogEditor";
+import { Home } from "./views/Home";
+import { Explore } from "./views/Explore";
+import { NotFound } from "./views/NotFound";
+import { Creators } from "./views/Creators";
+import { Community } from "./views/Community";
+import { Dashboard } from "./views/Dashboard";
+import { BlogEditor } from "./views/BlogEditor";
 
 import { WalletModalProvider } from "./context";
 import { MetarootModalProvider } from "./context";
@@ -43,11 +43,7 @@ export const App = () => {
                   <Route path="/second.exchange" element={<Home />} />
                 )}
                 {isAuthenticated && (
-                  <Route
-                    path="/second.exchange"
-                    element={<Dashboard />}
-                    exact
-                  />
+                  <Route path="/second.exchange" element={<Dashboard />} />
                 )}
                 <Route path="/second.exchange/Explore" element={<Explore />} />
                 <Route

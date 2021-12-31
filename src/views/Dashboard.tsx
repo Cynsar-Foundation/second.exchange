@@ -9,44 +9,44 @@ import CreateCanvas from "../assets/images/create-canvas.svg";
 export const Dashboard = () => {
     // When on custom domain change Link's "to" value to '/WriteBlog'
     return (
-        <div className="DashboardContainer">
-            <div className="Dashboard__col-1">
-                <div className="Dashboard__col-1-row-1"></div>
-                <div className="Dashboard__col-1-row-2"></div>
+        <div className="dashboard-container">
+            <div className="dashboard__col-1">
+                <div className="dashboard__col-1-row-1"></div>
+                <div className="dashboard__col-1-row-2"></div>
             </div>
-            <div className="Dashboard__col-2">
-                <div className="CreateSection">
-                    <span className="DashboardHeading">Create</span>
-                    <div className="CreateOptions">
-                        <Link to='/second.exchange/WriteBlog' className="CreateOptions__item">
+            <div className="dashboard__col-2">
+                <div className="create-section">
+                    <span className="dashboard-heading">Create</span>
+                    <div className="create-options">
+                        <Link to='/second.exchange/editor' className="create-options__item">
                             <span>
                                 <img src={CreateBlog} alt="create-blog" />
                             </span>
-                            <span className="CreateOptions__item-text">
+                            <span className="create-options__item-text">
                                 Write Blog
                             </span>
                         </Link>
-                        <div className="CreateOptions__item">
+                        <div className="create-options__item">
                             <span>
                                 <img src={UploadBlog} alt="upload-blog" />
                             </span>
-                            <span className="CreateOptions__item-text">
+                            <span className="create-options__item-text">
                                 Upload Blog
                             </span>
                         </div>
-                        <div className="CreateOptions__item">
+                        <div className="create-options__item">
                             <span>
                                 <img src={CreateCanvas} alt="create-canvas" />
                             </span>
-                            <span className="CreateOptions__item-text">
+                            <span className="create-options__item-text">
                                 Build Canvas
                             </span>
                         </div>
-                        <div className="CreateOptions__item">
+                        <div className="create-options__item">
                             <span>
                                 <img src={PublishNFT} alt="publish-nft" />
                             </span>
-                            <span className="CreateOptions__item-text">
+                            <span className="create-options__item-text">
                                 Publish NFT
                             </span>
                         </div>

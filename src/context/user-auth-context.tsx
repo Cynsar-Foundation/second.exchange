@@ -1,0 +1,20 @@
+import React, { useState, createContext, useContext, FC } from 'react';
+
+const defaultState = {
+    isUserAuthenticated: false,
+    setIsUserAuthenticated: (isUserAuthenticated: boolean) => {}
+}
+
+export const UserAuthContext = createContext(defaultState);
+
+export const UserAuthProvider: FC = ({ children }) => {
+    const [isUserAuthenticated, setIsUserAuthenticated] = useState(defaultState.isUserAuthenticated);
+
+    return(
+        <UserAuthContext.Provider value={{ isUserAuthenticated, setIsUserAuthenticated }}>
+            {children}
+        </UserAuthContext.Provider>
+    );
+};
+
+export const useUserAuthValue = () => useContext(UserAuthContext);

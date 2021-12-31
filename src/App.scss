@@ -45,21 +45,21 @@ body {
   cursor: default;
 }
 
-.ContentContainer {
+.content-container {
   display: flex;
   border-top: 1px solid #808080;
 }
 
-.SidebarDiv {
+.sidebar-div {
   flex: 0.205;
 }
 
-.MainContentDiv {
+.main-content-div {
   flex: 0.795;
 }
 
-.WalletModal {
-  &__toplevel {
+.wallet-modal {
+  &__top-level {
     background: rgba(49, 49, 49, 0.7);
     position: fixed;
     margin: auto;
@@ -72,17 +72,21 @@ body {
     z-index: 1;
   }
 
-  &__container {
-    @include regular-modal(400px);
-
-    background-color: white;
-    padding: 20px;
-    z-index: 2000;
+  &__buttons:hover {
+    cursor: pointer;
+    background-color: black;
+    transform: scale(1.02);
   }
 
-  &__buttons-container {
-    margin-top: 15px;
-    margin-bottom: 15px;
+  &__title {
+    text-align: center;
+    font-size: 17px;
+    font-family: Nunito-Bold;
+    margin-bottom: 12px;
+  }
+
+  &__header {
+    position: relative;
   }
 
   &__buttons {
@@ -136,7 +140,7 @@ nav {
   justify-content: space-between;
 }
 
-.SelectedNavOption {
+.selected-nav-option {
   margin: -20px 0 -15px -50px;
   width: 312px;
   color: white !important;
@@ -148,26 +152,26 @@ nav {
   text-align: center;
 }
 
-.NavbarContainer {
-  .NavItem {
+.navbar-container {
+  .nav-item {
     text-decoration: none;
     color: black;
     font-family: Nunito-Bold;
     margin-left: 120px;
   }
 
-  .NavLogo {
+  .nav-logo {
     font-size: 25px;
     text-decoration: none;
     font-family: Nunito-Bold;
     color: black;
   }
 
-  .NavOptions {
+  .nav-options {
     margin-top: 8.5px;
   }
 
-  .WalletConnectButton {
+  .wallet-connect-button {
     @include regular-button(140px);
 
     border: 2px solid black;
@@ -176,150 +180,221 @@ nav {
     padding: 10px;
   }
 
-  .WalletConnectButton:hover {
+  .wallet-connect-button:hover {
     background-color: #f4f4f4;
   }
 
-  .WalletConnectedButton {
+  .wallet-connected-button {
     @include regular-button(140px);
 
-    border: 2px solid black;
+    .WalletConnectButton:hover {
+      background-color: #f4f4f4;
+    }
+
+    .wallet-connected-button:hover {
+      background-color: #f4f4f4;
+    }
+
+    .wallet-connected-text {
+      display: inline-block;
+      margin-left: 10px;
+      color: #00a32e;
+      font-family: Nunito-Bold;
+    }
+
+    .wallet-connected-figure {
+      display: inline-block;
+      height: 20px;
+      width: 20px;
+      vertical-align: middle;
+    }
+  }
+
+  .main-content {
+    margin-top: 155px;
+    cursor: default;
+  }
+
+  .subtitle {
     font-family: Nunito-Bold;
-    margin-top: -2px;
-    padding: 10px;
+    letter-spacing: 3.5px;
+    font-size: 15px;
+    color: #777777;
     text-align: center;
   }
 
-  .WalletConnectedButton:hover {
+  .title-line {
+    margin-top: 30px;
+    font-family: Nunito-ExtraBold;
+    font-size: 40px;
+    text-align: center;
+  }
+
+  .profile-container {
+    position: fixed;
+    bottom: 40px;
+    right: 60px;
+  }
+
+  .home-images {
+    margin-top: 60px;
+    text-align: center;
+    justify-content: space-evenly;
+
+    &__item {
+      object-fit: cover;
+      background-color: rgb(215, 246, 255);
+      border: 1px;
+      padding: 5px;
+      margin: 20px;
+      height: 100px;
+      width: 100px;
+    }
+  }
+
+  .wallet-option-logos {
+    display: block;
+    height: 40px;
+    width: 40px;
+    margin-left: 10px;
+    padding-bottom: 8px;
+  }
+
+  .wallet-option-text {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-top: -34px;
+    margin-left: 75px;
+    color: white;
+    font-family: Nunito-Regular;
+    text-transform: uppercase;
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    z-index: 2101;
+  }
+
+  .wallet-option-ops {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+  }
+
+  .wallet-option-ops-button {
+    cursor: pointer;
+    background-color: white;
+    font-family: Nunito-Bold;
+    margin: 0;
+    font-size: 14px;
+    border: 1.5px solid black;
+    padding: 4px;
+  }
+
+  .wallet-option-ops-button:hover {
     background-color: #f4f4f4;
   }
 
-  .WalletConnectedText {
-    display: inline-block;
-    margin-left: 10px;
-    color: #00a32e;
-    font-family: Nunito-Bold;
-  }
+  .sidebar-container {
+    align-items: center;
+    text-align: center;
+    border-right: 1px solid #808080;
 
-  .WalletConnectedFigure {
-    display: inline-block;
-    height: 20px;
-    width: 20px;
-    vertical-align: middle;
-  }
-}
+    .user-details {
+      padding-top: 20px;
 
-.MainContent {
-  margin-top: 155px;
-  cursor: default;
-}
+      .user-profile-pic-sidebar {
+        display: inline-block;
+        height: 50px;
+        width: 50px;
+        transform: translate(0, 8%);
+      }
 
-.subtitle {
-  font-family: Nunito-Bold;
-  letter-spacing: 3.5px;
-  font-size: 15px;
-  color: #777777;
-  text-align: center;
-}
+      &__name-details {
+        display: inline-block;
+        margin-left: 13px;
+        transform: translate(0, -3%);
+        line-height: 24px;
+      }
 
-.title-line {
-  margin-top: 30px;
-  font-family: Nunito-ExtraBold;
-  font-size: 40px;
-  text-align: center;
-}
+      &__details {
+        color: #858585;
+        font-size: 12px;
+        font-family: Nunito-SemiBold;
+        text-align: left;
+        margin-left: 1px;
+      }
 
-.ProfileContainer {
-  position: fixed;
-  bottom: 40px;
-  right: 60px;
-}
+      &__name {
+        font-size: 19px;
+        font-family: Nunito-Bold;
+      }
 
-.HomeImages {
-  margin-top: 60px;
-  text-align: center;
-  justify-content: space-evenly;
-
-  &__item {
-    object-fit: cover;
-    background-color: rgb(215, 246, 255);
-    border: 1px;
-    padding: 5px;
-    margin: 20px;
-    height: 100px;
-    width: 100px;
-  }
-}
-
-.WalletOptionLogos {
-  display: block;
-  height: 40px;
-  width: 40px;
-  margin-left: 10px;
-  padding-bottom: 8px;
-}
-
-.WalletOptionText {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  margin-top: -34px;
-  margin-left: 75px;
-  color: white;
-  font-family: Nunito-Regular;
-  text-transform: uppercase;
-  font-size: 16px;
-  letter-spacing: 1.5px;
-  z-index: 2101;
-}
-
-.WalletOptionOps {
-  display: flex;
-  justify-content: center;
-  margin-top: 8px;
-}
-
-.WalletOptionOpsButton {
-  cursor: pointer;
-  background-color: white;
-  font-family: Nunito-Bold;
-  margin: 0;
-  font-size: 14px;
-  border: 1.5px solid black;
-  padding: 4px;
-}
-
-.WalletOptionOpsButton:hover {
-  background-color: #f4f4f4;
-}
-
-.SidebarContainer {
-  align-items: center;
-  text-align: center;
-  border-right: 1px solid #808080;
-
-  .UserDetails {
-    padding-top: 20px;
-    .UserProfilePicSidebar {
-      display: inline-block;
-      height: 50px;
-      width: 50px;
-      transform: translate(0, 8%);
+      &__plus {
+        display: inline-block;
+        margin-left: 18px;
+        transform: translate(0, -30%);
+        cursor: pointer;
+      }
     }
 
-    &__name-details {
-      display: inline-block;
-      margin-left: 13px;
-      transform: translate(0, -3%);
-      line-height: 24px;
-    }
-
-    &__details {
-      color: #858585;
-      font-size: 12px;
+    .sidebar-section {
+      margin: 0 auto;
+      margin-top: 25px;
+      padding: 5px;
+      background-color: #f4f4f4;
+      line-height: 30px;
       font-family: Nunito-SemiBold;
-      text-align: left;
-      margin-left: 1px;
+      width: 210px;
+
+      &__title {
+        font-size: 13px;
+        color: #808080;
+      }
+
+      &__value {
+        font-size: 25px;
+      }
+
+      &__unit {
+        font-size: 12px;
+        color: #808080;
+        display: flex;
+        justify-content: center;
+      }
+
+      .avax-logo {
+        height: 15px;
+        width: 15px;
+        margin-right: 5px;
+        margin-top: 6px;
+      }
+
+      .NFT-logo {
+        width: 20px;
+        height: 20px;
+        margin-right: 0px;
+        margin-top: 3px;
+      }
+    }
+
+    .sidebar-buttons {
+      display: inline-block;
+      text-align: justify;
+      margin-top: 150px;
+      padding-bottom: 18px;
+      margin-left: -120px;
+
+      &__item {
+        display: flex;
+        margin-top: 30px;
+        cursor: pointer;
+      }
+
+      &__text {
+        font-family: Nunito-Bold;
+        font-size: 18px;
+        margin-left: 20px;
+      }
     }
 
     &__name {
@@ -396,7 +471,7 @@ nav {
   }
 }
 
-.DashboardContainer {
+.dashboard-container {
   display: grid;
   grid-template-columns: 3fr 1fr;
   margin: 3px;
@@ -404,10 +479,11 @@ nav {
   width: 99.5%;
   height: 99%;
 
-  .Dashboard {
+  .dashboard {
     &__col-1 {
       grid-template-rows: 3fr 1fr;
     }
+
     &__col-1-row-1 {
       border: 1px solid #808080;
       height: 59.5%;
@@ -421,6 +497,39 @@ nav {
 
     &__col-2 {
       border: 1px solid #808080;
+    }
+  }
+
+  .dashboard-heading {
+    font-family: Nunito-Bold;
+    font-size: 20px;
+  }
+
+  .create-section {
+    font-family: Nunito-SemiBold;
+    display: inline-block;
+    position: absolute;
+    top: 60%;
+    margin-left: 30px;
+    cursor: pointer;
+
+    .create-options {
+      margin-left: 40px;
+      margin-top: 25px;
+
+      &__item {
+        margin-top: 25px;
+        color: #808080;
+        text-decoration: none;
+      }
+
+      &__item:hover {
+        color: black;
+      }
+
+      &__item-text {
+        margin-left: 20px;
+      }
     }
   }
 
@@ -456,7 +565,7 @@ nav {
   }
 }
 
-.NotFoundContainer {
+.not-found-container {
   position: absolute;
   top: 50%;
   left: 25%;
@@ -464,7 +573,7 @@ nav {
   font-size: 30px;
 }
 
-.BlogEditorContainer {
+.blog-editor-container {
   border: 1px solid #808080;
   min-height: 6em;
   cursor: text;
@@ -472,8 +581,8 @@ nav {
   padding: 10px;
 }
 
-.MetarootModal {
-  &__toplevel {
+.metaroot-modal {
+  &__top-level {
     background: rgba(49, 49, 49, 0.7);
     position: fixed;
     margin: auto;
@@ -484,14 +593,6 @@ nav {
     overflow: hidden;
     transition: opacity 0.2s ease-in;
     z-index: 1;
-  }
-
-  &__container {
-    @include regular-modal(600px);
-
-    background-color: white;
-    padding: 20px;
-    z-index: 2000;
   }
 
   &__close-button {
@@ -513,5 +614,67 @@ nav {
       max-height: 255px;
       margin-bottom: 12px;
     }
+  }
+}
+.blog-editor {
+  padding: 10px;
+  width: 75rem;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+
+  .blog-title {
+    margin-top: 60px;
+    left: 340px;
+    position: absolute;
+    border: none;
+    text-align: left;
+    font-size: 40px;
+  }
+
+  .blog-title:focus {
+    outline: none;
+  }
+
+  .blog-formatting-button {
+    @include regular-button(90px);
+    border: none;
+    background-color: #f4f4f4;
+    padding: 0.5rem 1rem;
+    font-family: Nunito-SemiBold;
+    margin: 0 3px 0 3px;
+    font-size: 12px;
+  }
+
+  .blog-formatting-button:hover {
+    background-color: white;
+  }
+
+  .DraftEditor-root {
+    border: 1px solid #eee;
+    margin: 2rem 0;
+    margin-top: 90px;
+  }
+
+  .DraftEditor-editorContainer {
+    padding: 1.5rem;
+  }
+
+  .public-DraftEditor-content {
+    min-height: 20rem;
+    cursor: text;
+    font-family: Nunito-Regular;
+  }
+
+  .blog-ops-button {
+    @include regular-button(100px);
+    font-size: 15px;
+    font-family: Nunito-SemiBold;
+    padding: 3px;
+    margin: 0 10px 10px 0;
+  }
+
+  .blog-ops-button:hover {
+    background-color: #f4f4f4;
   }
 }
