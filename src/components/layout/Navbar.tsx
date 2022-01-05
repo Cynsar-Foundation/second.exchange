@@ -9,6 +9,7 @@ import { WalletModal } from "../WalletModal";
 import { useWalletModalValue } from "../../context";
 
 import MetaMaskLogo from "../../assets/images/metamask.svg";
+import { Container, Nav, Navbar as BootstrapNavbar } from "react-bootstrap";
 
 function getLibrary(provider: any) {
   const library = new Web3Provider(provider);
@@ -25,7 +26,8 @@ export const Navbar = () => {
   // When on custom domain change Link's "to" value to '/route'
   return (
     <div className="navbar-container">
-      <nav>
+      <BootstrapNavbar expand="lg" variant="light">
+        {" "}
         <Link
           className={
             isAuthenticated ? "nav-logo selected-nav-option" : "nav-logo"
@@ -34,41 +36,47 @@ export const Navbar = () => {
         >
           second.exchange
         </Link>
-        <div className="nav-options">
-          <Link className="nav-item" to="/second.exchange/explore">
-            Explore
-          </Link>
-          <Link className="nav-item" to="/second.exchange/creators">
-            Creators
-          </Link>
-          <Link className="nav-item" to="/second.exchange/community">
-            Community
-          </Link>
-        </div>
-        <button
-          className={
-            isAuthenticated
-              ? "wallet-connected-button"
-              : "wallet-connect-button"
-          }
-          onClick={() => setWalletOverlayActive(!walletOverlayActive)}
-        >
-          {isAuthenticated ? (
-            <img
-              className="wallet-connected-figure"
-              src={MetaMaskLogo}
-              alt="metamask"
-            />
-          ) : (
-            "Connect Wallet"
-          )}
-          {isAuthenticated ? (
-            <div className="wallet-connected-text">Connected</div>
-          ) : (
-            ""
-          )}
-        </button>
-      </nav>
+        <BootstrapNavbar.Toggle aria-controls="navbarScroll" />
+        <BootstrapNavbar.Collapse id="navbarScroll">
+          <Nav className="me-auto my-2 my-lg-0 m-auto" navbarScroll>
+            <Link className="nav-item" to="/second.exchange/explore">
+              Explore
+            </Link>
+            <Link className="nav-item" to="/second.exchange/creators">
+              Creators
+            </Link>
+            <Link className="nav-item" to="/second.exchange/community">
+              Community
+            </Link>
+          </Nav>
+          <div className="text-center">
+            <button
+              className={
+                isAuthenticated
+                  ? "wallet-connected-button"
+                  : "wallet-connect-button"
+              }
+              onClick={() => setWalletOverlayActive(!walletOverlayActive)}
+            >
+              {isAuthenticated ? (
+                <img
+                  className="wallet-connected-figure"
+                  src={MetaMaskLogo}
+                  alt="metamask"
+                />
+              ) : (
+                "Connect Wallet"
+              )}
+              {isAuthenticated ? (
+                <div className="wallet-connected-text">Connected</div>
+              ) : (
+                ""
+              )}
+            </button>
+          </div>
+        </BootstrapNavbar.Collapse>
+      </BootstrapNavbar>
+
       {walletOverlayActive && (
         <Web3ReactProvider getLibrary={getLibrary}>
           <WalletModal />
