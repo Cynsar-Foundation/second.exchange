@@ -18,7 +18,7 @@ import { Sidebar } from "./components/layout/Sidebar";
 import { UserCollection } from "./components/UserCollection";
 
 import "./App.scss";
-import "../node_modules/antd/dist/antd.css";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
 
 export const App = () => {

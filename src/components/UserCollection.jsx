@@ -1,8 +1,7 @@
 import React from "react";
-import { Row, Col, List } from "antd";
 
 export const UserCollection = () => {
-  const data = [
+  const userData = [
     {
       Name: "BORED APE #0",
       Image:
@@ -50,26 +49,18 @@ export const UserCollection = () => {
     },
   ];
   return (
-    <div className="User_collection">
-      <Row justify="center">
-        <Col span={22}>
-          <List
-            itemLayout="horizontal"
-            size="large"
-            grid={{
-              gutter: 0,
-              column: 6,
-            }}
-            dataSource={data}
-            renderItem={(d, i) => (
-              <div key={i} className="Collection_main">
-                <img src={d.Image} alt={d.Image} />
-                <p>{d.Name}</p>
+    <div className="row m-0 justify-content-center">
+      <div className=" col-xxl-10 col-xl-10 col-md-10 col-sm-12 col-xs-12">
+        <div className="row gy-5 mt-0">
+          {userData.map((data) => {
+            return (
+              <div className="col-xxl-2 col-sm-12 my-3">
+                <img className="w-100" src={data.Image} alt={data.Name} />
               </div>
-            )}
-          />
-        </Col>
-      </Row>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };
