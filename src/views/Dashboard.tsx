@@ -1,12 +1,13 @@
-import React from "react";
+import React, { FC } from "react";
 import { Link } from 'react-router-dom';
 
 import PublishNFT from "../assets/images/publish-nft.svg";
 import UploadBlog from "../assets/images/upload-blog.svg";
 import CreateBlog from "../assets/images/create-blog.svg";
 import CreateCanvas from "../assets/images/create-canvas.svg";
+import ReadBlog from '../assets/images/read-blog.svg';
 
-export const Dashboard = () => {
+export const Dashboard: FC = () => {
     // When on custom domain change Link's "to" value to '/WriteBlog'
     return (
         <div className="dashboard-container">
@@ -50,6 +51,16 @@ export const Dashboard = () => {
                                 Publish NFT
                             </span>
                         </div>
+                        <Link to='/second.exchange/read' className="create-options__item">
+                            <div className="create-options__item">
+                                <span>
+                                    <img src={ReadBlog} alt="read-blog" />
+                                </span>
+                                <span className="create-options__item-text">
+                                    Read blog
+                                </span>
+                            </div>
+                        </Link>
                     </div>
                 </div>
             </div>
