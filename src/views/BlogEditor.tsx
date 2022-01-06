@@ -1,187 +1,57 @@
-import React, { FC } from "react";
-import {
-    Editor,
-    EditorState,
-    RichUtils,
-    AtomicBlockUtils,
-    DraftEditorCommand,
-    convertToRaw,
-    convertFromRaw,
-} from "draft-js";
-import "draft-js/dist/Draft.css";
-import { linkDecorator } from "../components/LinkDecorator";
-import { mediaBlockRenderer } from "../components/MediaBlockRenderer";
+import React from "react";
 
-const TEXT_EDITOR_ITEM = "draft-js-example-item";
+import { EDITOR_JS_TOOLS } from "../constants/editor-constants";
+import { createReactEditorJS } from "react-editor-js";
 
-export const BlogEditor: FC = () => {
-    const data = localStorage.getItem(TEXT_EDITOR_ITEM);
-    const initialState = data
-        ? EditorState.createWithContent(
-              convertFromRaw(JSON.parse(data)),
-              linkDecorator
-          )
-        : EditorState.createEmpty(linkDecorator);
-    const [editorState, setEditorState] =
-        React.useState<EditorState>(initialState);
+const TEXT_EDITOR_CONTENT = "saved-text-local";
 
-    const handleSave = () => {
-        const data = JSON.stringify(
-            convertToRaw(editorState.getCurrentContent())
-        );
-        localStorage.setItem(TEXT_EDITOR_ITEM, data);
-    };
+const ReactEditorJS = createReactEditorJS();
 
-    const handleInsertImage = () => {
-        const src = prompt("Please enter the URL of your picture");
-        if (!src) {
-            return;
-        }
-        const contentState = editorState.getCurrentContent();
-        const contentStateWithEntity = contentState.createEntity(
-            "image",
-            "IMMUTABLE",
-            { src }
-        );
-        const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
-        const newEditorState = EditorState.set(editorState, {
-            currentContent: contentStateWithEntity,
-        });
-        return setEditorState(
-            AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, " ")
-        );
-    };
+export const BlogEditor = () => {
+    const editorCore = React.useRef(null);
+    // @ts-ignore
 
-    const handleAddLink = () => {
-        const selection = editorState.getSelection();
-        const link = prompt("Please enter the URL of your link");
-        if (!link) {
-            setEditorState(RichUtils.toggleLink(editorState, selection, null));
-            return;
-        }
-        const content = editorState.getCurrentContent();
-        const contentWithEntity = content.createEntity("LINK", "MUTABLE", {
-            url: link,
-        });
-        const newEditorState = EditorState.push(
-            editorState,
-            contentWithEntity,
-            "apply-entity"
-        );
-        const entityKey = contentWithEntity.getLastCreatedEntityKey();
-        setEditorState(
-            RichUtils.toggleLink(newEditorState, selection, entityKey)
-        );
-    };
+    const handleInitialize = React.useCallback((instance) => {
+        editorCore.current = instance
+      }, [])
 
-    const handleKeyCommand = (command: DraftEditorCommand) => {
-        const newState = RichUtils.handleKeyCommand(editorState, command);
-        if (newState) {
-            setEditorState(newState);
-            return "handled";
-        }
-        return "not-handled";
-    };
-
-    const handleTogggleClick = (e: React.MouseEvent, inlineStyle: string) => {
-        e.preventDefault();
-        setEditorState(RichUtils.toggleInlineStyle(editorState, inlineStyle));
-    };
-
-    const handleBlockClick = (e: React.MouseEvent, blockType: string) => {
-        e.preventDefault();
-        setEditorState(RichUtils.toggleBlockType(editorState, blockType));
-    };
+      const handleSave = React.useCallback(async () => {
+        //@ts-ignore
+        const savedData = await editorCore.current.save();
+        //@ts-ignore
+        localStorage.setItem(TEXT_EDITOR_CONTENT, JSON.stringify(savedData));
+        console.log(savedData);
+        const data = localStorage.getItem(TEXT_EDITOR_CONTENT);
+        console.log("from localstorage: ", data);
+      }, [])
 
     return (
-        <div className="blog-editor">
-            <button onMouseDown={(e) => handleBlockClick(e, "header-one")} className="blog-formatting-button">
-                H1
-            </button>
-            <button onMouseDown={(e) => handleBlockClick(e, "header-two")} className="blog-formatting-button">
-                H2
-            </button>
-            <button onMouseDown={(e) => handleBlockClick(e, "header-three")} className="blog-formatting-button">
-                H3
-            </button>
-            <button onMouseDown={(e) => handleBlockClick(e, "unstyled")} className="blog-formatting-button">
-                Normal
-            </button>
-            <button onMouseDown={(e) => handleTogggleClick(e, "BOLD")} className="blog-formatting-button">
-                bold
-            </button>
-            <button onMouseDown={(e) => handleTogggleClick(e, "UNDERLINE")} className="blog-formatting-button">
-                underline
-            </button>
-            <button onMouseDown={(e) => handleTogggleClick(e, "ITALIC")} className="blog-formatting-button">
-                italic
-            </button>
-            <button onMouseDown={(e) => handleTogggleClick(e, "STRIKETHROUGH")} className="blog-formatting-button">
-                strikthrough
-            </button>
-            <button
-                onMouseDown={(e) => handleBlockClick(e, "ordered-list-item")}
-                className="blog-formatting-button"
-            >
-                Numbering
-            </button>
-            <button
-                className="blog-formatting-button"
-                onMouseDown={(e) => handleBlockClick(e, "unordered-list-item")}
-            >
-                Bullets
-            </button>
-            <button
-                className="blog-formatting-button"
-                onMouseDown={(e) => {
-                    e.preventDefault();
-                    handleInsertImage();
+        <div className="blog-editor-container">
+            {/* @ts-ignore */}
+            <ReactEditorJS onInitialize={handleInitialize} instanceRef={(instance) => (instanceRef.current = instance)}
+                tools={EDITOR_JS_TOOLS}
+                i18n={{
+                    messages: {},
                 }}
-            >
-                image
-            </button>
-            <button
-                className="blog-formatting-button"
-                disabled={editorState.getSelection().isCollapsed()}
-                onMouseDown={(e) => {
-                    e.preventDefault();
-                    handleAddLink();
+                data={{
+                    time: 1556098174501,
+                    blocks: [
+                        {
+                            type: "header",
+                            data: {
+                            text: "Editor.js",
+                            level: 2
+                        }
+                      }
+                    ]
                 }}
-            >
-                link
-            </button>
-
-            <input 
-                type="text"
-                className="blog-title"
-                placeholder="Title"
             />
 
-            <Editor
-                editorState={editorState}
-                onChange={setEditorState}
-                handleKeyCommand={handleKeyCommand}
-                blockRendererFn={mediaBlockRenderer}
-            />
-            <button
+            <button 
                 className="blog-ops-button"
-                type="button"
-                onClick={(e) => {
-                    e.preventDefault();
-                    handleSave();
-                }}
+                onClick={handleSave}
             >
-                Save
-            </button>
-            <button
-                className="blog-ops-button"
-                type="button"
-                onClick={(e) => {
-                    e.preventDefault();
-                    handleSave();
-                }}
-            >
-                Publish
+                Save!
             </button>
         </div>
     );
