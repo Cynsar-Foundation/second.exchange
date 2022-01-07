@@ -10,6 +10,7 @@ import { Creators } from "./views/Creators";
 import { Community } from "./views/Community";
 import { BlogEditor } from "./views/BlogEditor";
 import { NotFound } from "./views/NotFound";
+import { BlogView } from './views/BlogView';
 
 import { WalletModalProvider } from "./context";
 import { MetarootModalProvider } from "./context";
@@ -59,10 +60,14 @@ export const App:FC = () => {
                                 />
                                 {isAuthenticated && (
                                     <Route
-                                        path="/second.exchange/editor"
+                                        path="/second.exchange/write"
                                         element={<BlogEditor />}
                                     />
                                 )}
+                                <Route 
+                                    path="/second.exchange/read"
+                                    element={<BlogView />}
+                                />
                             </Routes>
                         </div>
                     </div>
