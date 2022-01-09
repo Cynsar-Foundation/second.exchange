@@ -348,6 +348,7 @@ nav {
         line-height: 30px;
         font-family: Nunito-SemiBold;
         width: 210px;
+        margin-bottom: 126px;
 
         &__title {
             font-size: 13px;
@@ -535,4 +536,80 @@ nav {
     padding: 20px;
     height: 628px;
     margin: 3px;
+}
+
+.key-setup {
+    white-space: pre;
+    margin-left: 10px;
+
+    &__title {
+        line-height: 38px;
+        font-size: 17px;
+        font-family: Nunito-Bold;
+    }
+
+    &__input {
+        line-height: 40px;
+    }
+
+    &__input-box {
+        width: 260px;
+        height: 20px;
+    }
+
+    &__generate-button {
+        @include regular-button(80px);
+        padding: 3px;
+        margin-top: 5px;
+    }
+
+    &__generate-button:hover {
+        background-color: #F4F4F4;
+    }
+
+    &__proceed {
+        padding: 3px;
+        margin-left: 10px;
+        @include regular-button(80px);
+        margin-top: 5px;
+    }
+
+    &__proceed:hover {
+        background-color: #F4F4F4;
+    }
+
+    &__generated-key {
+        margin-top: 10px;
+        font-weight: 600;
+    }
+
+    &__generated-key-value {
+        display: block;
+        font-weight: normal;
+        font-family: 'Courier New', Courier, monospace;
+        width: 250px;
+        white-space: normal;
+        word-break: break-word;
+    }
+}
+
+.delete-local-storage {
+    display: block;
+    font-family: Nunito-SemiBold;
+    line-height: 25px;
+    margin: 20px;
+
+    &__title {
+        margin-bottom: 10px;
+        font-family: Nunito-Bold;
+    }
+
+    &__button {
+        margin-top: 5px;
+        @include regular-button(80px);
+    }
+
+    &__button:hover {
+        background-color: #F4F4F4;
+    }
 }
