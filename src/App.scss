@@ -579,8 +579,13 @@ nav {
     }
 
     &__generated-key {
-        margin-top: 10px;
+        margin-top: 20px;
         font-weight: 600;
+    }
+
+    &__generated-key-title {
+        margin-top: 15px;
+        margin-bottom: 8px;
     }
 
     &__generated-key-value {
@@ -591,11 +596,16 @@ nav {
         white-space: normal;
         word-break: break-word;
     }
+
+    &__generated-key-tag {
+        font-family: Nunito-SemiBold;
+        line-height: 30px;
+    }
 }
 
 .delete-local-storage {
     display: block;
-    font-family: Nunito-SemiBold;
+    font-family: Nunito-Regular;
     line-height: 25px;
     margin: 20px;
 
@@ -605,7 +615,8 @@ nav {
     }
 
     &__button {
-        margin-top: 5px;
+        margin-top: 8px;
+        padding: 5px;
         @include regular-button(80px);
     }
 
