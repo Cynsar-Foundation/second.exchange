@@ -2,36 +2,20 @@
 
 ## The first exchange was not good ,this one is really good
 
-The purpose of this exchange is to have the work pushed as NFT from second.exchange , the flow is quite simple 
+Second exchange is an experimental social media service that lets anyone, anywhere in the world to create content. Second Exchange uses peer-to-peer technology to operate with no central authority, Second Exchange Core is the name of open source software which enables the use of this service.
 
-1. Create a blog post/content or collections that is stored on IPFS and is minted as the ERC721 contract.
-2. The contract governs how the content is valued over time and expiration of the content.
-3. Voting on the contract is recorded as signal(free) and value driven.
-
-    a.) The value that is signalled can be amortized as growing or diminishing over time:
-        How we do this, is subject to review.. 
-        For now:
-
-        - a single vote 
-        - weighted vote (scalar value) by a participant
-        - a formula that is based on the size of the group that allots the signal.
-        - a formula that is based on the size of the value proposition that is determined.
-        - a formula that is parametric (based on problem, perceived value, ecosystem vars... opens up a potential pandora's box, needs more reasoning..) 
-    
-    
-5. Manage trail of changes if the digest MD changes and the content is counterfeit 
-
-
+1. Create a blog post/content or collections that is stored on client side only and is realyed using nostr.
+2. Follow people and content 
+3. Group content
+4. Feature in future like adding tips , votes, and more in pipeline 
 
 ## Developer
 
-We are looking for solidity and front end developers who can contribute to this great way of sharing information and knowledge that points back to the users.
+We are looking for amazing front end developers who can contribute to this great way of sharing information and knowledge that points back to the users.
 
-The stack is based on Solidity, the structure of the contract is such: 
+The stack is based on various tech stack, the structure of the tech stack is quite simple: 
 
-1. Base Contracts 
-2. Interface contracts 
-3. Implementor contracts 
+1. Nostr
 
 ## UI
 
@@ -59,6 +43,8 @@ The code in this repository has not been audited.
 
 
 ## Deployed Instance 
+
+https://second.exchange
 
 
 
