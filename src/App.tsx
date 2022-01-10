@@ -1,4 +1,3 @@
-import React from "react";
 import { useMoralis } from "react-moralis";
 import { ToastContainer } from "react-toastify";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
@@ -18,7 +17,7 @@ import { Sidebar } from "./components/layout/Sidebar";
 import { UserCollection } from "./components/UserCollection";
 
 import "./App.scss";
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "../node_modules/antd/dist/antd.css";
 import "react-toastify/dist/ReactToastify.css";
 
 export const App = () => {
@@ -29,7 +28,9 @@ export const App = () => {
       <WalletModalProvider>
         <MetarootModalProvider>
           <ToastContainer />
-          <Navbar />
+          <div className="ContentContainer">
+            <Navbar />
+          </div>
           <div className={isAuthenticated ? "ContentContainer" : ""}>
             {isAuthenticated && (
               <div className="SidebarDiv">

@@ -90,14 +90,14 @@ body {
   }
 
   &__buttons {
-    @include regular-button(270px);
-
     border: none;
     display: block;
     padding: 12px;
     margin: 10px;
     background-color: rgb(24, 24, 24);
     text-align: center;
+    min-width: 270px;
+    margin: 10px auto;
 
     &-active {
       background-color: white;
@@ -128,9 +128,23 @@ body {
     border: none;
     cursor: pointer;
     position: absolute;
-    top: 18px;
+    top: 10px;
     right: 0;
     z-index: 2100;
+  }
+  &__container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &__modal {
+      width: fit-content;
+      text-align: center;
+      margin: auto;
+      background: #fff;
+      position: relative;
+      padding: 25px;
+    }
   }
 }
 
@@ -155,20 +169,46 @@ nav {
   text-align: center;
 }
 
+.drawer-item {
+  text-decoration: none;
+  color: black !important;
+  font-family: Nunito-Bold;
+  margin-left: 0;
+  text-align: center;
+  padding: 15px 0;
+  display: block;
+}
+.mobile-connect-btn {
+  text-align: center;
+  margin-top: 10px;
+}
+.nav-btn {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  > img {
+    width: 19px;
+  }
+}
+.wallet-connect-button-mobile {
+  @include regular-button(140px);
+
+  border: 2px solid black;
+  font-family: Nunito-Bold;
+  margin-top: -2px;
+  padding: 10px;
+}
 .navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 20px;
+  padding: 15px 0;
   .nav-item {
     text-decoration: none;
-    color: black;
+    color: black !important;
     font-family: Nunito-Bold;
     margin-left: 120px;
-    @media (max-width: 1024px) {
-      margin-left: 60px;
-    }
-    @media (max-width: 768px) {
-      margin-left: 0;
-      text-align: center;
-      padding: 15px 0;
-    }
   }
 
   .nav-logo {
