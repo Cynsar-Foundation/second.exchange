@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect } from "react";
+import React, { useState, useRef, useLayoutEffect, useEffect } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import {
     generateSeedWords,
@@ -10,7 +10,6 @@ import { getPublicKey } from "nostr-tools";
 
 import { useSessionKeyContext, useUserAuthContext } from "../context";
 import { useAuthModalContext } from "../context";
-import { useKeyModalContext } from "../context";
 import { UserKeyModal } from "./UserKeyModal";
 
 const isKey = (key: any) => {
@@ -36,10 +35,10 @@ export const KeyAuthModal = () => {
     const [userPublicKey, setUserPublicKey] = useState<string>();
     const [userPrivateKey, setUserPrivateKey] = useState<string>();
     const [isKeyValidated, setIsKeyValidated] = useState(false);
+    const [keyModalVisible, setKeyModalVisible] = useState(false);
 
     const { sessionKey, setSessionKey } = useSessionKeyContext();
     const { setAuthOverlayActive } = useAuthModalContext();
-    const { keyOverlayActive, setKeyOverlayActive } = useKeyModalContext();
     const { isUserAuthenticated, setIsUserAuthenticated } = useUserAuthContext();
 
     function toHexString(byteArray: Uint8Array) {
@@ -85,9 +84,22 @@ export const KeyAuthModal = () => {
         }
     }, [isUserAuthenticated, sessionKey]);
 
+    const userInput = useRef<HTMLInputElement>();
+    // @ts-ignore
+    const clearInput = () => (userInput.current.value = "");
+    // @ts-ignore
+    const dispalyMnemonic = (mnemonic: string | "") => (userInput.current.value = mnemonic)
+
+    useEffect(() => {
+        if(!isUserAuthenticated)
+        {
+            dispalyMnemonic(userMnemonic ? userMnemonic : "");
+        }
+    }, [isUserAuthenticated, userMnemonic])
+
     return (
         <div className="wallet-modal__top-level">
-            <div className="wallet-modal__container">
+            { !keyModalVisible && <div className="wallet-modal__container">
                 <button
                     className="wallet-modal__close-button"
                     onClick={() => setAuthOverlayActive(false)}
@@ -107,7 +119,9 @@ export const KeyAuthModal = () => {
                         <div className="key-setup__title">Key Setup</div>
                         Enter your nostr key or generate new
                         <div className="key-setup__input">
-                            <input
+                            {/* @ts-ignore */}
+                            <input ref={userInput}
+                                defaultValue={userMnemonic || ""}
                                 className="key-setup__input-box"
                                 type="text"
                                 onChange={(e) => {
@@ -116,6 +130,9 @@ export const KeyAuthModal = () => {
                                             setUserMnemonic(e.target.value);
                                             setIsKeyValidated(true);
                                         }
+                                    }
+                                    else {
+                                        setIsKeyValidated(false);
                                     }
                                 }}
                             />
@@ -133,18 +150,23 @@ export const KeyAuthModal = () => {
                             className="key-setup__proceed"
                             disabled={!isKeyValidated}
                             onClick={() => {
-                                setIsUserAuthenticated(true);
                                 setSessionKey({
                                     mnemonic: userMnemonic,
                                     privKey: userPrivateKey,
                                     pubKey: userPublicKey,
                                 });
-                                setIsUserAuthenticated(true);
-                                // This is a hack
-                                refreshPage();
+                                setKeyModalVisible(true);
                             }}
                         >
-                            Enter
+                            Proceed
+                        </button>
+                        <button
+                            className="key-setup__proceed"
+                            onClick={() => {
+                                clearInput();
+                            }}
+                        >
+                            Reset
                         </button>
                     </div>
                 ) : (
@@ -165,8 +187,8 @@ export const KeyAuthModal = () => {
                     </div>
                 )}
                 <hr />
-            </div>
-            { keyOverlayActive && <UserKeyModal />}
+            </div>}
+            { keyModalVisible && <UserKeyModal fromLandingPage={true} generatedKeys={sessionKey} toExecute={setIsUserAuthenticated} /> }
         </div>
     );
 };

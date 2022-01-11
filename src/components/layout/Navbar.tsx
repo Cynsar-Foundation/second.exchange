@@ -66,7 +66,7 @@ export const Navbar = () => {
                     )}
                 </button>
             </nav>
-            {authOverlayActive && <KeyAuthModal />}
+            { authOverlayActive && <KeyAuthModal /> }
         </div>
     );
 };

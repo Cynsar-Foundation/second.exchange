@@ -1,14 +1,21 @@
-import React from "react";
+import React, { FC } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 
 import { useSessionKeyContext } from "../context";
 import { useKeyModalContext } from "../context";
 
-export const UserKeyModal = () => {
-    const { sessionKey } = useSessionKeyContext();
-    // @ts-ignore
-    const parsedSessionKey = JSON.parse(sessionKey);
+interface IProps {
+    fromLandingPage?: boolean,
+    generatedKeys?: any,
+    toExecute?: any,
+}
 
+export const UserKeyModal: FC<IProps> = ({ fromLandingPage, generatedKeys, toExecute }) => {
+    const { sessionKey } = useSessionKeyContext();
+
+    var parsedSessionKey;
+    // @ts-ignore
+    fromLandingPage ? parsedSessionKey = generatedKeys : parsedSessionKey = JSON.parse(sessionKey);
     // @ts-ignore
     const userMnemonic = parsedSessionKey["mnemonic"];
     // @ts-ignore
@@ -18,53 +25,63 @@ export const UserKeyModal = () => {
 
     const { setKeyOverlayActive } = useKeyModalContext();
 
+    const refreshPage = () => {
+        window.location.reload();
+    };
+
     return (
         <div className="wallet-modal__top-level">
             <div className="wallet-modal__container">
-                {console.log(sessionKey)}
-                <button
+                { !fromLandingPage && <button
                     className="wallet-modal__close-button"
                     onClick={() => setKeyOverlayActive(false)}
                 >
                     <IoCloseOutline size={25} />
-                </button>
+                </button>}
                 <div className="wallet-modal__header">
-                    <div className="wallet-modal__title">
-                        Your Keys
-                    </div>
+                    <div className="wallet-modal__title">Your Keys</div>
                     <hr />
                 </div>
                 <div className="key-modal__body">
-                <div className="key-modal__subtitle">
-                    Make sure you back up your private key!
-                </div>
-                <div className="key-modal__info">
-                    Posts are published using your private key. 
-                    Others can see your posts or follow you using only your public key.
-                </div>
-                <div className="key-setup__generated-key">
-                    <span className="key-setup__generated-key-value">
-                        <span className="key-setup__generated-key-tag">
-                            Seed Words
-                        </span>{" "}
-                        <br />
-                        {/* Need to add these in a copy text block */}
-                        {userMnemonic} <br />
-                        <span className="key-setup__generated-key-tag">
-                            Private key
-                        </span>{" "}
-                        <br />
-                        {userPrivateKey} <br />
-                        <span className="key-setup__generated-key-tag">
-                            Public key
-                        </span>{" "}
-                        <br />
-                        {userPublicKey}
-                    </span>
-                </div>
+                    <div className="key-modal__subtitle">
+                        Make sure you back up your private key!
+                    </div>
+                    <div className="key-modal__info">
+                        Posts are published using your private key. Others can
+                        see your posts or follow you using only your public key.
+                    </div>
+                    <div className="key-setup__generated-key">
+                        <span className="key-setup__generated-key-value">
+                            <span className="key-setup__generated-key-tag">
+                                Seed Words
+                            </span>{" "}
+                            <br />
+                            {/* Need to add these in a copy text block */}
+                            {userMnemonic} <br />
+                            <span className="key-setup__generated-key-tag">
+                                Private key
+                            </span>{" "}
+                            <br />
+                            {userPrivateKey} <br />
+                            <span className="key-setup__generated-key-tag">
+                                Public key
+                            </span>{" "}
+                            <br />
+                            {userPublicKey}
+                        </span>
+                    </div>
                 </div>
                 <hr />
-                </div>
+                { fromLandingPage && <button 
+                    className="key-modal__proceed-button"
+                    onClick={() => {
+                        toExecute(true);
+                        refreshPage();
+                    }}
+                >
+                    Proceed
+                </button> }
             </div>
+        </div>
     );
 };

@@ -637,4 +637,13 @@ nav {
     &__info {
         font-size: 13px;
     }
+
+    &__proceed-button {
+        @include regular-button(80px);
+        padding: 10px;
+    }
+
+    &__proceed-button:hover {
+        background-color: #F4F4F4;
+    }
 }
