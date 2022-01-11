@@ -3,12 +3,12 @@ import { Button, Drawer } from "antd";
 import { Link } from "react-router-dom";
 import { useMoralis } from "react-moralis";
 import { useEffect, useState } from "react";
-import { Web3ReactProvider } from "@web3-react/core";
-import { Web3Provider } from "@ethersproject/providers";
 
 import { WalletModal } from "../WalletModal";
 import Menu from "../../assets/images/menu.png";
 import { useWalletModalValue } from "../../context";
+import { Web3ReactProvider } from "@web3-react/core";
+import { Web3Provider } from "@ethersproject/providers";
 import MetaMaskLogo from "../../assets/images/metamask.svg";
 
 function getLibrary(provider: any) {
