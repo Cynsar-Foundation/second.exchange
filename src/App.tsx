@@ -12,7 +12,7 @@ import { NotFound } from "./views/NotFound";
 import { BlogView } from "./views/BlogView";
 
 import { KeyModalProvider } from "./context";
-import { useUserAuthValue, UserAuthProvider } from "./context";
+import { useUserAuthContext, UserAuthProvider } from "./context";
 import { AuthModalProvider } from "./context";
 import { MetarootModalProvider } from "./context";
 import { SessionKeyProvider } from "./context";
@@ -24,7 +24,7 @@ import "./App.scss";
 import "react-toastify/dist/ReactToastify.css";
 
 export const App: FC = () => {
-    const { isUserAuthenticated } = useUserAuthValue();
+    const { isUserAuthenticated } = useUserAuthContext();
 
     // All routes should be '/' for custom domain
     return (

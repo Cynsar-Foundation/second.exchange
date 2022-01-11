@@ -5,7 +5,7 @@ const defaultState = {
     setIsUserAuthenticated: (isUserAuthenticated: boolean) => {}
 }
 
-export const UserAuthContext = createContext(defaultState);
+const UserAuthContext = createContext(defaultState);
 
 export const UserAuthProvider: FC = ({ children }) => {
     const [isUserAuthenticated, setIsUserAuthenticated] = useState(defaultState.isUserAuthenticated);
@@ -17,4 +17,4 @@ export const UserAuthProvider: FC = ({ children }) => {
     );
 };
 
-export const useUserAuthValue = () => useContext(UserAuthContext);
+export const useUserAuthContext = () => useContext(UserAuthContext);

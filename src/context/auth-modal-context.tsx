@@ -5,7 +5,7 @@ const defaultState = {
     setAuthOverlayActive: (authOverlayActive: boolean) => {}
 }
 
-export const AuthModalContext = createContext(defaultState);
+const AuthModalContext = createContext(defaultState);
 
 export const AuthModalProvider: FC = ({ children }) => {
     const [authOverlayActive, setAuthOverlayActive] = useState(defaultState.authOverlayActive);
@@ -17,4 +17,4 @@ export const AuthModalProvider: FC = ({ children }) => {
     );
 };
 
-export const useAuthModalValue = () => useContext(AuthModalContext);
+export const useAuthModalContext = () => useContext(AuthModalContext);

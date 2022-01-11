@@ -5,7 +5,7 @@ const defaultState = {
     setKeyOverlayActive: (walletOverlayActive: boolean) => {}
 }
 
-export const KeyModalContext = createContext(defaultState);
+const KeyModalContext = createContext(defaultState);
 
 export const KeyModalProvider: FC = ({ children }) => {
     const [keyOverlayActive, setKeyOverlayActive] = useState(defaultState.keyOverlayActive);
@@ -17,4 +17,4 @@ export const KeyModalProvider: FC = ({ children }) => {
     );
 };
 
-export const useKeyModalValue = () => useContext(KeyModalContext);
+export const useKeyModalContext = () => useContext(KeyModalContext);

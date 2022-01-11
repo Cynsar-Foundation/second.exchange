@@ -7,7 +7,7 @@ const defaultSessionState = {
     setSessionKey: (sessionKey: any) => {},
 };
 
-export const SessionKeyContext = createContext(defaultSessionState);
+const SessionKeyContext = createContext(defaultSessionState);
 
 export const SessionKeyProvider: FC = ({ children }) => {
     const [sessionKey, setSessionKey] = useState(
@@ -21,4 +21,4 @@ export const SessionKeyProvider: FC = ({ children }) => {
     );
 };
 
-export const useSessionKeyValue = () => useContext(SessionKeyContext);
+export const useSessionKeyContext = () => useContext(SessionKeyContext);

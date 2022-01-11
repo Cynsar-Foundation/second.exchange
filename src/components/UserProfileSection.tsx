@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useMetarootModalValue } from "../context";
+import { useMetarootModalContext } from "../context";
 
 import { BsPlusLg } from "react-icons/bs";
 
@@ -10,7 +10,7 @@ interface IProps {
 
 export const UserProfileSection: FC<IProps> = ({ userProfileImage, userWalletAddress }) => {
     const { metarootOverlayActive, setMetarootOverlayActive } =
-        useMetarootModalValue();
+        useMetarootModalContext();
 
     return(
         <div className="user-details">

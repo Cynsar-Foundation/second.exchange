@@ -1,11 +1,11 @@
 import React from "react";
 import { IoCloseOutline } from "react-icons/io5";
 
-import { useSessionKeyValue } from "../context";
-import { useKeyModalValue } from "../context";
+import { useSessionKeyContext } from "../context";
+import { useKeyModalContext } from "../context";
 
 export const UserKeyModal = () => {
-    const { sessionKey } = useSessionKeyValue();
+    const { sessionKey } = useSessionKeyContext();
     // @ts-ignore
     const parsedSessionKey = JSON.parse(sessionKey);
 
@@ -16,7 +16,7 @@ export const UserKeyModal = () => {
     // @ts-ignore
     const userPublicKey = parsedSessionKey["pubKey"];
 
-    const { setKeyOverlayActive } = useKeyModalValue();
+    const { setKeyOverlayActive } = useKeyModalContext();
 
     return (
         <div className="wallet-modal__top-level">

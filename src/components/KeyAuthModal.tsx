@@ -8,9 +8,9 @@ import {
 } from "nostr-tools/nip06";
 import { getPublicKey } from "nostr-tools";
 
-import { useSessionKeyValue, useUserAuthValue } from "../context";
-import { useAuthModalValue } from "../context";
-import { useKeyModalValue } from "../context";
+import { useSessionKeyContext, useUserAuthContext } from "../context";
+import { useAuthModalContext } from "../context";
+import { useKeyModalContext } from "../context";
 import { UserKeyModal } from "./UserKeyModal";
 
 const isKey = (key: any) => {
@@ -37,10 +37,10 @@ export const KeyAuthModal = () => {
     const [userPrivateKey, setUserPrivateKey] = useState<string>();
     const [isKeyValidated, setIsKeyValidated] = useState(false);
 
-    const { sessionKey, setSessionKey } = useSessionKeyValue();
-    const { setAuthOverlayActive } = useAuthModalValue();
-    const { keyOverlayActive, setKeyOverlayActive } = useKeyModalValue();
-    const { isUserAuthenticated, setIsUserAuthenticated } = useUserAuthValue();
+    const { sessionKey, setSessionKey } = useSessionKeyContext();
+    const { setAuthOverlayActive } = useAuthModalContext();
+    const { keyOverlayActive, setKeyOverlayActive } = useKeyModalContext();
+    const { isUserAuthenticated, setIsUserAuthenticated } = useUserAuthContext();
 
     function toHexString(byteArray: Uint8Array) {
         return Array.from(byteArray, function (byte) {
@@ -139,7 +139,7 @@ export const KeyAuthModal = () => {
                                     privKey: userPrivateKey,
                                     pubKey: userPublicKey,
                                 });
-                                setAuthOverlayActive(false);
+                                setIsUserAuthenticated(true);
                                 // This is a hack
                                 refreshPage();
                             }}

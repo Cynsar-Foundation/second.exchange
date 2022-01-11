@@ -1,37 +1,37 @@
 import {
-    useAuthModalValue,
+    useAuthModalContext,
     AuthModalProvider
 } from './auth-modal-context';
 
 import {
-    useKeyModalValue,
+    useKeyModalContext,
     KeyModalProvider
 } from './key-modal-context';
 
 import {
-    useMetarootModalValue,
+    useMetarootModalContext,
     MetarootModalProvider
 } from './metaroot-modal-context';
 
 import {
-    useUserAuthValue,
+    useUserAuthContext,
     UserAuthProvider
 } from './user-auth-context';
 
 import {
-    useSessionKeyValue,
+    useSessionKeyContext,
     SessionKeyProvider
 } from './session-key-context';
 
 export {
-    useAuthModalValue,
+    useAuthModalContext,
     AuthModalProvider,
-    useKeyModalValue,
+    useKeyModalContext,
     KeyModalProvider,
-    useUserAuthValue,
+    useUserAuthContext,
     UserAuthProvider,
-    useMetarootModalValue,
+    useMetarootModalContext,
     MetarootModalProvider,
-    useSessionKeyValue,
+    useSessionKeyContext,
     SessionKeyProvider
 };

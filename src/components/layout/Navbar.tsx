@@ -3,15 +3,15 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import { KeyAuthModal } from "../KeyAuthModal";
-import { useAuthModalValue } from "../../context";
-import { useUserAuthValue } from "../../context";
+import { useAuthModalContext } from "../../context";
+import { useUserAuthContext } from "../../context";
 
 import MetaMaskLogo from "../../assets/images/metamask.svg";
 
 export const Navbar = () => {
     const { authOverlayActive, setAuthOverlayActive } =
-        useAuthModalValue();
-    const { isUserAuthenticated } = useUserAuthValue();
+        useAuthModalContext();
+    const { isUserAuthenticated } = useUserAuthContext();
 
     useEffect(() => {
         setAuthOverlayActive(false);
