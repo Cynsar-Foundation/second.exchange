@@ -13,3 +13,4 @@ declare module '@editorjs/checklist';
 declare module '@editorjs/delimiter';
 declare module '@editorjs/inline-code';
 declare module '@editorjs/simple-image';
+declare module 'nostr-tools';

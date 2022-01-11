@@ -1,6 +1,8 @@
 import { relayPool } from 'nostr-tools'
 import { FC, useReducer } from 'react'
 import { createContext } from 'vm'
+import { RelayAction, RelayState } from './NostrTypes'
+
 
 const initialRelayState = {
     pool: relayPool()
@@ -9,7 +11,7 @@ const initialRelayState = {
 const RelayContext = createContext(initialRelayState)
 
 export const RelayProvider: FC = ({ children }) => {
-    const [state, dispatch] = useReducer((state, action) => {
+    const [state, dispatch] = useReducer((state: RelayState, action: RelayAction) => {
         const currentState = { ...state };
         switch (action.type) {
             default:
