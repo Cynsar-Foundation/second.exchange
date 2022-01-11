@@ -592,14 +592,14 @@ nav {
         display: block;
         font-weight: normal;
         font-family: 'Courier New', Courier, monospace;
-        width: 250px;
+        width: 500px;
         white-space: normal;
         word-break: break-word;
     }
 
     &__generated-key-tag {
         font-family: Nunito-SemiBold;
-        line-height: 30px;
+        line-height: 40px;
     }
 }
 
@@ -622,5 +622,19 @@ nav {
 
     &__button:hover {
         background-color: #F4F4F4;
+    }
+}
+
+
+.key-modal {
+    &__subtitle {
+        font-family: Nunito-SemiBold;
+    }
+    &__body {
+        text-align: left;
+        margin-top: 10px;
+    }
+    &__info {
+        font-size: 13px;
     }
 }

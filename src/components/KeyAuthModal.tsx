@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useLayoutEffect } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import {
     generateSeedWords,
@@ -9,7 +9,9 @@ import {
 import { getPublicKey } from "nostr-tools";
 
 import { useSessionKeyValue, useUserAuthValue } from "../context";
-import { useWalletModalValue } from "../context";
+import { useAuthModalValue } from "../context";
+import { useKeyModalValue } from "../context";
+import { UserKeyModal } from "./UserKeyModal";
 
 const isKey = (key: any) => {
     return key?.toLowerCase()?.match(/^[0-9a-f]{64}$/);
@@ -36,8 +38,8 @@ export const KeyAuthModal = () => {
     const [isKeyValidated, setIsKeyValidated] = useState(false);
 
     const { sessionKey, setSessionKey } = useSessionKeyValue();
-    const { walletOverlayActive, setWalletOverlayActive } =
-        useWalletModalValue();
+    const { setAuthOverlayActive } = useAuthModalValue();
+    const { keyOverlayActive, setKeyOverlayActive } = useKeyModalValue();
     const { isUserAuthenticated, setIsUserAuthenticated } = useUserAuthValue();
 
     function toHexString(byteArray: Uint8Array) {
@@ -46,30 +48,49 @@ export const KeyAuthModal = () => {
         }).join("");
     }
 
-    var userEnteredKey = "";
+    const firstUpdate = useRef(true);
+    useLayoutEffect(() => {
+        if(firstUpdate.current) {
+            firstUpdate.current = false;
+            return;
+        }
 
-    const generateKeys = () => {
-        const mnemonic = generateSeedWords();
-        const seed = seedFromWords(mnemonic);
-        const privKey = privateKeyFromSeed(seed);
-        const pubKey = toHexString(getPublicKey(privKey));
-        userEnteredKey !== '' ? setUserMnemonic(userEnteredKey) : setUserMnemonic(mnemonic);
-        setUserPrivateKey(privKey);
-        setUserPublicKey(pubKey);
-        setSessionKey({ mnemonic: mnemonic, privKey: privKey, pubKey: pubKey });
-        return [privKey, pubKey];
-    };
+        var seed;
+        if(userMnemonic !== null)
+        {
+            seed = seedFromWords(userMnemonic);
+            setUserPrivateKey(privateKeyFromSeed(seed));
+        }
+    }, [userMnemonic, userPrivateKey]);
 
-    useEffect(() => {
-        localStorage.setItem("user-auth", JSON.stringify(sessionKey));
-    }, [sessionKey]);
+    useLayoutEffect(() => {
+        if(firstUpdate.current) {
+            firstUpdate.current = false;
+            return;
+       }
+
+        if(userPrivateKey !== undefined)
+            setUserPublicKey(toHexString(getPublicKey(userPrivateKey)));
+    }, [userPrivateKey]);
+
+    useLayoutEffect(() => {
+        if(firstUpdate.current) {
+            firstUpdate.current = false;
+            return;
+        }
+
+        if(isUserAuthenticated)
+        {
+            localStorage.setItem("user-auth", JSON.stringify(sessionKey));
+        }
+    }, [isUserAuthenticated, sessionKey]);
 
     return (
         <div className="wallet-modal__top-level">
             <div className="wallet-modal__container">
                 <button
                     className="wallet-modal__close-button"
-                    onClick={() => setWalletOverlayActive(!walletOverlayActive)}
+                    onClick={() => setAuthOverlayActive(false)}
                 >
                     <IoCloseOutline size={25} />
                 </button>
@@ -90,10 +111,9 @@ export const KeyAuthModal = () => {
                                 className="key-setup__input-box"
                                 type="text"
                                 onChange={(e) => {
-                                    if (e.target.value.length === 15) {
+                                    if(e.target.value.split(' ').length === 12) {
                                         if (isKeyValid(e.target.value)) {
-                                            userEnteredKey = e.target.value;
-                                            generateKeys();
+                                            setUserMnemonic(e.target.value);
                                             setIsKeyValidated(true);
                                         }
                                     }
@@ -103,7 +123,7 @@ export const KeyAuthModal = () => {
                         <button
                             className="key-setup__generate-button"
                             onClick={() => {
-                                generateKeys();
+                                setUserMnemonic(generateSeedWords());
                                 setIsKeyValidated(true);
                             }}
                         >
@@ -114,38 +134,18 @@ export const KeyAuthModal = () => {
                             disabled={!isKeyValidated}
                             onClick={() => {
                                 setIsUserAuthenticated(true);
+                                setSessionKey({
+                                    mnemonic: userMnemonic,
+                                    privKey: userPrivateKey,
+                                    pubKey: userPublicKey,
+                                });
+                                setAuthOverlayActive(false);
                                 // This is a hack
                                 refreshPage();
                             }}
                         >
                             Enter
                         </button>
-                        {(isKeyValidated || userEnteredKey !== "") && (
-                            <div className="key-setup__generated-key">
-                                <hr />
-                                <div className="key-setup__generated-key-title">
-                                    Copy and save these keys safe!
-                                </div>
-                                <span className="key-setup__generated-key-value">
-                                    <span className="key-setup__generated-key-tag">
-                                        Your seed
-                                    </span>{" "}
-                                    <br />
-                                    {/* Need to add these in a copy text block */}
-                                    {userMnemonic} <br />
-                                    <span className="key-setup__generated-key-tag">
-                                        Your private key
-                                    </span>{" "}
-                                    <br />
-                                    {userPrivateKey} <br />
-                                    <span className="key-setup__generated-key-tag">
-                                        Your public key
-                                    </span>{" "}
-                                    <br />
-                                    {userPublicKey}
-                                </span>
-                            </div>
-                        )}
                     </div>
                 ) : (
                     <div className="delete-local-storage">
@@ -166,6 +166,7 @@ export const KeyAuthModal = () => {
                 )}
                 <hr />
             </div>
+            { keyOverlayActive && <UserKeyModal />}
         </div>
     );
 };

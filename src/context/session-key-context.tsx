@@ -4,7 +4,7 @@ const defaultSessionState = {
     sessionKey: localStorage.getItem("user-auth")
         ? localStorage.getItem("user-auth")
         : null,
-    setSessionKey: (isUserAuthenticated: any) => {},
+    setSessionKey: (sessionKey: any) => {},
 };
 
 export const SessionKeyContext = createContext(defaultSessionState);
