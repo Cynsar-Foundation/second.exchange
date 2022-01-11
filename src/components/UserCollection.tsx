@@ -1,4 +1,4 @@
-import React from "react";
+import { Col, Row } from "antd";
 
 export const UserCollection = () => {
   const userData = [
@@ -49,18 +49,22 @@ export const UserCollection = () => {
     },
   ];
   return (
-    <div className="row m-0 justify-content-center">
-      <div className=" col-xxl-10 col-xl-10 col-md-10 col-sm-12 col-xs-12">
-        <div className="row gy-5 mt-0">
+    <Row justify="center">
+      <Col xxl={22} xl={22} md={22} sm={24} xs={24}>
+        <Row gutter={20} className="user-collection">
           {userData.map((data) => {
             return (
-              <div className="col-xxl-2 col-sm-12 my-3">
-                <img className="w-100" src={data.Image} alt={data.Name} />
-              </div>
+              <Col xxl={4} xl={4} lg={4} md={4} sm={24} xs={24}>
+                <img
+                  className="user-collection-img"
+                  src={data.Image}
+                  alt={data.Name}
+                />
+              </Col>
             );
           })}
-        </div>
-      </div>
-    </div>
+        </Row>
+      </Col>
+    </Row>
   );
 };
