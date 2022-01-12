@@ -5,16 +5,10 @@ const defaultState = {
     setIsUserAuthenticated: (isUserAuthenticated: boolean) => {}
 }
 
-export const UserAuthContext = createContext(defaultState);
+const UserAuthContext = createContext(defaultState);
 
 export const UserAuthProvider: FC = ({ children }) => {
     const [isUserAuthenticated, setIsUserAuthenticated] = useState(defaultState.isUserAuthenticated);
-
-    const getKeys = () => {
-        if(isUserAuthenticated)
-            // @ts-ignore
-            return JSON.parse(localStorage.getItem('user-auth'));
-    }
 
     return(
         <UserAuthContext.Provider value={{ isUserAuthenticated, setIsUserAuthenticated }}>
@@ -23,4 +17,4 @@ export const UserAuthProvider: FC = ({ children }) => {
     );
 };
 
-export const useUserAuthValue = () => useContext(UserAuthContext);
+export const useUserAuthContext = () => useContext(UserAuthContext);

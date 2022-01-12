@@ -8,14 +8,22 @@ import { MetarootModal } from "../MetarootModal";
 import { UserInfoSectionRect } from "../UserInfoSectionRect";
 import { UserProfileSection } from "../UserProfileSection";
 import { SidebarButton } from "../SidebarButton";
-import { useMetarootModalValue } from "../../context";
+import { UserKeyModal } from '../UserKeyModal';
+import { useMetarootModalContext } from "../../context";
+import { useKeyModalContext } from "../../context";
+
 
 import FemaleAvatar from "../../assets/images/undraw-female-avatar.svg";
 import NFTSymbol from "../../assets/images/nft-symbol.svg";
 
 export const Sidebar = () => {
-    const { metarootOverlayActive } = useMetarootModalValue();
+    const { metarootOverlayActive } = useMetarootModalContext();
+    const { setKeyOverlayActive, keyOverlayActive } = useKeyModalContext();
     const userNFTs = 55;
+
+    const handleYourKeys = () => {
+        setKeyOverlayActive(!keyOverlayActive);
+    }
 
     return (
         <div className="sidebar-container">
@@ -41,10 +49,12 @@ export const Sidebar = () => {
                 />
                 <SidebarButton 
                     ButtonIcon={<IoMdSettings size={30}/>}
-                    ButtonText={"Settings"}
+                    ButtonText={"Your Keys"}
+                    ButtonFunction={handleYourKeys}
                 />
             </div>
             {metarootOverlayActive && <MetarootModal />}
+            {keyOverlayActive && <UserKeyModal />}
         </div>
     );
 };

@@ -1,23 +1,37 @@
 import {
-    useWalletModalValue,
-    WalletModalProvider
-} from './wallet-modal-context';
+    useAuthModalContext,
+    AuthModalProvider
+} from './auth-modal-context';
 
 import {
-    useMetarootModalValue,
+    useKeyModalContext,
+    KeyModalProvider
+} from './key-modal-context';
+
+import {
+    useMetarootModalContext,
     MetarootModalProvider
 } from './metaroot-modal-context';
 
 import {
-    useUserAuthValue,
+    useUserAuthContext,
     UserAuthProvider
 } from './user-auth-context';
 
+import {
+    useSessionKeyContext,
+    SessionKeyProvider
+} from './session-key-context';
+
 export {
-    useWalletModalValue,
-    WalletModalProvider,
-    useUserAuthValue,
+    useAuthModalContext,
+    AuthModalProvider,
+    useKeyModalContext,
+    KeyModalProvider,
+    useUserAuthContext,
     UserAuthProvider,
-    useMetarootModalValue,
-    MetarootModalProvider
+    useMetarootModalContext,
+    MetarootModalProvider,
+    useSessionKeyContext,
+    SessionKeyProvider
 };

@@ -3,18 +3,18 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import { KeyAuthModal } from "../KeyAuthModal";
-import { useWalletModalValue } from "../../context";
-import { useUserAuthValue } from "../../context";
+import { useAuthModalContext } from "../../context";
+import { useUserAuthContext } from "../../context";
 
 import MetaMaskLogo from "../../assets/images/metamask.svg";
 
 export const Navbar = () => {
-    const { walletOverlayActive, setWalletOverlayActive } =
-        useWalletModalValue();
-    const { isUserAuthenticated } = useUserAuthValue();
+    const { authOverlayActive, setAuthOverlayActive } =
+        useAuthModalContext();
+    const { isUserAuthenticated } = useUserAuthContext();
 
     useEffect(() => {
-        setWalletOverlayActive(false);
+        setAuthOverlayActive(false);
     }, [isUserAuthenticated]);
 
     // When on custom domain change Link's "to" value to '/route'
@@ -48,7 +48,7 @@ export const Navbar = () => {
                             ? "wallet-connected-button"
                             : "wallet-connect-button"
                     }
-                    onClick={() => setWalletOverlayActive(!walletOverlayActive)}
+                    onClick={() => setAuthOverlayActive(!authOverlayActive)}
                 >
                     {isUserAuthenticated ? (
                         <img
@@ -66,7 +66,7 @@ export const Navbar = () => {
                     )}
                 </button>
             </nav>
-            {walletOverlayActive && <KeyAuthModal />}
+            { authOverlayActive && <KeyAuthModal /> }
         </div>
     );
 };

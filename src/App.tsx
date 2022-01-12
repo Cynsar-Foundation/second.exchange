@@ -11,9 +11,11 @@ import { BlogEditor } from "./views/BlogEditor";
 import { NotFound } from "./views/NotFound";
 import { BlogView } from "./views/BlogView";
 
-import { useUserAuthValue, UserAuthProvider } from "./context";
-import { WalletModalProvider } from "./context";
+import { KeyModalProvider } from "./context";
+import { useUserAuthContext, UserAuthProvider } from "./context";
+import { AuthModalProvider } from "./context";
 import { MetarootModalProvider } from "./context";
+import { SessionKeyProvider } from "./context";
 
 import { Navbar } from "./components/layout/Navbar";
 import { Sidebar } from "./components/layout/Sidebar";
@@ -22,75 +24,84 @@ import "./App.scss";
 import "react-toastify/dist/ReactToastify.css";
 
 export const App: FC = () => {
-    const { isUserAuthenticated } = useUserAuthValue();
+    const { isUserAuthenticated } = useUserAuthContext();
 
     // All routes should be '/' for custom domain
     return (
         <Router>
-            <UserAuthProvider>
-                <WalletModalProvider>
-                    <MetarootModalProvider>
-                        <ToastContainer />
-                        <Navbar />
-                        <div
-                            className={
-                                isUserAuthenticated ? "content-container" : ""
-                            }
-                        >
-                            {isUserAuthenticated && (
-                                <div className="sidebar-div">
-                                    <Sidebar />
+            <SessionKeyProvider>
+                <UserAuthProvider>
+                    <AuthModalProvider>
+                        <KeyModalProvider>
+                            <MetarootModalProvider>
+                                <ToastContainer />
+                                <Navbar />
+                                <div
+                                    className={
+                                        isUserAuthenticated
+                                            ? "content-container"
+                                            : ""
+                                    }
+                                >
+                                    {isUserAuthenticated && (
+                                        <div className="sidebar-div">
+                                            <Sidebar />
+                                        </div>
+                                    )}
+                                    <div
+                                        className={
+                                            isUserAuthenticated
+                                                ? "main-content-div"
+                                                : ""
+                                        }
+                                    >
+                                        <Routes>
+                                            <Route
+                                                path="*"
+                                                element={<NotFound />}
+                                            />
+                                            {!isUserAuthenticated && (
+                                                <Route
+                                                    path="/second.exchange"
+                                                    element={<Home />}
+                                                />
+                                            )}
+                                            {isUserAuthenticated && (
+                                                <Route
+                                                    path="/second.exchange"
+                                                    element={<Dashboard />}
+                                                />
+                                            )}
+                                            <Route
+                                                path="/second.exchange/explore"
+                                                element={<Explore />}
+                                            />
+                                            <Route
+                                                path="/second.exchange/creators"
+                                                element={<Creators />}
+                                            />
+                                            <Route
+                                                path="/second.exchange/community"
+                                                element={<Community />}
+                                            />
+                                            {isUserAuthenticated && (
+                                                <Route
+                                                    path="/second.exchange/write"
+                                                    element={<BlogEditor />}
+                                                />
+                                            )}
+                                            <Route
+                                                path="/second.exchange/read"
+                                                element={<BlogView />}
+                                            />
+                                        </Routes>
+                                    </div>
                                 </div>
-                            )}
-                            <div
-                                className={
-                                    isUserAuthenticated
-                                        ? "main-content-div"
-                                        : ""
-                                }
-                            >
-                                <Routes>
-                                    <Route path="*" element={<NotFound />} />
-                                    {!isUserAuthenticated && (
-                                        <Route
-                                            path="/second.exchange"
-                                            element={<Home />}
-                                        />
-                                    )}
-                                    {isUserAuthenticated && (
-                                        <Route
-                                            path="/second.exchange"
-                                            element={<Dashboard />}
-                                        />
-                                    )}
-                                    <Route
-                                        path="/second.exchange/explore"
-                                        element={<Explore />}
-                                    />
-                                    <Route
-                                        path="/second.exchange/creators"
-                                        element={<Creators />}
-                                    />
-                                    <Route
-                                        path="/second.exchange/community"
-                                        element={<Community />}
-                                    />
-                                    {isUserAuthenticated && (
-                                        <Route
-                                            path="/second.exchange/write"
-                                            element={<BlogEditor />}
-                                        />
-                                    )}
-                                    <Route
-                                        path="/second.exchange/read"
-                                        element={<BlogView />}
-                                    />
-                                </Routes>
-                            </div>
-                        </div>
-                    </MetarootModalProvider>
-                </WalletModalProvider>
-            </UserAuthProvider>
+                            </MetarootModalProvider>
+                        </KeyModalProvider>
+                    </AuthModalProvider>
+                </UserAuthProvider>
+            </SessionKeyProvider>
         </Router>
     );
 };
