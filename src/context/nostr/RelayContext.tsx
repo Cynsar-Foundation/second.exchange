@@ -2,7 +2,6 @@ import { relayPool } from 'nostr-tools'
 import { FC, useReducer } from 'react'
 import { createContext } from 'vm'
 import { RelayAction, RelayState } from './NostrTypes'
-import { pool } from './pool'
 
 
 const initialRelayState = {
