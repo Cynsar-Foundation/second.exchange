@@ -9,6 +9,7 @@ import { Creators } from "./views/Creators";
 import { Community } from "./views/Community";
 import { Dashboard } from "./views/Dashboard";
 import { BlogEditor } from "./views/BlogEditor";
+import { BlogView } from './views/BlogView';
 
 import { WalletModalProvider } from "./context";
 import { MetarootModalProvider } from "./context";
