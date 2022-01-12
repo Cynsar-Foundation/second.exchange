@@ -1,11 +1,11 @@
 import React from 'react';
 import { IoCloseOutline } from "react-icons/io5";
 
-import { useMetarootModalValue } from "../context";
+import { useMetarootModalContext } from "../context";
 
 export const MetarootModal = () => {
     const { metarootOverlayActive, setMetarootOverlayActive } =
-    useMetarootModalValue();
+    useMetarootModalContext();
     return(
         <div className='metaroot-modal__top-level'>
             <div className='metaroot-modal__container'>
