@@ -24,7 +24,7 @@ import {
 } from './session-key-context';
 
 import {
-    useRelayDispatch,
+    useRelayContext,
     RelayProvider
 } from './nostr/RelayContext';
 
@@ -39,6 +39,6 @@ export {
     MetarootModalProvider,
     useSessionKeyContext,
     SessionKeyProvider,
-    useRelayDispatch,
+    useRelayContext,
     RelayProvider
 };

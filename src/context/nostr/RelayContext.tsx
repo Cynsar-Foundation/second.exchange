@@ -2,22 +2,17 @@ import { relayPool } from 'nostr-tools'
 import { FC, useContext, useReducer, createContext } from 'react'
 import { RelayAction, RelayState } from './NostrTypes'
 
-interface IRelay {
-    dispatch: RelayAction
-}
-export const useRelayDispatch = () => useContext(RelayContext);
-
-
-const relaySetup = () => {
-}
-
 const initialRelayState = {
     pool: relayPool(),
-    // The issues is here, this takes a value/function that has the type <RelayAction> but I don't know what function we need to use
-    dispatch: relaySetup()
 }
 
-export const RelayContext = createContext(initialRelayState)
+export const RelayContext = createContext<{
+    state: RelayState;
+    dispatch: React.Dispatch<RelayAction>;
+}>({
+    state: initialRelayState,
+    dispatch: () => null,
+})
 
 const mainReducer = (state: RelayState, action: RelayAction) => {
     switch (action.type) {
@@ -35,7 +30,7 @@ const mainReducer = (state: RelayState, action: RelayAction) => {
 }
 
 export const RelayProvider: FC = ({ children }) => {
-    const [state, dispatch] = useReducer(mainReducer, initialRelayState)
+    const [state, dispatch] = useReducer(mainReducer, initialRelayState);
 
     return (
         <RelayContext.Provider value={{ state, dispatch }}>
@@ -43,3 +38,5 @@ export const RelayProvider: FC = ({ children }) => {
         </RelayContext.Provider>
     );
 };
+
+export const useRelayContext = () => useContext(RelayContext);
