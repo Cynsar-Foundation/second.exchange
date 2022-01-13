@@ -16,7 +16,7 @@ import { useUserAuthContext, UserAuthProvider } from "./context";
 import { AuthModalProvider } from "./context";
 import { MetarootModalProvider } from "./context";
 import { SessionKeyProvider } from "./context";
-import { RelayProvider, useRelayDispatch } from './context';
+import { RelayProvider } from './context';
 
 import { Navbar } from "./components/layout/Navbar";
 import { Sidebar } from "./components/layout/Sidebar";
@@ -27,12 +27,12 @@ import "react-toastify/dist/ReactToastify.css";
 export const App: FC = () => {
     const { isUserAuthenticated } = useUserAuthContext();
     // @ts-ignore
-     const { dispatch } = useRelayDispatch();
+//     const { dispatch } = useRelayDispatch();
 
-    useEffect(() => {
-        dispatch({ type: "addRelay", url: "wss://relayer.fiatjaf.com"});
-        dispatch({ type: "addRelay", url: "wss://nostr-pub.wellorder.net"});
-    })
+    // useEffect(() => {
+    //     dispatch({ type: "addRelay", url: "wss://relayer.fiatjaf.com"});
+    //     dispatch({ type: "addRelay", url: "wss://nostr-pub.wellorder.net"});
+    // })
 
     // All routes should be '/' for custom domain
     return (
