@@ -175,7 +175,7 @@ nav {
 
       border: 2px solid black;
       font-family: Nunito-Bold;
-      margin-top: -12px;
+      margin-top: -2px;
       padding: 10px;
   }
 
@@ -620,6 +620,7 @@ nav {
       @include regular-button(80px);
   }
 
+
   &__button:hover {
       background-color: #F4F4F4;
   }
@@ -645,5 +646,13 @@ nav {
 
   &__proceed-button:hover {
       background-color: #F4F4F4;
+  }
+}
+
+.user-collection {
+  margin-top: 50px !important;
+  .user-collection-img {
+    width: 100%;
+    margin-top: 20px;
   }
 }

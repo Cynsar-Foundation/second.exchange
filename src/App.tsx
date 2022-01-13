@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import { useMoralis } from "react-moralis";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { Home } from "./views/Home";
