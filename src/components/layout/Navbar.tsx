@@ -50,7 +50,7 @@ export const Navbar = () => {
                     }
                     onClick={() => setAuthOverlayActive(!authOverlayActive)}
                 >
-                    {isUserAuthenticated &&  "Connect"}
+                    {!isUserAuthenticated &&  "Connect"}
                     {isUserAuthenticated ? (
                         <div className="wallet-connected-text">Connected</div>
                     ) : (

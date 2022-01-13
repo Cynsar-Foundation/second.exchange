@@ -1,21 +1,21 @@
 @font-face {
   font-family: Nunito-Regular;
-  src: url("./assets/fonts/Nunito-Regular.ttf");
+  src: url('./assets/fonts/Nunito-Regular.ttf');
 }
 
 @font-face {
   font-family: Nunito-Bold;
-  src: url("./assets/fonts/Nunito-Bold.ttf");
+  src: url('./assets/fonts/Nunito-Bold.ttf');
 }
 
 @font-face {
   font-family: Nunito-ExtraBold;
-  src: url("./assets/fonts/Nunito-ExtraBold.ttf");
+  src: url('./assets/fonts/Nunito-ExtraBold.ttf');
 }
 
 @font-face {
   font-family: Nunito-SemiBold;
-  src: url("./assets/fonts/Nunito-SemiBold.ttf");
+  src: url('./assets/fonts/Nunito-SemiBold.ttf');
 }
 
 @mixin regular-button($width: 50px) {
@@ -59,92 +59,75 @@ body {
 }
 
 .wallet-modal {
+
   &__top-level {
-    background: rgba(49, 49, 49, 0.7);
-    position: fixed;
-    margin: auto;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    transition: opacity 0.2s ease-in;
-    z-index: 1;
+      background: rgba(49, 49, 49, 0.7);
+      position: fixed;
+      margin: auto;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      transition: opacity 0.2s ease-in;
+      z-index: 1;
   }
 
-  &__buttons:hover {
-    cursor: pointer;
-    background-color: black;
-    transform: scale(1.02);
+  &__container {
+      @include regular-modal(400px);
+
+      background-color: white;
+      padding: 20px;
+      z-index: 2000;
   }
 
-  &__title {
-    text-align: center;
-    font-size: 17px;
-    font-family: Nunito-Bold;
-    margin-bottom: 12px;
-  }
-
-  &__header {
-    position: relative;
+  &__buttons-container {
+      margin-top: 15px;
+      margin-bottom: 15px;
   }
 
   &__buttons {
-    border: none;
-    display: block;
-    padding: 12px;
-    margin: 10px;
-    background-color: rgb(24, 24, 24);
-    text-align: center;
-    min-width: 270px;
-    margin: 10px auto;
+      @include regular-button(270px);
 
-    &-active {
-      background-color: white;
-      color: black;
-    }
+      border: none;
+      display: block;
+      padding: 12px;
+      margin: 10px;
+      background-color: rgb(24, 24, 24);
+      text-align: center;
+
+      &-active {
+          background-color: white;
+          color: black;
+      }
   }
 
   &__buttons:hover {
-    cursor: pointer;
-    background-color: black;
-    transform: scale(1.02);
+      cursor: pointer;
+      background-color: black;
+      transform: scale(1.02);
   }
 
   &__title {
-    text-align: center;
-    font-size: 17px;
-    font-family: Nunito-Bold;
-    margin-bottom: 12px;
+      text-align: center;
+      font-size: 17px;
+      font-family: Nunito-Bold;
+      margin-bottom: 12px;
   }
 
   &__header {
-    position: relative;
+      position: relative;
   }
 
   &__close-button {
-    @include regular-button();
+      @include regular-button();
 
-    border: none;
-    cursor: pointer;
-    position: absolute;
-    top: 10px;
-    right: 0;
-    z-index: 2100;
-  }
-  &__container {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    &__modal {
-      width: fit-content;
-      text-align: center;
-      margin: auto;
-      background: #fff;
-      position: relative;
-      padding: 25px;
-    }
+      border: none;
+      cursor: pointer;
+      position: absolute;
+      top: 18px;
+      right: 0;
+      z-index: 2100;
   }
 }
 
@@ -152,9 +135,7 @@ nav {
   padding: 20px 50px 15px 50px;
   display: flex;
   justify-content: space-between;
-  @media (max-width: 425px) {
-    padding: 20px 15px 15px 15px;
-  }
+  height: 40px;
 }
 
 .selected-nav-option {
@@ -169,130 +150,101 @@ nav {
   text-align: center;
 }
 
-.drawer-item {
-  text-decoration: none;
-  color: black !important;
-  font-family: Nunito-Bold;
-  margin-left: 0;
-  text-align: center;
-  padding: 15px 0;
-  display: block;
-}
-.mobile-connect-btn {
-  text-align: center;
-  margin-top: 10px;
-}
-.nav-btn {
-  background-color: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  > img {
-    width: 19px;
-  }
-}
-.wallet-connect-button-mobile {
-  @include regular-button(140px);
-
-  border: 2px solid black;
-  font-family: Nunito-Bold;
-  margin-top: -2px;
-  padding: 10px;
-}
 .navbar-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0 20px;
-  padding: 15px 0;
+
   .nav-item {
-    text-decoration: none;
-    color: black !important;
-    font-family: Nunito-Bold;
-    margin-left: 120px;
+      text-decoration: none;
+      color: black;
+      font-family: Nunito-Bold;
+      margin-left: 120px;
   }
 
   .nav-logo {
-    font-size: 25px;
-    text-decoration: none;
-    font-family: Nunito-Bold;
-    color: black;
+      font-size: 25px;
+      text-decoration: none;
+      font-family: Nunito-Bold;
+      color: black;
   }
 
   .nav-options {
-    margin-top: 8.5px;
+      margin-top: 8.5px;
   }
 
   .wallet-connect-button {
-    @include regular-button(140px);
+      @include regular-button(140px);
 
-    border: 2px solid black;
-    font-family: Nunito-Bold;
-    margin-top: -2px;
-    padding: 10px;
+      border: 2px solid black;
+      font-family: Nunito-Bold;
+      margin-top: -12px;
+      padding: 10px;
   }
 
   .wallet-connect-button:hover {
-    background-color: #f4f4f4;
+      background-color: #F4F4F4;
   }
 
   .wallet-connected-button {
-    @include regular-button(140px);
+      @include regular-button(140px);
 
-    .WalletConnectButton:hover {
-      background-color: #f4f4f4;
-    }
+      border: 2px solid black;
+      font-family: Nunito-Bold;
+      margin-top: -2px;
+      padding: 10px;
+      text-align: center;
+  }
 
-    .wallet-connected-button:hover {
-      background-color: #f4f4f4;
-    }
+  .wallet-connected-button:hover {
+      background-color: #F4F4F4;
+  }
 
-    .wallet-connected-text {
+  .wallet-connected-text {
       display: inline-block;
       margin-left: 10px;
-      color: #00a32e;
+      color: #00A32E;
       font-family: Nunito-Bold;
-    }
+  }
 
-    .wallet-connected-figure {
+  .wallet-connected-figure {
       display: inline-block;
       height: 20px;
       width: 20px;
       vertical-align: middle;
-    }
   }
+}
 
-  .main-content {
-    margin-top: 155px;
-    cursor: default;
-  }
+.main-content {
+  margin-top: 155px;
+  cursor: default;
+}
 
-  .subtitle {
-    font-family: Nunito-Bold;
-    letter-spacing: 3.5px;
-    font-size: 15px;
-    color: #777777;
-    text-align: center;
-  }
+.subtitle {
+  font-family: Nunito-Bold;
+  letter-spacing: 3.5px;
+  font-size: 15px;
+  color: #777777;
+  text-align: center;
+  ;
+}
 
-  .title-line {
-    margin-top: 30px;
-    font-family: Nunito-ExtraBold;
-    font-size: 40px;
-    text-align: center;
-  }
+.title-line {
+  margin-top: 30px;
+  font-family: Nunito-ExtraBold;
+  font-size: 40px;
+  text-align: center;
+}
 
-  .profile-container {
-    position: fixed;
-    bottom: 40px;
-    right: 60px;
-  }
+.profile-container {
+  position: fixed;
+  bottom: 40px;
+  right: 60px;
+}
 
-  .home-images {
-    margin-top: 60px;
-    text-align: center;
-    justify-content: space-evenly;
+.home-images {
+  margin-top: 60px;
+  text-align: center;
+  justify-content: space-evenly;
 
-    &__item {
+  &__item {
       object-fit: cover;
       background-color: rgb(215, 246, 255);
       border: 1px;
@@ -300,175 +252,136 @@ nav {
       margin: 20px;
       height: 100px;
       width: 100px;
-    }
   }
+}
 
-  .wallet-option-logos {
-    display: block;
-    height: 40px;
-    width: 40px;
-    margin-left: 10px;
-    padding-bottom: 8px;
-  }
+.wallet-option-logos {
+  display: block;
+  height: 40px;
+  width: 40px;
+  margin-left: 10px;
+  padding-bottom: 8px;
+}
 
-  .wallet-option-text {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    margin-top: -34px;
-    margin-left: 75px;
-    color: white;
-    font-family: Nunito-Regular;
-    text-transform: uppercase;
-    font-size: 16px;
-    letter-spacing: 1.5px;
-    z-index: 2101;
-  }
+.wallet-option-text {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-top: -34px;
+  margin-left: 75px;
+  color: white;
+  font-family: Nunito-Regular;
+  text-transform: uppercase;
+  font-size: 16px;
+  letter-spacing: 1.5px;
+  z-index: 2101;
+}
 
-  .wallet-option-ops {
-    display: flex;
-    justify-content: center;
-    margin-top: 8px;
-  }
+.wallet-option-ops {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
 
-  .wallet-option-ops-button {
-    cursor: pointer;
-    background-color: white;
-    font-family: Nunito-Bold;
-    margin: 0;
-    font-size: 14px;
-    border: 1.5px solid black;
-    padding: 4px;
-  }
+.wallet-option-ops-button {
+  cursor: pointer;
+  background-color: white;
+  font-family: Nunito-Bold;
+  margin: 0;
+  font-size: 14px;
+  border: 1.5px solid black;
+  padding: 4px;
+}
 
-  .wallet-option-ops-button:hover {
-    background-color: #f4f4f4;
-  }
+.wallet-option-ops-button:hover {
+  background-color: #F4F4F4;
+}
 
-  .sidebar-container {
-    align-items: center;
-    text-align: center;
-    border-right: 1px solid #808080;
+.sidebar-container {
+  align-items: center;
+  text-align: center;
+  border-right: 1px solid #808080;
 
-    .user-details {
+  .user-details {
       padding-top: 20px;
 
       .user-profile-pic-sidebar {
-        display: inline-block;
-        height: 50px;
-        width: 50px;
-        transform: translate(0, 8%);
+          display: inline-block;
+          height: 50px;
+          width: 50px;
+          transform: translate(0, 8%);
       }
-    .sidebar-section {
-        margin: 0 auto;
-        margin-top: 25px;
-        padding: 5px;
-        background-color: #F4F4F4;
-        line-height: 30px;
-        font-family: Nunito-SemiBold;
-        width: 210px;
-        margin-bottom: 126px;
-
-        &__title {
-            font-size: 13px;
-            color: #808080;
-        }
-
-        &__value {
-            font-size: 25px;
-        }
-
-        &__unit {
-            font-size: 12px;
-            color: #808080;
-            display: flex;
-            justify-content: center;
-        }
-
-        .avax-logo {
-            height: 15px;
-            width: 15px;
-            margin-right: 5px;
-            margin-top: 6px;
-        }
-
-        .NFT-logo {
-            width: 20px;
-            height: 20px;
-            margin-right: 0px;
-            margin-top: 3px;
-        }
-    }
 
       &__name-details {
-        display: inline-block;
-        margin-left: 13px;
-        transform: translate(0, -3%);
-        line-height: 24px;
+          display: inline-block;
+          margin-left: 13px;
+          transform: translate(0, -3%);
+          line-height: 24px;
       }
 
       &__details {
-        color: #858585;
-        font-size: 12px;
-        font-family: Nunito-SemiBold;
-        text-align: left;
-        margin-left: 1px;
+          color: #858585;
+          font-size: 12px;
+          font-family: Nunito-SemiBold;
+          text-align: left;
+          margin-left: 1px;
       }
 
       &__name {
-        font-size: 19px;
-        font-family: Nunito-Bold;
+          font-size: 19px;
+          font-family: Nunito-Bold;
       }
 
       &__plus {
-        display: inline-block;
-        margin-left: 18px;
-        transform: translate(0, -30%);
-        cursor: pointer;
+          display: inline-block;
+          margin-left: 18px;
+          transform: translate(0, -30%);
+          cursor: pointer;
       }
-    }
+  }
 
-    .sidebar-section {
+  .sidebar-section {
       margin: 0 auto;
       margin-top: 25px;
       padding: 5px;
-      background-color: #f4f4f4;
+      background-color: #F4F4F4;
       line-height: 30px;
       font-family: Nunito-SemiBold;
       width: 210px;
+      margin-bottom: 126px;
 
       &__title {
-        font-size: 13px;
-        color: #808080;
+          font-size: 13px;
+          color: #808080;
       }
 
       &__value {
-        font-size: 25px;
+          font-size: 25px;
       }
 
       &__unit {
-        font-size: 12px;
-        color: #808080;
-        display: flex;
-        justify-content: center;
+          font-size: 12px;
+          color: #808080;
+          display: flex;
+          justify-content: center;
       }
 
       .avax-logo {
-        height: 15px;
-        width: 15px;
-        margin-right: 5px;
-        margin-top: 6px;
+          height: 15px;
+          width: 15px;
+          margin-right: 5px;
+          margin-top: 6px;
       }
 
       .NFT-logo {
-        width: 20px;
-        height: 20px;
-        margin-right: 0px;
-        margin-top: 3px;
+          width: 20px;
+          height: 20px;
+          margin-right: 0px;
+          margin-top: 3px;
       }
-    }
+  }
 
-    .sidebar-buttons {
+  .sidebar-buttons {
       display: inline-block;
       text-align: justify;
       margin-top: 150px;
@@ -476,122 +389,16 @@ nav {
       margin-left: -120px;
 
       &__item {
-        display: flex;
-        margin-top: 30px;
-        cursor: pointer;
+          display: flex;
+          margin-top: 30px;
+          cursor: pointer;
       }
 
       &__text {
-        font-family: Nunito-Bold;
-        font-size: 18px;
-        margin-left: 20px;
+          font-family: Nunito-Bold;
+          font-size: 18px;
+          margin-left: 20px;
       }
-    }
-
-    &__name {
-      font-size: 19px;
-      font-family: Nunito-Bold;
-    }
-
-    &__plus {
-      display: inline-block;
-      margin-left: 18px;
-      transform: translate(0, -30%);
-      cursor: pointer;
-    }
-  }
-
-  .SidebarSection {
-    margin: 0 auto;
-    margin-top: 25px;
-    padding: 5px;
-    background-color: #f4f4f4;
-    line-height: 30px;
-    font-family: Nunito-SemiBold;
-    width: 210px;
-
-    &__title {
-      font-size: 13px;
-      color: #808080;
-    }
-
-    &__value {
-      font-size: 25px;
-    }
-
-    &__unit {
-      font-size: 12px;
-      color: #808080;
-      display: flex;
-      justify-content: center;
-    }
-
-    .AvaxLogo {
-      height: 15px;
-      width: 15px;
-      margin-right: 5px;
-      margin-top: 6px;
-    }
-}
-.blog-editor-container {
-    border: 1px solid #808080;
-
-    .blog-ops-button {
-        @include regular-button(100px);
-        font-size: 15px;
-        font-family: Nunito-SemiBold;
-        padding: 3px;
-        margin: 0 10px 10px 300px;
-    }
-  }
-
-  .SidebarButtons {
-    display: inline-block;
-    text-align: justify;
-    margin-top: 150px;
-    padding-bottom: 18px;
-    margin-left: -120px;
-
-    .blog-ops-button:hover {
-        background-color: #f4f4f4;
-    }
-}
-
-.blog-container {
-    border: 1px solid #808080;
-    padding: 20px;
-    height: 628px;
-    margin: 3px;
-}
-
-.key-setup {
-    white-space: pre;
-    margin-left: 10px;
-
-    &__title {
-        line-height: 38px;
-        font-size: 17px;
-        font-family: Nunito-Bold;
-    }
-
-    &__input {
-        line-height: 40px;
-    }
-
-    &__input-box {
-        width: 260px;
-        height: 20px;
-    }
-
-    &__generate-button {
-        @include regular-button(80px);
-        padding: 3px;
-        margin-top: 5px;
-    }
-
-    &__generate-button:hover {
-        background-color: #F4F4F4;
-    }
   }
 }
 
@@ -604,88 +411,57 @@ nav {
   height: 99%;
 
   .dashboard {
-    &__col-1 {
-      grid-template-rows: 3fr 1fr;
-    }
+      &__col-1 {
+          grid-template-rows: 3fr 1fr;
+      }
 
-    &__col-1-row-1 {
-      border: 1px solid #808080;
-      height: 59.5%;
-      margin-bottom: 3px;
-    }
+      &__col-1-row-1 {
+          border: 1px solid #808080;
+          height: 59.5%;
+          margin-bottom: 3px;
+      }
 
-    &__col-1-row-2 {
-      border: 1px solid #808080;
-      height: 39.455%;
-    }
+      &__col-1-row-2 {
+          border: 1px solid #808080;
+          height: 39.455%;
+      }
 
-    &__col-2 {
-      border: 1px solid #808080;
-    }
+      &__col-2 {
+          border: 1px solid #808080;
+      }
   }
 
   .dashboard-heading {
-    font-family: Nunito-Bold;
-    font-size: 20px;
+      font-family: Nunito-Bold;
+      font-size: 20px;
   }
 
   .create-section {
-    font-family: Nunito-SemiBold;
-    display: inline-block;
-    position: absolute;
-    top: 60%;
-    margin-left: 30px;
-    cursor: pointer;
+      font-family: Nunito-SemiBold;
+      display: inline-block;
+      position: absolute;
+      top: 60%;
+      margin-left: 30px;
+      cursor: pointer;
 
-    .create-options {
-      margin-left: 40px;
-      margin-top: 25px;
+      .create-options {
+          margin-left: 40px;
+          margin-top: 25px;
 
-      &__item {
-        margin-top: 25px;
-        color: #808080;
-        text-decoration: none;
+          &__item {
+              margin-top: 25px;
+              color: #808080;
+              text-decoration: none;
+          }
+
+          &__item:hover {
+              color: black;
+          }
+
+          &__item-text {
+              margin-left: 20px;
+          }
       }
-
-      &__item:hover {
-        color: black;
-      }
-
-      &__item-text {
-        margin-left: 20px;
-      }
-    }
-  }
-
-  .DashboardHeading {
-    font-family: Nunito-Bold;
-    font-size: 20px;
-  }
-
-  .CreateSection {
-    font-family: Nunito-SemiBold;
-    display: inline-block;
-    position: absolute;
-    top: 60%;
-    margin-left: 30px;
-    cursor: pointer;
-    .CreateOptions {
-      margin-left: 40px;
-      margin-top: 25px;
-      &__item {
-        margin-top: 25px;
-        color: #808080;
-        text-decoration: none;
-      }
-
-      &__item:hover {
-        color: black;
-      }
-
-      &__item-text {
-        margin-left: 20px;
-      }
-    }
   }
 }
 
@@ -706,96 +482,168 @@ nav {
 }
 
 .metaroot-modal {
+
   &__top-level {
-    background: rgba(49, 49, 49, 0.7);
-    position: fixed;
-    margin: auto;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    transition: opacity 0.2s ease-in;
-    z-index: 1;
+      background: rgba(49, 49, 49, 0.7);
+      position: fixed;
+      margin: auto;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      transition: opacity 0.2s ease-in;
+      z-index: 1;
+  }
+
+  &__container {
+      @include regular-modal(600px);
+
+      background-color: white;
+      padding: 20px;
+      z-index: 2000;
   }
 
   &__close-button {
-    @include regular-button();
+      @include regular-button();
 
-    border: none;
-    cursor: pointer;
-    position: absolute;
-    top: 18px;
-    right: 0;
-    z-index: 2100;
+      border: none;
+      cursor: pointer;
+      position: absolute;
+      top: 18px;
+      right: 0;
+      z-index: 2100;
   }
 }
-.blog-editor {
-  padding: 10px;
-  width: 75rem;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-
-  .blog-title {
-    margin-top: 60px;
-    left: 340px;
-    position: absolute;
-    border: none;
-    text-align: left;
-    font-size: 40px;
-  }
-
-  .blog-title:focus {
-    outline: none;
-  }
-
-  .blog-formatting-button {
-    @include regular-button(90px);
-    border: none;
-    background-color: #f4f4f4;
-    padding: 0.5rem 1rem;
-    font-family: Nunito-SemiBold;
-    margin: 0 3px 0 3px;
-    font-size: 12px;
-  }
-
-  .blog-formatting-button:hover {
-    background-color: white;
-  }
-
-  .DraftEditor-root {
-    border: 1px solid #eee;
-    margin: 2rem 0;
-    margin-top: 90px;
-  }
-
-  .DraftEditor-editorContainer {
-    padding: 1.5rem;
-  }
-
-  .public-DraftEditor-content {
-    min-height: 20rem;
-    cursor: text;
-    font-family: Nunito-Regular;
-  }
+.blog-editor-container {
+  border: 1px solid #808080;
 
   .blog-ops-button {
-    @include regular-button(100px);
-    font-size: 15px;
-    font-family: Nunito-SemiBold;
-    padding: 3px;
-    margin: 0 10px 10px 0;
+      @include regular-button(100px);
+      font-size: 15px;
+      font-family: Nunito-SemiBold;
+      padding: 3px;
+      margin: 0 10px 10px 300px;
   }
 
   .blog-ops-button:hover {
-    background-color: #f4f4f4;
+      background-color: #f4f4f4;
   }
 }
-.user-collection {
-  margin: 0 !important;
-  .user-collection-img {
-    width: 100%;
-    margin-top: 20px;
+
+.blog-container {
+  border: 1px solid #808080;
+  padding: 20px;
+  height: 628px;
+  margin: 3px;
+}
+
+.key-setup {
+  white-space: pre;
+  margin-left: 10px;
+
+  &__title {
+      line-height: 38px;
+      font-size: 17px;
+      font-family: Nunito-Bold;
+  }
+
+  &__input {
+      line-height: 40px;
+  }
+
+  &__input-box {
+      width: 260px;
+      height: 20px;
+  }
+
+  &__generate-button {
+      @include regular-button(80px);
+      padding: 3px;
+      margin-top: 5px;
+  }
+
+  &__generate-button:hover {
+      background-color: #F4F4F4;
+  }
+
+  &__proceed {
+      padding: 3px;
+      margin-left: 10px;
+      @include regular-button(80px);
+      margin-top: 5px;
+  }
+
+  &__proceed:hover {
+      background-color: #F4F4F4;
+  }
+
+  &__generated-key {
+      margin-top: 20px;
+      font-weight: 600;
+  }
+
+  &__generated-key-title {
+      margin-top: 15px;
+      margin-bottom: 8px;
+  }
+
+  &__generated-key-value {
+      display: block;
+      font-weight: normal;
+      font-family: 'Courier New', Courier, monospace;
+      width: 500px;
+      white-space: normal;
+      word-break: break-word;
+  }
+
+  &__generated-key-tag {
+      font-family: Nunito-SemiBold;
+      line-height: 40px;
+  }
+}
+
+.delete-local-storage {
+  display: block;
+  font-family: Nunito-Regular;
+  line-height: 25px;
+  margin: 20px;
+
+  &__title {
+      margin-bottom: 10px;
+      font-family: Nunito-Bold;
+  }
+
+  &__button {
+      margin-top: 8px;
+      padding: 5px;
+      @include regular-button(80px);
+  }
+
+  &__button:hover {
+      background-color: #F4F4F4;
+  }
+}
+
+
+.key-modal {
+  &__subtitle {
+      font-family: Nunito-SemiBold;
+  }
+  &__body {
+      text-align: left;
+      margin-top: 10px;
+  }
+  &__info {
+      font-size: 13px;
+  }
+
+  &__proceed-button {
+      @include regular-button(80px);
+      padding: 10px;
+  }
+
+  &__proceed-button:hover {
+      background-color: #F4F4F4;
   }
 }
