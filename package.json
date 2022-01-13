@@ -43,6 +43,7 @@
     "is-hotkey": "^0.2.0",
     "moralis": "^0.0.176",
     "node-sass": "6.0.0",
+    "nostr-tools": "^0.17.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-editor-js": "^2.0.6",

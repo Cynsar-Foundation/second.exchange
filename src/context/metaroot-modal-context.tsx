@@ -5,7 +5,7 @@ const defaultState = {
     setMetarootOverlayActive: (metarootOverlayActive: boolean) => {}
 }
 
-export const MetarootModalContext = createContext(defaultState);
+const MetarootModalContext = createContext(defaultState);
 
 export const MetarootModalProvider: FC = ({ children }) => {
     const [metarootOverlayActive, setMetarootOverlayActive] = useState(defaultState.metarootOverlayActive);
@@ -17,4 +17,4 @@ export const MetarootModalProvider: FC = ({ children }) => {
     );
 };
 
-export const useMetarootModalValue = () => useContext(MetarootModalContext);
+export const useMetarootModalContext = () => useContext(MetarootModalContext);

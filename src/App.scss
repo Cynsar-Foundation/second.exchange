@@ -359,6 +359,46 @@ nav {
         width: 50px;
         transform: translate(0, 8%);
       }
+    .sidebar-section {
+        margin: 0 auto;
+        margin-top: 25px;
+        padding: 5px;
+        background-color: #F4F4F4;
+        line-height: 30px;
+        font-family: Nunito-SemiBold;
+        width: 210px;
+        margin-bottom: 126px;
+
+        &__title {
+            font-size: 13px;
+            color: #808080;
+        }
+
+        &__value {
+            font-size: 25px;
+        }
+
+        &__unit {
+            font-size: 12px;
+            color: #808080;
+            display: flex;
+            justify-content: center;
+        }
+
+        .avax-logo {
+            height: 15px;
+            width: 15px;
+            margin-right: 5px;
+            margin-top: 6px;
+        }
+
+        .NFT-logo {
+            width: 20px;
+            height: 20px;
+            margin-right: 0px;
+            margin-top: 3px;
+        }
+    }
 
       &__name-details {
         display: inline-block;
@@ -492,12 +532,16 @@ nav {
       margin-right: 5px;
       margin-top: 6px;
     }
+}
+.blog-editor-container {
+    border: 1px solid #808080;
 
-    .NFTLogo {
-      width: 20px;
-      height: 20px;
-      margin-right: 0px;
-      margin-top: 3px;
+    .blog-ops-button {
+        @include regular-button(100px);
+        font-size: 15px;
+        font-family: Nunito-SemiBold;
+        padding: 3px;
+        margin: 0 10px 10px 300px;
     }
   }
 
@@ -508,16 +552,45 @@ nav {
     padding-bottom: 18px;
     margin-left: -120px;
 
-    &__item {
-      display: flex;
-      margin-top: 30px;
-      cursor: pointer;
+    .blog-ops-button:hover {
+        background-color: #f4f4f4;
+    }
+}
+
+.blog-container {
+    border: 1px solid #808080;
+    padding: 20px;
+    height: 628px;
+    margin: 3px;
+}
+
+.key-setup {
+    white-space: pre;
+    margin-left: 10px;
+
+    &__title {
+        line-height: 38px;
+        font-size: 17px;
+        font-family: Nunito-Bold;
     }
 
-    &__text {
-      font-family: Nunito-Bold;
-      font-size: 18px;
-      margin-left: 20px;
+    &__input {
+        line-height: 40px;
+    }
+
+    &__input-box {
+        width: 260px;
+        height: 20px;
+    }
+
+    &__generate-button {
+        @include regular-button(80px);
+        padding: 3px;
+        margin-top: 5px;
+    }
+
+    &__generate-button:hover {
+        background-color: #F4F4F4;
     }
   }
 }
