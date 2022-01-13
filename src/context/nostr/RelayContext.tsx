@@ -11,10 +11,14 @@ export const RelayContext = createContext<{
     dispatch: React.Dispatch<RelayAction>;
 }>({
     state: initialRelayState,
-    dispatch: () => null,
+    dispatch: () => { 
+        mainReducer(initialRelayState, {type: "addRelay", url: "wss://relayer.fiatjaf.com"})
+        mainReducer(initialRelayState, {type: "addRelay", url: "wss://nostr-pub.wellorder.net"})
+    },
 })
 
 const mainReducer = (state: RelayState, action: RelayAction) => {
+    console.log("here");
     switch (action.type) {
         case 'addRelay':
             return state.pool.addRelay(action.url, { read: true, write: true })

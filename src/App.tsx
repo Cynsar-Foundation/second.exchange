@@ -31,10 +31,7 @@ export const App: FC = () => {
 
     useEffect(() => {
         if(isUserAuthenticated)
-        {
-            dispatch({ type: "addRelay", url: "wss://relayer.fiatjaf.com"});
-            dispatch({ type: "addRelay", url: "wss://nostr-pub.wellorder.net"});
-        }
+            dispatch({ type: "addRelay", url: ""});
     }, [])
 
     // All routes should be '/' for custom domain

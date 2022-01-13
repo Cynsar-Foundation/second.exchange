@@ -3,13 +3,8 @@ import React from "react";
 import { EDITOR_JS_TOOLS } from "../constants/editor-constants";
 import { createReactEditorJS } from "react-editor-js";
 
-const TEXT_EDITOR_CONTENT = "saved-text-local";
 
 const ReactEditorJS = createReactEditorJS();
-
-const publishBlog = () => {
-    
-}
 
 export const BlogEditor = () => {
     const editorCore = React.useRef(null);
@@ -21,7 +16,7 @@ export const BlogEditor = () => {
 
       const handleSave = React.useCallback(async () => {
         //@ts-ignore
-        const savedData = await editorCore.current.save();
+//         const savedData = await editorCore.current.save();
         //@ts-ignore
         // localStorage.setItem(TEXT_EDITOR_CONTENT, JSON.stringify(savedData));
       }, [])
