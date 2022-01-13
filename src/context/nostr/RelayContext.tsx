@@ -30,7 +30,7 @@ const mainReducer = (state: RelayState, action: RelayAction) => {
 }
 
 export const RelayProvider: FC = ({ children }) => {
-    const [state, dispatch] = useReducer(mainReducer, initialRelayState)
+    const [state, dispatch] = useReducer(mainReducer, initialRelayState);
 
     return (
         <RelayContext.Provider value={{ state, dispatch }}>
@@ -38,3 +38,5 @@ export const RelayProvider: FC = ({ children }) => {
         </RelayContext.Provider>
     );
 };
+
+export const useRelayContext = () => useContext(RelayContext);
