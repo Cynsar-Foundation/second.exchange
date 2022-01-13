@@ -7,6 +7,10 @@ const TEXT_EDITOR_CONTENT = "saved-text-local";
 
 const ReactEditorJS = createReactEditorJS();
 
+const publishBlog = () => {
+    
+}
+
 export const BlogEditor = () => {
     const editorCore = React.useRef(null);
     // @ts-ignore
@@ -19,10 +23,7 @@ export const BlogEditor = () => {
         //@ts-ignore
         const savedData = await editorCore.current.save();
         //@ts-ignore
-        localStorage.setItem(TEXT_EDITOR_CONTENT, JSON.stringify(savedData));
-        console.log(savedData);
-        const data = localStorage.getItem(TEXT_EDITOR_CONTENT);
-        console.log("from localstorage: ", data);
+        // localStorage.setItem(TEXT_EDITOR_CONTENT, JSON.stringify(savedData));
       }, [])
 
     return (
