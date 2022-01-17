@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { FC, useEffect } from "react";
+import React, { FC/*, useEffect*/ } from "react";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
@@ -17,7 +17,7 @@ import { useUserAuthContext, UserAuthProvider } from "./context";
 import { AuthModalProvider } from "./context";
 import { MetarootModalProvider } from "./context";
 import { SessionKeyProvider } from "./context";
-import { RelayProvider, useRelayContext } from './context';
+import { RelayProvider/*, useRelayContext*/ } from './context';
 
 import { Navbar } from "./components/layout/Navbar";
 import { Sidebar } from "./components/layout/Sidebar";
@@ -27,12 +27,13 @@ import "react-toastify/dist/ReactToastify.css";
 
 export const App: FC = () => {
     const { isUserAuthenticated } = useUserAuthContext();
-    const { dispatch } = useRelayContext();
+//    const { dispatch } = useRelayContext();
 
-    useEffect(() => {
-        if(isUserAuthenticated)
-            dispatch({ type: "addRelay", url: ""});
-    }, [])
+    // useEffect(() => {
+
+    //     if(isUserAuthenticated)
+    //         dispatch({ type: "addRelay", url: "" });
+    // }, [])
 
     // All routes should be '/' for custom domain
     return (

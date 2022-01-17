@@ -1,25 +1,45 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from "react";
 
 import { EDITOR_JS_TOOLS } from "../constants/editor-constants";
 import { createReactEditorJS } from "react-editor-js";
-
+import { relayPool } from 'nostr-tools';
 
 const ReactEditorJS = createReactEditorJS();
 
 export const BlogEditor = () => {
     const editorCore = React.useRef(null);
-    // @ts-ignore
+
+    const initialRelayState = {
+        pool: relayPool(),
+    };
+
+    useEffect(() => {
+        console.log("FROM HERE")
+        // @ts-ignore
+        initialRelayState.pool.setPrivateKey(JSON.parse(localStorage.getItem('user-auth'))['privKey'])
+        initialRelayState.pool.addRelay("wss://relayer.fiatjaf.com", { read: true, write: true });
+        initialRelayState.pool.addRelay("wss://nostr-pub.wellorder.net", { read: true, write: true });
+    }, []);
 
     const handleInitialize = React.useCallback((instance) => {
-        editorCore.current = instance
-      }, [])
+        editorCore.current = instance;
+    }, []);
 
-      const handleSave = React.useCallback(async () => {
+    const handleSave = React.useCallback(async () => {
         //@ts-ignore
-//         const savedData = await editorCore.current.save();
+        const savedData = await editorCore.current.save();
         //@ts-ignore
-        // localStorage.setItem(TEXT_EDITOR_CONTENT, JSON.stringify(savedData));
-      }, [])
+        let event = await initialRelayState.pool.publish({
+            // @ts-ignore
+            pubkey: JSON.parse(localStorage.getItem('user-auth'))['pubKey'],
+            created_at: Math.floor(Date.now() / 1000),
+            kind: 1,
+            tags: [],
+            content: JSON.stringify(savedData)
+        });
+        console.log(event);
+    }, []);
 
     return (
         <div className="blog-editor-container">
