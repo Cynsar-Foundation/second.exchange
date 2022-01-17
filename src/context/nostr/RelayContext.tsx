@@ -18,7 +18,6 @@ export const RelayContext = createContext<{
 });
 
 const mainReducer = (state: RelayState, action: RelayAction) => {
-    console.log("here");
     switch (action.type) {
         case 'addRelay':
             return state.pool.addRelay(action.url, { read: true, write: true })

@@ -13,6 +13,39 @@ export const BlogEditor = () => {
     const initialRelayState = {
         pool: relayPool(),
     };
+    // @ts-ignore
+    const pubKey = JSON.parse(localStorage.getItem('user-auth'))['pubKey'];
+    var following = ["wss://relayer.fiatjaf.com", "wss://nostr-pub.wellorder.net"]
+    var mainSub = initialRelayState;
+    function restartMainSubscription() {
+        mainSub = initialRelayState.pool.sub(
+          {
+            filter: [
+              // notes, profiles and contact lists of people we follow (and ourselves)
+              {
+                kinds: [0, 1, 2, 3],
+                authors: following.concat(pubKey)
+              },
+      
+              // posts mentioning us and direct messages to us
+              {
+                kinds: [1, 4],
+                '#p': [pubKey]
+              },
+      
+              // our own direct messages to other people
+              {
+                kinds: [4],
+                authors: [pubKey]
+              }
+            ],
+            cb: async (event: any, relay: any) => {
+//              store.dispatch('addEvent', {event, relay})
+            }
+          },
+          'main-channel'
+        )
+      }
 
     useEffect(() => {
         console.log("FROM HERE")
@@ -20,6 +53,7 @@ export const BlogEditor = () => {
         initialRelayState.pool.setPrivateKey(JSON.parse(localStorage.getItem('user-auth'))['privKey'])
         initialRelayState.pool.addRelay("wss://relayer.fiatjaf.com", { read: true, write: true });
         initialRelayState.pool.addRelay("wss://nostr-pub.wellorder.net", { read: true, write: true });
+        restartMainSubscription();
     }, []);
 
     const handleInitialize = React.useCallback((instance) => {
@@ -38,7 +72,7 @@ export const BlogEditor = () => {
             tags: [],
             content: JSON.stringify(savedData)
         });
-        console.log(event);
+        console.log("From BlogEditor", event);
     }, []);
 
     return (
