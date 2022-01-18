@@ -5,8 +5,8 @@ import {
     validateWords,
     seedFromWords,
     privateKeyFromSeed,
-} from "nostr-tools/nip06";
-import { getPublicKey } from "nostr-tools";
+} from "../external/nostr-tools/nip06";
+import { getPublicKey } from "../external/nostr-tools";
 
 import { useSessionKeyContext, useUserAuthContext } from "../context";
 import { useAuthModalContext } from "../context";
@@ -49,37 +49,35 @@ export const KeyAuthModal = () => {
 
     const firstUpdate = useRef(true);
     useLayoutEffect(() => {
-        if(firstUpdate.current) {
+        if (firstUpdate.current) {
             firstUpdate.current = false;
             return;
         }
 
         var seed;
-        if(userMnemonic !== null)
-        {
+        if (userMnemonic !== null) {
             seed = seedFromWords(userMnemonic);
             setUserPrivateKey(privateKeyFromSeed(seed));
         }
     }, [userMnemonic, userPrivateKey]);
 
     useLayoutEffect(() => {
-        if(firstUpdate.current) {
-            firstUpdate.current = false;
-            return;
-       }
-
-        if(userPrivateKey !== undefined)
-            setUserPublicKey(toHexString(getPublicKey(userPrivateKey)));
-    }, [userPrivateKey]);
-
-    useLayoutEffect(() => {
-        if(firstUpdate.current) {
+        if (firstUpdate.current) {
             firstUpdate.current = false;
             return;
         }
 
-        if(isUserAuthenticated)
-        {
+        if (userPrivateKey !== undefined)
+            setUserPublicKey(toHexString(getPublicKey(userPrivateKey)));
+    }, [userPrivateKey]);
+
+    useLayoutEffect(() => {
+        if (firstUpdate.current) {
+            firstUpdate.current = false;
+            return;
+        }
+
+        if (isUserAuthenticated) {
             localStorage.setItem("user-auth", JSON.stringify(sessionKey));
         }
     }, [isUserAuthenticated, sessionKey]);
@@ -91,15 +89,14 @@ export const KeyAuthModal = () => {
     const dispalyMnemonic = (mnemonic: string | "") => (userInput.current.value = mnemonic)
 
     useEffect(() => {
-        if(!isUserAuthenticated)
-        {
+        if (!isUserAuthenticated) {
             dispalyMnemonic(userMnemonic ? userMnemonic : "");
         }
     }, [isUserAuthenticated, userMnemonic])
 
     return (
         <div className="wallet-modal__top-level">
-            { !keyModalVisible && <div className="wallet-modal__container">
+            {!keyModalVisible && <div className="wallet-modal__container">
                 <button
                     className="wallet-modal__close-button"
                     onClick={() => setAuthOverlayActive(false)}
@@ -125,7 +122,7 @@ export const KeyAuthModal = () => {
                                 className="key-setup__input-box"
                                 type="text"
                                 onChange={(e) => {
-                                    if(e.target.value.split(' ').length === 12) {
+                                    if (e.target.value.split(' ').length === 12) {
                                         if (isKeyValid(e.target.value)) {
                                             setUserMnemonic(e.target.value);
                                             setIsKeyValidated(true);
@@ -188,7 +185,7 @@ export const KeyAuthModal = () => {
                 )}
                 <hr />
             </div>}
-            { keyModalVisible && <UserKeyModal fromLandingPage={true} generatedKeys={sessionKey} toExecute={setIsUserAuthenticated} /> }
+            {keyModalVisible && <UserKeyModal fromLandingPage={true} generatedKeys={sessionKey} toExecute={setIsUserAuthenticated} />}
         </div>
     );
 };

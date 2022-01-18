@@ -29,6 +29,7 @@
     "@types/react-dom": "^17.0.11",
     "@types/react-icons": "^3.0.0",
     "editorjs-react-renderer": "^3.0.1",
+    "eslint-plugin-babel": "^5.3.1",
     "is-hotkey": "^0.2.0",
     "node-sass": "^6.0.0",
     "nostr-tools": "^0.17.0",

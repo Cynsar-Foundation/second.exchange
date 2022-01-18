@@ -1,5 +1,26 @@
 # second.exchange
 
+## Dev Setup
+For now since the repository is unstable we are dependent on some external git submodules particularly nostr-tools
+
+For older version of git you might need to init and update submodules explicitly
+```
+git submodule update --init --recursive
+```
+Once the submodule is added, navigate to the submodule folder and apply patch from the patches folder and do npm install
+```
+> cd src/external/nostr-tools/
+> git apply ../patches/
+> npm install
+```
+Now go back to the root folder and start with usual react workflow
+```
+> cd ../../../
+> npm install
+> npm run
+```
+This entire submodule stuff needs to be done only once. For the subsequent run just `npm install` and `npm run` should suffice
+
 ## The first exchange was not good ,this one is really good
 
 Second exchange is an experimental social media service that lets anyone, anywhere in the world to create content. Second Exchange uses peer-to-peer technology to operate with no central authority, Second Exchange Core is the name of open source software which enables the use of this service.
