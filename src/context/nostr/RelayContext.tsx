@@ -1,4 +1,4 @@
-import { relayPool } from 'nostr-tools';
+import { relayPool } from '../../external/nostr-tools';
 import { FC, useContext, useReducer, createContext } from 'react';
 import { RelayAction, RelayState } from './NostrTypes';
 
@@ -11,9 +11,9 @@ export const RelayContext = createContext<{
     dispatch: React.Dispatch<RelayAction>;
 }>({
     state: initialRelayState,
-    dispatch: () => { 
-        mainReducer(initialRelayState, {type: "addRelay", url: "wss://relayer.fiatjaf.com"});
-        mainReducer(initialRelayState, {type: "addRelay", url: "wss://nostr-pub.wellorder.net"});
+    dispatch: () => {
+        mainReducer(initialRelayState, { type: "addRelay", url: "wss://relayer.fiatjaf.com" });
+        mainReducer(initialRelayState, { type: "addRelay", url: "wss://nostr-pub.wellorder.net" });
     },
 });
 
