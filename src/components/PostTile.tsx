@@ -5,10 +5,10 @@ interface IProps {
 }
 
 export const PostTile: FC<IProps> = ({ posts }) => {
-    console.log(posts ? posts : "loading");
     return(
         <div>
-            {posts.map((post: any) => (<h1>{post['content']}</h1>))}
+            <br />
+            {posts.map((post: any) => (<p>{post['content']}</p>))}
         </div>
     )
 }
