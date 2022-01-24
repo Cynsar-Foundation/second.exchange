@@ -12,3 +12,4 @@ export type RelayAction =
     | { type: 'removeRelay', url: string }
     | { type: 'subSingle', cb: EventCallback, filter: SingleSubFilter }
     | { type: 'subBulk', cb: EventCallback, filter: BulkSubFilter }
+    | { type: 'publish', event: any}

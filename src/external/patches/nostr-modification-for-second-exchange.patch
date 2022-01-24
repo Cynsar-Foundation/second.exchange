@@ -1,0 +1,216 @@
+diff --git a/pool.js b/pool.js
+index 10ba67f..6c1ef2f 100644
+--- a/pool.js
++++ b/pool.js
+@@ -1,5 +1,11 @@
+-import {getEventHash, verifySignature, signEvent} from './event'
+-import {relayConnect, normalizeRelayURL} from './relay'
++import { getEventHash, verifySignature, signEvent } from './event'
++import { relayConnect, normalizeRelayURL } from './relay'
++
++function toHexString(byteArray) {
++  return Array.prototype.map.call(byteArray, function (byte) {
++    return ('0' + (byte & 0xFF).toString(16)).slice(-2)
++  }).join('')
++}
+ 
+ export function relayPool() {
+   var globalPrivateKey
+@@ -19,20 +25,20 @@ export function relayPool() {
+ 
+   function propagateNotice(notice, relayURL) {
+     for (let i = 0; i < noticeCallbacks.length; i++) {
+-      let {relay} = relays[relayURL]
++      let { relay } = relays[relayURL]
+       noticeCallbacks[i](notice, relay)
+     }
+   }
+ 
+   const activeSubscriptions = {}
+ 
+-  const sub = ({cb, filter}, id = Math.random().toString().slice(2)) => {
++  const sub = ({ cb, filter }, id = Math.random().toString().slice(2)) => {
+     const subControllers = Object.fromEntries(
+       Object.values(relays)
+-        .filter(({policy}) => policy.read)
+-        .map(({relay}) => [
++        .filter(({ policy }) => policy.read)
++        .map(({ relay }) => [
+           relay.url,
+-          relay.sub({filter, cb: event => cb(event, relay.url)}, id)
++          relay.sub({ filter, cb: event => cb(event, relay.url) }, id)
+         ])
+     )
+ 
+@@ -43,15 +49,15 @@ export function relayPool() {
+       Object.values(subControllers).forEach(sub => sub.unsub())
+       delete activeSubscriptions[id]
+     }
+-    const sub = ({cb = activeCallback, filter = activeFilters}) => {
++    const sub = ({ cb = activeCallback, filter = activeFilters }) => {
+       Object.entries(subControllers).map(([relayURL, sub]) => [
+         relayURL,
+-        sub.sub({cb, filter}, id)
++        sub.sub({ cb, filter }, id)
+       ])
+       return activeSubscriptions[id]
+     }
+     const addRelay = relay => {
+-      subControllers[relay.url] = relay.sub({cb, filter}, id)
++      subControllers[relay.url] = relay.sub({ cb, filter }, id)
+       return activeSubscriptions[id]
+     }
+     const removeRelay = relayURL => {
+@@ -84,14 +90,14 @@ export function relayPool() {
+     setPolicy(key, value) {
+       poolPolicy[key] = value
+     },
+-    addRelay(url, policy = {read: true, write: true}) {
++    addRelay(url, policy = { read: true, write: true }) {
+       let relayURL = normalizeRelayURL(url)
+       if (relayURL in relays) return
+ 
+       let relay = relayConnect(url, notice => {
+         propagateNotice(notice, relayURL)
+       })
+-      relays[relayURL] = {relay, policy}
++      relays[relayURL] = { relay, policy }
+ 
+       if (policy.read) {
+         Object.values(activeSubscriptions).forEach(subscription =>
+@@ -106,7 +112,7 @@ export function relayPool() {
+       let data = relays[relayURL]
+       if (!data) return
+ 
+-      let {relay} = data
++      let { relay } = data
+       Object.values(activeSubscriptions).forEach(subscription =>
+         subscription.removeRelay(relay)
+       )
+@@ -127,7 +133,8 @@ export function relayPool() {
+         event.tags = event.tags || []
+ 
+         if (globalPrivateKey) {
+-          event.sig = await signEvent(event, globalPrivateKey)
++          const sigHexString = await signEvent(event, globalPrivateKey)
++          event.sig = toHexString(sigHexString)
+         } else if (globalSigningFunction) {
+           event.sig = await globalSigningFunction(event)
+           if (!event.sig) {
+@@ -148,7 +155,7 @@ export function relayPool() {
+       }
+ 
+       let writeable = Object.values(relays)
+-        .filter(({policy}) => policy.write)
++        .filter(({ policy }) => policy.write)
+         .sort(() => Math.random() - 0.5) // random
+ 
+       let maxTargets = poolPolicy.randomChoice
+@@ -159,7 +166,7 @@ export function relayPool() {
+ 
+       if (poolPolicy.wait) {
+         for (let i = 0; i < writeable.length; i++) {
+-          let {relay} = writeable[i]
++          let { relay } = writeable[i]
+ 
+           try {
+             await new Promise(async (resolve, reject) => {
+@@ -182,7 +189,7 @@ export function relayPool() {
+           }
+         }
+       } else {
+-        writeable.forEach(async ({relay}) => {
++        writeable.forEach(async ({ relay }) => {
+           let callback = statusCallback
+             ? status => statusCallback(status, relay.url)
+             : null
+diff --git a/relay.js b/relay.js
+index 9320ed9..9d0f369 100644
+--- a/relay.js
++++ b/relay.js
+@@ -1,9 +1,9 @@
+-/* global WebSocket */
++
+ 
+ import 'websocket-polyfill'
+ 
+-import {verifySignature, validateEvent} from './event'
+-import {matchFilters} from './filter'
++import { verifySignature, validateEvent } from './event'
++import { matchFilters } from './filter'
+ 
+ export function normalizeRelayURL(url) {
+   let [host, ...qs] = url.trim().split('?')
+@@ -13,7 +13,7 @@ export function normalizeRelayURL(url) {
+   return [host, ...qs].join('?')
+ }
+ 
+-export function relayConnect(url, onNotice = () => {}, onError = () => {}) {
++export function relayConnect(url, onNotice = () => { }, onError = () => { }) {
+   url = normalizeRelayURL(url)
+ 
+   var ws, resolveOpen, untilOpen, wasClosed
+@@ -42,7 +42,7 @@ export function relayConnect(url, onNotice = () => {}, onError = () => {}) {
+         for (let channel in openSubs) {
+           let filters = openSubs[channel]
+           let cb = channels[channel]
+-          sub({cb, filter: filters}, channel)
++          sub({ cb, filter: filters }, channel)
+         }
+       }
+     }
+@@ -63,7 +63,7 @@ export function relayConnect(url, onNotice = () => {}, onError = () => {}) {
+       setTimeout(async () => {
+         try {
+           connect()
+-        } catch (err) {}
++        } catch (err) { }
+       }, nextAttemptSeconds * 1000)
+ 
+       wasClosed = true
+@@ -110,7 +110,7 @@ export function relayConnect(url, onNotice = () => {}, onError = () => {}) {
+ 
+   try {
+     connect()
+-  } catch (err) {}
++  } catch (err) { }
+ 
+   async function trySend(params) {
+     let msg = JSON.stringify(params)
+@@ -119,7 +119,7 @@ export function relayConnect(url, onNotice = () => {}, onError = () => {}) {
+     ws.send(msg)
+   }
+ 
+-  const sub = ({cb, filter}, channel = Math.random().toString().slice(2)) => {
++  const sub = ({ cb, filter }, channel = Math.random().toString().slice(2)) => {
+     var filters = []
+     if (Array.isArray(filter)) {
+       filters = filter
+@@ -135,8 +135,8 @@ export function relayConnect(url, onNotice = () => {}, onError = () => {}) {
+     const activeFilters = filters
+ 
+     return {
+-      sub: ({cb = activeCallback, filter = activeFilters}) =>
+-        sub({cb, filter}, channel),
++      sub: ({ cb = activeCallback, filter = activeFilters }) =>
++        sub({ cb, filter }, channel),
+       unsub: () => {
+         delete openSubs[channel]
+         delete channels[channel]
+@@ -153,14 +153,14 @@ export function relayConnect(url, onNotice = () => {}, onError = () => {}) {
+         await trySend(['EVENT', event])
+         if (statusCallback) {
+           statusCallback(0)
+-          let {unsub} = sub(
++          let { unsub } = sub(
+             {
+               cb: () => {
+                 statusCallback(1)
+                 unsub()
+                 clearTimeout(willUnsub)
+               },
+-              filter: {id: event.id}
++              filter: { id: event.id }
+             },
+             `monitor-${event.id.slice(0, 5)}`
+           )

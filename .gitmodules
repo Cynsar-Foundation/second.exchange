@@ -1,0 +1,3 @@
+[submodule "src/external/nostr-tools"]
+	path = src/external/nostr-tools
+	url = git@github.com:fiatjaf/nostr-tools.git

@@ -1,4 +1,5 @@
-import React, { FC } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { FC/*, useEffect*/ } from "react";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { Home } from "./views/Home";
