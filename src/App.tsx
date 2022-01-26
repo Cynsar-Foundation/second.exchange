@@ -39,14 +39,19 @@ export const App: FC = () => {
               <MetarootModalProvider>
                 <ToastContainer />
                 <Row className="home-main">
-                  <Col span={19} className="home-content-div">
+                  <Col
+                    span={isUserAuthenticated ? 19 : 24}
+                    className="home-content-div"
+                  >
                     <Navbar />
                     <div
                       className={isUserAuthenticated ? "content-container" : ""}
                     >
                       <div
                         className={
-                          isUserAuthenticated ? "main-content-div" : ""
+                          isUserAuthenticated
+                            ? "main-content-div"
+                            : "content-without-login"
                         }
                       >
                         <Routes>
@@ -90,13 +95,13 @@ export const App: FC = () => {
                       </div>
                     </div>
                   </Col>
-                  <Col span={5} className="sidebar-div-main">
-                    {isUserAuthenticated && (
+                  {isUserAuthenticated && (
+                    <Col span={5} className="sidebar-div-main">
                       <div className="sidebar-div">
                         <Sidebar />
                       </div>
-                    )}
-                  </Col>
+                    </Col>
+                  )}
                 </Row>
               </MetarootModalProvider>
             </KeyModalProvider>

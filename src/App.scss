@@ -60,7 +60,9 @@ body {
 .main-content-div {
   padding: 15px;
 }
-
+.content-without-login {
+  height: 91vh;
+}
 .wallet-modal {
   &__top-level {
     background: rgba(49, 49, 49, 0.7);
@@ -178,8 +180,6 @@ nav {
 
     border: 2px solid black;
     font-family: Nunito-Bold;
-    margin-top: -2px;
-    padding: 10px;
   }
 
   .wallet-connect-button:hover {
