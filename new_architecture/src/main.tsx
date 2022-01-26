@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { RecoilRoot } from 'recoil';
 
-import App from './App/App.component';
+import App from './components/App/App.component';
 
 ReactDOM.render(
   <React.StrictMode>

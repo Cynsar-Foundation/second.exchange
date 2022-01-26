@@ -3,7 +3,7 @@ import './Breadcrumbs.style.scss';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 
-import { darkModeState } from '../shared/GlobalState';
+import { darkModeState } from '../../shared/GlobalState';
 
 const Breadcrumbs = () => {
   const isDarkModeEnabled = useRecoilValue(darkModeState);

@@ -3,9 +3,9 @@ import './App.style.scss';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 
+import { darkModeState } from '../../shared/GlobalState';
 import Header from '../Header/Header.component';
 import MainContent from '../MainContent/MainContent.component';
-import { darkModeState } from '../shared/GlobalState';
 
 const App = () => {
   const isDarkModeEnabled = useRecoilValue(darkModeState);

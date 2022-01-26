@@ -3,7 +3,7 @@ import './Article.style.scss';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 
-import { darkModeState } from '../shared/GlobalState';
+import { darkModeState } from '../../shared/GlobalState';
 
 const Article = ({ item: article }) => {
   const isDarkModeEnabled = useRecoilValue(darkModeState);
