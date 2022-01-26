@@ -3,9 +3,9 @@ import './ArticleList.style.scss';
 import React, { useEffect, useState } from 'react';
 import { useRecoilValueLoadable } from 'recoil';
 
-import Article from '../Article/Article.component';
 import ArticleService from '../../shared/ArticleService';
 import { articleByIdQuery } from '../../shared/GlobalState';
+import Article from '../Article/Article.component';
 
 const ArticleList = () => {
   const article = useRecoilValueLoadable(articleByIdQuery(3));
