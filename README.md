@@ -17,9 +17,9 @@ Now go back to the root folder and start with usual react workflow
 ```
 > cd ../../../
 > npm install
-> npm start
+> npm run dev
 ```
-This entire submodule stuff needs to be done only once. For the subsequent run just `npm install` and `npm start` should suffice
+This entire submodule stuff needs to be done only once. For the subsequent run just `npm install` and `npm run dev` should suffice
 
 ## The first exchange was not good ,this one is really good
 

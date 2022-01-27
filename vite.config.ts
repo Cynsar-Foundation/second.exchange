@@ -9,6 +9,11 @@ export default function ({ }: ConfigEnv): UserConfigExport {
         build: {
             assetsDir: './',
             brotliSize: false,
+            target: [ 'es2020' ]
         },
+        define: {
+            "global": {},
+            "process.env": {}
+          },
     });
 }
