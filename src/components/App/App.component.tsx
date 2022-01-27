@@ -1,5 +1,6 @@
 import './App.style.scss';
 
+import { RelayService } from '@libs/api';
 import { AppConfig } from '@libs/api/types';
 import { inject } from 'njct';
 import React, { useEffect } from 'react';
@@ -12,7 +13,8 @@ import MainContent from '../MainContent/MainContent.component';
 function useApp() {
   useEffect(() => {
     const test: AppConfig = inject('config');
-    console.log(test);
+    const relayService: RelayService = inject('relayservice');
+    for (const relayUrl of test.defaultRelays) relayService.addRelay(relayUrl);
   }, []);
 }
 
