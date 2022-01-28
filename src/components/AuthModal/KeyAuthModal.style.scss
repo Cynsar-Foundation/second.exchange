@@ -1,0 +1,176 @@
+@mixin regular-modal($max-width) {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+@mixin regular-button($width: 50px) {
+    border: 1px solid black;
+    width: $width;
+    background-color: white;
+    font-family: Nunito-Regular;
+    cursor: pointer;
+  }
+
+  .delete-local-storage {
+    display: block;
+    font-family: Nunito-Regular;
+    line-height: 25px;
+    margin: 20px;
+  
+    &__title {
+        margin-bottom: 10px;
+        font-family: Nunito-Bold;
+    }
+  
+    &__button {
+        margin-top: 8px;
+        padding: 5px;
+        @include regular-button(80px);
+    }
+  
+    &__button:hover {
+        background-color: #F4F4F4;
+    }
+  }
+
+.wallet-modal {
+
+    &__top-level {
+        background: rgba(49, 49, 49, 0.7);
+        position: fixed;
+        margin: auto;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        transition: opacity 0.2s ease-in;
+        z-index: 1;
+    }
+  
+    &__container {
+        @include regular-modal(400px);
+  
+        background-color: white;
+        padding: 20px;
+        z-index: 2000;
+    }
+  
+    &__buttons-container {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+  
+    &__buttons {
+        @include regular-button(270px);
+  
+        border: none;
+        display: block;
+        padding: 12px;
+        margin: 10px;
+        background-color: rgb(24, 24, 24);
+        text-align: center;
+  
+        &-active {
+            background-color: white;
+            color: black;
+        }
+    }
+  
+    &__buttons:hover {
+        cursor: pointer;
+        background-color: black;
+        transform: scale(1.02);
+    }
+  
+    &__title {
+        text-align: center;
+        font-size: 17px;
+        font-family: Nunito-Bold;
+        margin-bottom: 12px;
+    }
+  
+    &__header {
+        position: relative;
+    }
+  
+    &__close-button {
+        @include regular-button();
+  
+        border: none;
+        cursor: pointer;
+        position: absolute;
+        top: 18px;
+        right: 0;
+        z-index: 2100;
+    }
+  }
+
+  .key-setup {
+    white-space: pre;
+    margin-left: 10px;
+  
+    &__title {
+        line-height: 38px;
+        font-size: 17px;
+        font-family: Nunito-Bold;
+    }
+  
+    &__input {
+        line-height: 40px;
+    }
+  
+    &__input-box {
+        width: 260px;
+        height: 20px;
+    }
+  
+    &__generate-button {
+        @include regular-button(80px);
+        padding: 3px;
+        margin-top: 5px;
+    }
+  
+    &__generate-button:hover {
+        background-color: #F4F4F4;
+    }
+  
+    &__proceed {
+        padding: 3px;
+        margin-left: 10px;
+        @include regular-button(80px);
+        margin-top: 5px;
+    }
+  
+    &__proceed:hover {
+        background-color: #F4F4F4;
+    }
+  
+    &__generated-key {
+        margin-top: 20px;
+        font-weight: 600;
+    }
+  
+    &__generated-key-title {
+        margin-top: 15px;
+        margin-bottom: 8px;
+    }
+  
+    &__generated-key-value {
+        display: block;
+        font-weight: normal;
+        font-family: 'Courier New', Courier, monospace;
+        width: 500px;
+        white-space: normal;
+        word-break: break-word;
+    }
+  
+    &__generated-key-tag {
+        font-family: Nunito-SemiBold;
+        line-height: 40px;
+    }
+  }

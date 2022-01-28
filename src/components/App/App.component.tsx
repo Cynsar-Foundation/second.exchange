@@ -10,6 +10,9 @@ import { darkModeState } from '../../shared/GlobalState';
 import Header from '../Header/Header.component';
 import MainContent from '../MainContent/MainContent.component';
 
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Writer } from '../Writer/Writer';
+
 function useApp() {
   useEffect(() => {
     const test: AppConfig = inject('config');
@@ -22,10 +25,15 @@ const App = () => {
   const isDarkModeEnabled = useRecoilValue(darkModeState);
   useApp();
   return (
+    <Router>
     <div className={`App ${isDarkModeEnabled ? 'App--dark-mode' : ''}`}>
       <Header />
-      <MainContent />
+        <Routes>
+          <Route path="/" element={<MainContent />} />
+          <Route path="/write" element={<Writer />} />
+        </Routes>
     </div>
+      </Router>
   );
 };
 
