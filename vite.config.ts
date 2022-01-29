@@ -15,5 +15,6 @@ export default function ({ }: ConfigEnv): UserConfigExport {
             "global": {},
             "process.env": {}
           },
+        
     });
 }

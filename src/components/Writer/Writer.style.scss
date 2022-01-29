@@ -1,0 +1,18 @@
+.writer {
+    &-container {
+        margin-top: 40px;
+    }
+
+    &__title {
+        height: 50px;
+        width: 850px;
+    }
+
+    &__description {
+        height: 35px;
+    }
+
+    &__content {
+        height: 200px;
+    }
+}

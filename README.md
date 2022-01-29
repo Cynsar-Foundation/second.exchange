@@ -10,7 +10,7 @@ git submodule update --init --recursive
 Once the submodule is added, navigate to the submodule folder and apply patch from the patches folder and do npm install
 ```
 > cd src/external/nostr-tools/
-> git apply ../patches/nostr-modification-for-second-exchange.patch
+> git apply ../patches/nostr-tools-modification-for-second-exchange.patch
 > npm install
 ```
 Now go back to the root folder and start with usual react workflow

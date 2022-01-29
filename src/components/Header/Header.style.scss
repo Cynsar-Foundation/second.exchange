@@ -50,12 +50,14 @@
                 top: 5px;
                 left: 15px;
             }
+            cursor: pointer;
         }
 
         &__title-container {
             &__title {
                 font-size: 1.5rem;
                 font-weight: bold;
+                cursor: pointer;
             }
         }
 
@@ -120,6 +122,37 @@
             &::before,
             &::after {
                 background-color: $dark-mode-background-color;
+            }
+        }
+    }
+
+    &__content__write {
+        display: flex;
+        &-button {
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+
+            &-text {
+                border: none;
+                background-color: transparent;
+                cursor: pointer;
+                font-size: 16px;
+            }
+        }
+    }
+
+    &__content__user {
+        display: flex;
+        &-format {
+            background-color: transparent;
+            border: none;
+        
+            &-text {
+                background-color: transparent;
+                border: none;
+                font-size: 16px;
+                margin-left: -5px;
             }
         }
     }
