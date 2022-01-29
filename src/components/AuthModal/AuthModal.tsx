@@ -1,18 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable unicorn/consistent-function-scoping */
-/* eslint-disable @kyleshevlin/prefer-custom-hooks */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable unicorn/better-regex */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable prettier/prettier */
-/* eslint-disable regexp/prefer-d */
-/* eslint-disable simple-import-sort/imports */
-import './KeyAuthModal.style.scss';
+import './AuthModal.style.scss';
 import React, { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import { IoCloseOutline } from 'react-icons/io5';
 import {
@@ -22,13 +8,12 @@ import {
     privateKeyFromSeed,
 } from '../../external/nostr-tools/nip06';
 import { getPublicKey } from '../../external/nostr-tools';
-
-import { useSessionKeyContext, useUserAuthContext } from '../../context';
-import { UserKeyModal } from '../UserKeyModal/UserKeyModal';
-
-
-import { authOverlayActive } from 'src/context/auth-modal-context';
 import { useRecoilState } from 'recoil';
+
+import { UserKeyModal } from '../UserKeyModal/UserKeyModal';
+import { authOverlayState } from 'src/context/auth-modal-context';
+import { sessionKeyState } from 'src/context/session-key-context';
+import { userAuthState } from 'src/context/user-auth-context';
 
 const isKey = (key: any) => {
     return key?.toLowerCase()?.match(/^[0-9a-f]{64}$/);
@@ -55,10 +40,10 @@ export const KeyAuthModal = () => {
     const [isKeyValidated, setIsKeyValidated] = useState(false);
     const [keyModalVisible, setKeyModalVisible] = useState(false);
 
-    const { sessionKey, setSessionKey } = useSessionKeyContext();
-    const { isUserAuthenticated, setIsUserAuthenticated } = useUserAuthContext();
+    const [ sessionKey, setSessionKey ] = useRecoilState(sessionKeyState);
+    const [ isUserAuthenticated, setIsUserAuthenticated ] = useRecoilState(userAuthState);
 
-    const [overlayActive, setOverlayActive ] = useRecoilState(authOverlayActive);
+    const [overlayActive, setOverlayActive ] = useRecoilState(authOverlayState);
 
     function toHexString(byteArray: Uint8Array) {
         return Array.from(byteArray, function (byte) {
@@ -167,6 +152,7 @@ export const KeyAuthModal = () => {
                             disabled={!isKeyValidated}
                             onClick={() => {
                                 setSessionKey({
+                                    //@ts-ignore
                                     mnemonic: userMnemonic,
                                     privKey: userPrivateKey,
                                     pubKey: userPublicKey,

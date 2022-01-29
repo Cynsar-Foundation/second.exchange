@@ -1,30 +1,36 @@
 /* eslint-disable prettier/prettier */
 import './Header.style.scss';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-
-import { darkModeState, toggleDarkModeState } from '../../shared/GlobalState';
-
 import { BsPencilSquare } from 'react-icons/bs';
 import { BiUserCircle } from 'react-icons/bi';
-import { KeyAuthModal } from "../AuthModal/KeyAuthModal";
-// import { useAuthModalContext } from "../../context";
-import { useUserAuthContext } from "../../context";
-import { authOverlayActive } from 'src/context/auth-modal-context';
 import { useNavigate } from "react-router-dom";
+
+import { KeyAuthModal } from "../AuthModal/AuthModal";
+
+import { darkModeState, toggleDarkModeState } from '../../shared/GlobalState';
+import { userAuthState } from '../../context/user-auth-context';
+import { authOverlayState } from 'src/context/auth-modal-context';
 
 const Header = () => {
   const isDarkModeEnabled = useRecoilValue(darkModeState);
   // const [darkMode, toggleDarkMode] = useRecoilState(toggleDarkModeState);
 
   const navigate = useNavigate();
-//  const { authOverlayActive, setAuthOverlayActive } = useAuthModalContext();
-  const [overlayActive, setOverlayActive ] = useRecoilState(authOverlayActive);
-// const { isUserAuthenticated } = useUserAuthContext();
-const isUserAuthenticated = true;
+  const [authOverlayActive, setAuthOverlayActive ] = useRecoilState(authOverlayState);
+  const [ isUserAuthenticated ] = useRecoilState(userAuthState);
+
+  const handleAuthClick = () => {
+    isUserAuthenticated 
+      ?
+        navigate('/write')
+      :
+        setAuthOverlayActive(true);
+  };
+
   useEffect(() => {
-    setOverlayActive(false);
+    setAuthOverlayActive(false);
   }, [isUserAuthenticated]);
 
   return (
@@ -56,13 +62,7 @@ const isUserAuthenticated = true;
         <div className="Header__content__write">
             <button 
                 className="Header__content__write-button"
-                onClick={() => {
-                  isUserAuthenticated 
-                  ?
-                    navigate('/write')
-                  :
-                    setOverlayActive(true);
-                }}
+                onClick={handleAuthClick}
             >
                 <div>
                 <BsPencilSquare size={20} />
@@ -70,12 +70,7 @@ const isUserAuthenticated = true;
             </button>
             <button
                 className="Header__content__write-button-text"
-                onClick={() => {
-                  isUserAuthenticated 
-                    ?
-                      navigate('/write')
-                    :
-                      setOverlayActive(true);}}
+                onClick={handleAuthClick}
             >
                 Post Blog
             </button>
@@ -92,7 +87,7 @@ const isUserAuthenticated = true;
         </div>
         }
       </div>
-      { overlayActive && <KeyAuthModal />}
+      { authOverlayActive && <KeyAuthModal />}
     </header>
   );
 };
