@@ -1,12 +1,11 @@
 import { defineConfig, ConfigEnv, UserConfigExport } from 'vite';
 import reactRefresh from '@vitejs/plugin-react-refresh';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import polyfillNode from 'rollup-plugin-polyfill-node'
 
 // https://vitejs.dev/config/
 export default function ({ }: ConfigEnv): UserConfigExport {
     return defineConfig({
-        plugins: [tsconfigPaths(), reactRefresh(), polyfillNode()],
+        plugins: [tsconfigPaths(), reactRefresh()],
         build: {
             assetsDir: './',
             brotliSize: false,
@@ -16,8 +15,6 @@ export default function ({ }: ConfigEnv): UserConfigExport {
             "global": {},
             "process.env": {}
           },
-        optimizeDeps: {
-            exclude: ['web3'] // <= The libraries that need shimming should be excluded from dependency optimization.
-        }
+        
     });
 }
