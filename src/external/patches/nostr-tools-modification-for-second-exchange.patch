@@ -1,3 +1,15 @@
+diff --git a/nip06.js b/nip06.js
+index 7f603ca..b3891cc 100644
+--- a/nip06.js
++++ b/nip06.js
+@@ -5,6 +5,7 @@ import {
+   validateMnemonic
+ } from 'micro-bip39'
+ import {HDKey} from 'micro-bip32'
++import {Buffer} from 'buffer'
+ 
+ export function privateKeyFromSeed(seed) {
+   let root = HDKey.fromMasterSeed(Buffer.from(seed, 'hex'))
 diff --git a/pool.js b/pool.js
 index 10ba67f..6c1ef2f 100644
 --- a/pool.js

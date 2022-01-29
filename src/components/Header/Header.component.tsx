@@ -2,17 +2,16 @@
 import './Header.style.scss';
 
 import React, { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-
-import { darkModeState, toggleDarkModeState } from '../../shared/GlobalState';
-
-import { BsPencilSquare } from 'react-icons/bs';
 import { BiUserCircle } from 'react-icons/bi';
-import { KeyAuthModal } from "../AuthModal/KeyAuthModal";
-// import { useAuthModalContext } from "../../context";
-import { useUserAuthContext } from "../../context";
+import { BsPencilSquare } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { authOverlayActive } from 'src/context/auth-modal-context';
-import { useNavigate } from "react-router-dom";
+
+// import { useAuthModalContext } from "../../context";
+import { useUserAuthContext } from '../../context';
+import { darkModeState, toggleDarkModeState } from '../../shared/GlobalState';
+import { KeyAuthModal } from '../AuthModal/KeyAuthModal';
 
 const Header = () => {
   const isDarkModeEnabled = useRecoilValue(darkModeState);
@@ -21,8 +20,8 @@ const Header = () => {
   const navigate = useNavigate();
 //  const { authOverlayActive, setAuthOverlayActive } = useAuthModalContext();
   const [overlayActive, setOverlayActive ] = useRecoilState(authOverlayActive);
-// const { isUserAuthenticated } = useUserAuthContext();
-const isUserAuthenticated = true;
+  const { isUserAuthenticated } = useUserAuthContext();
+// const isUserAuthenticated = true;
   useEffect(() => {
     setOverlayActive(false);
   }, [isUserAuthenticated]);
