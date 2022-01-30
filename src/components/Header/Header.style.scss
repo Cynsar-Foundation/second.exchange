@@ -158,4 +158,21 @@
             }
         }
     }
+
+    &__content__keys {
+        display: flex;
+        &-format {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        
+            &-text {
+                cursor: pointer;
+                background-color: transparent;
+                border: none;
+                font-size: 16px;
+                margin-left: -5px;
+            }
+        }
+    }
 }

@@ -3,7 +3,7 @@ import './Header.style.scss';
 
 import React, { useEffect } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { BsPencilSquare } from 'react-icons/bs';
+import { BsFillKeyFill, BsPencilSquare } from 'react-icons/bs';
 import { BiUserCircle } from 'react-icons/bi';
 import { useNavigate } from "react-router-dom";
 
@@ -79,7 +79,7 @@ const Header = () => {
         { isUserAuthenticated && <div className="Header__content__user">
             <button 
               className='Header__content__user-format'
-              onClick={() => setKeyModalActive(true)}
+              onClick={() => setAuthModalActive(true)}
             >
                 <div>
                 <BiUserCircle size={30} />
@@ -87,12 +87,30 @@ const Header = () => {
                 </button>
             <button 
               className='Header__content__user-format-text'
-              onClick={() => setKeyModalActive(true)}
+              onClick={() => setAuthModalActive(true)}
             >
                 Connected
             </button>
         </div>
         }
+        { isUserAuthenticated && <div className="Header__content__keys">
+            <button 
+              className='Header__content__keys-format'
+              onClick={() => setKeyModalActive(true)}
+            >
+                <div>
+                <BsFillKeyFill size={30} />
+                </div>
+                </button>
+            <button 
+              className='Header__content__user-format-text'
+              onClick={() => setKeyModalActive(true)}
+            >
+                Your Keys
+            </button>
+        </div>
+        }
+
       </div>
       { keyModalActive && <UserKeyModal />}
       { authModalActive && <KeyAuthModal />}
