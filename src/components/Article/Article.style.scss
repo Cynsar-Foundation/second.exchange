@@ -14,6 +14,7 @@ $dark-mode-vote-color: rgba($color: $dark-mode-color, $alpha: .6);
         &__title {
             padding: 0 0 5px;
             margin: 0;
+            cursor: pointer;
         }
 
         &__date {
