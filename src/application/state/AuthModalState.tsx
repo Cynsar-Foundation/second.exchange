@@ -1,7 +1,7 @@
 import React from 'react';
 import { atom } from 'recoil';
 
-export const keyOverlayState = atom({
-  key: 'keyOverlayState',
+export const authModalState = atom({
+  key: 'authModalActive',
   default: false,
 });

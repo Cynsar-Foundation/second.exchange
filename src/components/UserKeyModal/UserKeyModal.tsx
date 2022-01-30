@@ -1,10 +1,9 @@
-import { useSessionKeyContext } from '@libs/application/state/SessionKeyContext';
 import React, { FC } from 'react';
 import { IoCloseOutline } from 'react-icons/io5';
 import { useRecoilState } from 'recoil';
 
-import { keyOverlayState } from 'src/context/key-modal-context';
-// import { sessionKeyState } from '../../context/session-key-context';
+import { keyModalState } from 'src/application/state';
+import { sessionKeyState } from 'src/application/state';
 
 interface IProps {
   fromLandingPage?: boolean;
@@ -18,10 +17,9 @@ export const UserKeyModal: FC<IProps> = ({
   toExecute,
 }) => {
 
-//   const [sessionKey, setSessionKey ] = useRecoilState(sessionKeyState);
-  const { sessionKey, setSessionKey } = useSessionKeyContext();
+  const [sessionKey, setSessionKey ] = useRecoilState(sessionKeyState);
   console.log("From userkeymodal: ", sessionKey);
-  
+
   var parsedSessionKey;
   fromLandingPage
     ? (parsedSessionKey = generatedKeys)
@@ -34,7 +32,7 @@ export const UserKeyModal: FC<IProps> = ({
   // @ts-ignore
   const userPublicKey = parsedSessionKey['pubKey'];
 
-  const [keyOverlayActive, setKeyOverlayActive] = useRecoilState(keyOverlayState);
+  const [keyOverlayActive, setKeyOverlayActive] = useRecoilState(keyModalState);
 
   const refreshPage = () => {
     window.location.reload();

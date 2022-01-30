@@ -11,10 +11,10 @@ import { getPublicKey } from '../../external/nostr-tools';
 import { useRecoilState } from 'recoil';
 
 import { UserKeyModal } from '../UserKeyModal/UserKeyModal';
-import { authOverlayState } from 'src/context/auth-modal-context';
+// import { authOverlayState } from 'src/context/auth-modal-context';
 // import { sessionKeyState } from 'src/context/session-key-context';
-// import { userAuthState } from 'src/context/user-auth-context';
-import { useSessionKeyContext, useUserAuthContext } from '../../context';
+// import { userAuthState } from '../../application/state/';
+import { sessionKeyState, userAuthState, authModalState } from 'src/application/state';
 
 const isKey = (key: any) => {
     return key?.toLowerCase()?.match(/^[0-9a-f]{64}$/);
@@ -41,13 +41,11 @@ export const KeyAuthModal = () => {
     const [isKeyValidated, setIsKeyValidated] = useState(false);
     const [keyModalVisible, setKeyModalVisible] = useState(false);
 
-//     const [ sessionKey, setSessionKey ] = useRecoilState(sessionKeyState);
-//     const [ isUserAuthenticated, setIsUserAuthenticated ] = useRecoilState(userAuthState);
-    const { isUserAuthenticated, setIsUserAuthenticated } = useUserAuthContext();
-    const { sessionKey, setSessionKey } = useSessionKeyContext();
+    const [ sessionKey, setSessionKey ] = useRecoilState(sessionKeyState);
+    const [ isUserAuthenticated, setIsUserAuthenticated ] = useRecoilState(userAuthState);
     const [ localKey, setLocalKey] = useState();
 
-    const [overlayActive, setOverlayActive ] = useRecoilState(authOverlayState);
+    const [overlayActive, setOverlayActive ] = useRecoilState(authModalState);
 
     function toHexString(byteArray: Uint8Array) {
         return Array.from(byteArray, function (byte) {
@@ -200,7 +198,6 @@ export const KeyAuthModal = () => {
                 )}
                 <hr />
             </div>}
-            {console.log("session key from auth modal", localKey)}
             {keyModalVisible && <UserKeyModal fromLandingPage={true} generatedKeys={localKey} toExecute={setIsUserAuthenticated} />}
         </div>
     );

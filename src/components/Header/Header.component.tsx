@@ -11,31 +11,27 @@ import { KeyAuthModal } from "../AuthModal/AuthModal";
 import { UserKeyModal } from '../UserKeyModal/UserKeyModal';
 
 import { darkModeState, toggleDarkModeState } from '../../shared/GlobalState';
-// import { userAuthState } from '../../context/user-auth-context';
-import { authOverlayState } from 'src/context/auth-modal-context';
-import { useUserAuthContext } from 'src/context';
-import { keyOverlayState } from 'src/context/key-modal-context';
+import { userAuthState, authModalState, keyModalState } from 'src/application/state';
 
 const Header = () => {
   const isDarkModeEnabled = useRecoilValue(darkModeState);
   // const [darkMode, toggleDarkMode] = useRecoilState(toggleDarkModeState);
 
   const navigate = useNavigate();
-  const [authOverlayActive, setAuthOverlayActive ] = useRecoilState(authOverlayState);
-//   const [ isUserAuthenticated ] = useRecoilState(userAuthState);
-  const { isUserAuthenticated, setIsUserAuthenticated } = useUserAuthContext();
-  const [keyOverlayActive, setKeyOverlayActive] = useRecoilState(keyOverlayState);
+  const [authModalActive, setAuthModalActive ] = useRecoilState(authModalState);
+  const [ isUserAuthenticated ] = useRecoilState(userAuthState);
+  const [keyModalActive, setKeyModalActive] = useRecoilState(keyModalState);
 
   const handleAuthClick = () => {
     isUserAuthenticated 
       ?
         navigate('/write')
       :
-        setAuthOverlayActive(true);
+        setAuthModalActive(true);
   };
 
   useEffect(() => {
-    setAuthOverlayActive(false);
+    setAuthModalActive(false);
   }, [isUserAuthenticated]);
 
   return (
@@ -83,7 +79,7 @@ const Header = () => {
         { isUserAuthenticated && <div className="Header__content__user">
             <button 
               className='Header__content__user-format'
-              onClick={() => setKeyOverlayActive(true)}
+              onClick={() => setKeyModalActive(true)}
             >
                 <div>
                 <BiUserCircle size={30} />
@@ -91,15 +87,15 @@ const Header = () => {
                 </button>
             <button 
               className='Header__content__user-format-text'
-              onClick={() => setKeyOverlayActive(true)}
+              onClick={() => setKeyModalActive(true)}
             >
                 Connected
             </button>
         </div>
         }
       </div>
-      { keyOverlayActive && <UserKeyModal />}
-      { authOverlayActive && <KeyAuthModal />}
+      { keyModalActive && <UserKeyModal />}
+      { authModalActive && <KeyAuthModal />}
     </header>
   );
 };
