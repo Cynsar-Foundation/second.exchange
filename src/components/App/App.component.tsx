@@ -18,6 +18,15 @@ function useApp() {
     const test: AppConfig = inject('config');
     const relayService: RelayService = inject('relayservice');
     for (const relayUrl of test.defaultRelays) relayService.addRelay(relayUrl);
+    relayService.sub(
+      (event, relay) => {
+        console.log(event);
+      },
+      {
+        authors: ['3cc926bad81f4128b7c5d08e49a1025e0120d32b79285fd3f9b70fa2404992e5'],
+        kinds: [0, 1, 3],
+      },
+    );
   }, []);
 }
 
@@ -26,14 +35,14 @@ const App = () => {
   useApp();
   return (
     <Router>
-    <div className={`App ${isDarkModeEnabled ? 'App--dark-mode' : ''}`}>
-      <Header />
+      <div className={`App ${isDarkModeEnabled ? 'App--dark-mode' : ''}`}>
+        <Header />
         <Routes>
           <Route path="/" element={<MainContent />} />
           <Route path="/write" element={<Writer />} />
         </Routes>
-    </div>
-      </Router>
+      </div>
+    </Router>
   );
 };
 
