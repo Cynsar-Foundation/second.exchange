@@ -137,7 +137,7 @@ const Header = () => {
           visible={popoverVisible.visible}
           onVisibleChange={handleVisibleChange}
         >
-          <Button style={{ background: "green", borderColor: "transparent" }} type="primary">Connected</Button>
+          <Button style={{ background: "transparent", borderColor: "black", color: "black" }} type="primary">Connected</Button>
         </Popover>
         }
 

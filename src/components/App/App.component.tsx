@@ -12,7 +12,7 @@ import MainContent from '../MainContent/MainContent.component';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Writer } from '../Writer/Writer';
-import { ArticlePage } from '../Article/ArticlePage.component';
+import { ArticleView } from '../ArticleView/ArticleView.component';
 
 function useApp() {
   useEffect(() => {
@@ -32,7 +32,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<MainContent />} />
           <Route path="/write" element={<Writer />} />
-          <Route path="/article/:slug" element={<ArticlePage />} />
+          <Route path="/article/:slug" element={<ArticleView />} />
         </Routes>
     </div>
       </Router>

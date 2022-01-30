@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { Card } from 'antd';
 
 import { darkModeState } from '../../shared/GlobalState';
-import { selectedArticleState } from 'src/application/state';
 
 interface ArticleProps {
   item?: any,
@@ -17,11 +16,8 @@ const defaultProps: ArticleProps = {
   fromNavigation: false
 }
 
-const Article: React.FC<ArticleProps> = ({ item: article, fromNavigation }) => {
+const Article: React.FC<ArticleProps> = ({ item: article }) => {
 
-  const [ selectedArticle, setSelectedArticle ] = useRecoilState(selectedArticleState);
-  if(fromNavigation)
-    article = selectedArticle;
   const isDarkModeEnabled = useRecoilValue(darkModeState);
   const navigate = useNavigate();
 
@@ -34,11 +30,6 @@ const Article: React.FC<ArticleProps> = ({ item: article, fromNavigation }) => {
       statistics: { likes, dislikes },
     } = article;
 
-  const openArticle = () => {
-    setSelectedArticle(article);
-    navigate(`/article/${id}`)
-  };
-
   return (
    <article className={`Article ${isDarkModeEnabled ? 'Article--dark-mode' : ''}`}>
       <Card 
@@ -50,7 +41,7 @@ const Article: React.FC<ArticleProps> = ({ item: article, fromNavigation }) => {
           </div>
         } 
         style={{ width: 1050 }}
-        onClick={openArticle}
+        onClick={() => navigate(`/article/${id}`)}
       >
         <main className="Article__main">
           {body.map((paragraph: any, index: any) => (
