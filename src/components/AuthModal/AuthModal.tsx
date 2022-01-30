@@ -12,8 +12,9 @@ import { useRecoilState } from 'recoil';
 
 import { UserKeyModal } from '../UserKeyModal/UserKeyModal';
 import { authOverlayState } from 'src/context/auth-modal-context';
-import { sessionKeyState } from 'src/context/session-key-context';
-import { userAuthState } from 'src/context/user-auth-context';
+// import { sessionKeyState } from 'src/context/session-key-context';
+// import { userAuthState } from 'src/context/user-auth-context';
+import { useSessionKeyContext, useUserAuthContext } from '../../context';
 
 const isKey = (key: any) => {
     return key?.toLowerCase()?.match(/^[0-9a-f]{64}$/);
@@ -40,8 +41,11 @@ export const KeyAuthModal = () => {
     const [isKeyValidated, setIsKeyValidated] = useState(false);
     const [keyModalVisible, setKeyModalVisible] = useState(false);
 
-    const [ sessionKey, setSessionKey ] = useRecoilState(sessionKeyState);
-    const [ isUserAuthenticated, setIsUserAuthenticated ] = useRecoilState(userAuthState);
+//     const [ sessionKey, setSessionKey ] = useRecoilState(sessionKeyState);
+//     const [ isUserAuthenticated, setIsUserAuthenticated ] = useRecoilState(userAuthState);
+    const { isUserAuthenticated, setIsUserAuthenticated } = useUserAuthContext();
+    const { sessionKey, setSessionKey } = useSessionKeyContext();
+    const [ localKey, setLocalKey] = useState();
 
     const [overlayActive, setOverlayActive ] = useRecoilState(authOverlayState);
 
@@ -82,7 +86,7 @@ export const KeyAuthModal = () => {
         }
 
         if (isUserAuthenticated) {
-            localStorage.setItem('user-auth', JSON.stringify(sessionKey));
+            localStorage.setItem('user-auth', JSON.stringify(localKey));
         }
     }, [isUserAuthenticated, sessionKey]);
 
@@ -157,6 +161,12 @@ export const KeyAuthModal = () => {
                                     privKey: userPrivateKey,
                                     pubKey: userPublicKey,
                                 });
+                                setLocalKey({
+                                    //@ts-ignore
+                                    mnemonic: userMnemonic,
+                                    privKey: userPrivateKey,
+                                    pubKey: userPublicKey,
+                                });
                                 setKeyModalVisible(true);
                             }}
                         >
@@ -190,7 +200,8 @@ export const KeyAuthModal = () => {
                 )}
                 <hr />
             </div>}
-            {keyModalVisible && <UserKeyModal fromLandingPage={true} generatedKeys={sessionKey} toExecute={setIsUserAuthenticated} />}
+            {console.log("session key from auth modal", localKey)}
+            {keyModalVisible && <UserKeyModal fromLandingPage={true} generatedKeys={localKey} toExecute={setIsUserAuthenticated} />}
         </div>
     );
 };

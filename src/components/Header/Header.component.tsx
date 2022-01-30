@@ -8,10 +8,13 @@ import { BiUserCircle } from 'react-icons/bi';
 import { useNavigate } from "react-router-dom";
 
 import { KeyAuthModal } from "../AuthModal/AuthModal";
+import { UserKeyModal } from '../UserKeyModal/UserKeyModal';
 
 import { darkModeState, toggleDarkModeState } from '../../shared/GlobalState';
-import { userAuthState } from '../../context/user-auth-context';
+// import { userAuthState } from '../../context/user-auth-context';
 import { authOverlayState } from 'src/context/auth-modal-context';
+import { useUserAuthContext } from 'src/context';
+import { keyOverlayState } from 'src/context/key-modal-context';
 
 const Header = () => {
   const isDarkModeEnabled = useRecoilValue(darkModeState);
@@ -19,7 +22,9 @@ const Header = () => {
 
   const navigate = useNavigate();
   const [authOverlayActive, setAuthOverlayActive ] = useRecoilState(authOverlayState);
-  const [ isUserAuthenticated ] = useRecoilState(userAuthState);
+//   const [ isUserAuthenticated ] = useRecoilState(userAuthState);
+  const { isUserAuthenticated, setIsUserAuthenticated } = useUserAuthContext();
+  const [keyOverlayActive, setKeyOverlayActive] = useRecoilState(keyOverlayState);
 
   const handleAuthClick = () => {
     isUserAuthenticated 
@@ -76,17 +81,24 @@ const Header = () => {
             </button>
         </div>
         { isUserAuthenticated && <div className="Header__content__user">
-            <button className='Header__content__user-format'>
+            <button 
+              className='Header__content__user-format'
+              onClick={() => setKeyOverlayActive(true)}
+            >
                 <div>
                 <BiUserCircle size={30} />
                 </div>
                 </button>
-            <button className='Header__content__user-format-text'>
+            <button 
+              className='Header__content__user-format-text'
+              onClick={() => setKeyOverlayActive(true)}
+            >
                 Connected
             </button>
         </div>
         }
       </div>
+      { keyOverlayActive && <UserKeyModal />}
       { authOverlayActive && <KeyAuthModal />}
     </header>
   );
