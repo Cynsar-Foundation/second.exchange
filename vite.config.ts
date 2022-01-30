@@ -1,7 +1,7 @@
 import { defineConfig, ConfigEnv, UserConfigExport } from 'vite';
 import reactRefresh from '@vitejs/plugin-react-refresh';
 import tsconfigPaths from 'vite-tsconfig-paths';
-
+import { esbuildCommonjs } from '@originjs/vite-plugin-commonjs'
 // https://vitejs.dev/config/
 export default function ({ }: ConfigEnv): UserConfigExport {
     return defineConfig({
@@ -15,6 +15,13 @@ export default function ({ }: ConfigEnv): UserConfigExport {
             "global": {},
             "process.env": {}
           },
+          optimizeDeps:{
+            esbuildOptions:{
+              plugins:[
+                esbuildCommonjs(['create-hash','browserify-cipher','stream-browserify', 'cipher-base', 'stream', 'inherits', 'readable-streams'])
+              ]
+            }
+          }
         
     });
 }

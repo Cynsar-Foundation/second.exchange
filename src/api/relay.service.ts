@@ -26,7 +26,10 @@ export class RelayService implements Interface.RelayService {
   publish(event: any) {
     RelayService.pool.publish(event);
   }
-  sub(callback: EventCallback, filter: Interface.SubFilter): void {
-    RelayService.pool.sub(callback, filter);
+  sub(callback: EventCallback, filter: Interface.SubFilter, id: string): void {
+    RelayService.pool.sub({callback, filter}, id);
+  }
+  setPrivateKey(key: string) {
+      RelayService.pool.setPrivateKey(key);
   }
 }

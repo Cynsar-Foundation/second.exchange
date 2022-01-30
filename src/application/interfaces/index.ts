@@ -10,7 +10,8 @@ export interface RelayService {
   subSingle(callback: EventCallback, filter: SingleSubFilter): void;
   subBulk(callback: EventCallback, filter: BulkSubFilter): void;
   publish(event: NostrEvent): void;
-  sub(callback: EventCallback, filter: SubFilter): void;
+  sub(callback: EventCallback, filter: SubFilter, id: string): void;
+  setPrivateKey(key:string):void;
 }
 
 export type NostrEvent = {
