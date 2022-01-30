@@ -84,7 +84,8 @@ export const KeyAuthModal = () => {
         }
 
         if (isUserAuthenticated) {
-            localStorage.setItem('user-auth', JSON.stringify(localKey));
+            if(!localStorage.getItem('user-auth'))
+                    localStorage.setItem('user-auth', JSON.stringify(localKey));
         }
     }, [isUserAuthenticated, sessionKey]);
 

@@ -1,10 +1,10 @@
 /* eslint-disable prettier/prettier */
 import './Header.style.scss';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { BsFillKeyFill, BsPencilSquare } from 'react-icons/bs';
-import { BiUserCircle } from 'react-icons/bi';
+import { BiUserCircle, BiLogOut } from 'react-icons/bi';
 import { useNavigate } from "react-router-dom";
 
 import { KeyAuthModal } from "../AuthModal/AuthModal";
@@ -12,15 +12,28 @@ import { UserKeyModal } from '../UserKeyModal/UserKeyModal';
 
 import { darkModeState, toggleDarkModeState } from '../../shared/GlobalState';
 import { userAuthState, authModalState, keyModalState } from 'src/application/state';
+import { Button, Popover } from 'antd';
 
 const Header = () => {
   const isDarkModeEnabled = useRecoilValue(darkModeState);
-  // const [darkMode, toggleDarkMode] = useRecoilState(toggleDarkModeState);
+  const [darkMode, toggleDarkMode] = useRecoilState(toggleDarkModeState);
 
   const navigate = useNavigate();
-  const [authModalActive, setAuthModalActive ] = useRecoilState(authModalState);
+  const [ authModalActive, setAuthModalActive ] = useRecoilState(authModalState);
   const [ isUserAuthenticated ] = useRecoilState(userAuthState);
-  const [keyModalActive, setKeyModalActive] = useRecoilState(keyModalState);
+  const [ keyModalActive, setKeyModalActive ] = useRecoilState(keyModalState);
+
+  const [ popoverVisible, setPopoverVisible ] = useState({visible: false});
+
+  const hidePopover = () => {
+    setPopoverVisible({
+      visible: false,
+    });
+  };
+
+  const handleVisibleChange = (visible: boolean) => {
+    setPopoverVisible({ visible });
+  };
 
   const handleAuthClick = () => {
     isUserAuthenticated 
@@ -33,6 +46,45 @@ const Header = () => {
   useEffect(() => {
     setAuthModalActive(false);
   }, [isUserAuthenticated]);
+
+  const PopoverContent = () => {
+    return(
+      <div>
+        <div className="Header__content__user">
+            <button 
+              className='Header__content__user-format'
+              onClick={() => { hidePopover(); setAuthModalActive(true)}}
+            >
+                <div>
+                <BiLogOut size={30} />
+                </div>
+                </button>
+            <button 
+              className='Header__content__user-format-text'
+              onClick={() => { hidePopover(); setAuthModalActive(true) }}
+            >
+                Logout
+            </button>
+        </div>
+        <div className="Header__content__keys">
+            <button 
+              className='Header__content__keys-format'
+              onClick={() => { hidePopover(); setKeyModalActive(true)}}
+            >
+                <div>
+                <BsFillKeyFill size={30} />
+                </div>
+                </button>
+            <button 
+              className='Header__content__user-format-text'
+              onClick={() => { hidePopover(); setKeyModalActive(true)}}
+            >
+                Your Keys
+            </button>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <header className={`Header ${isDarkModeEnabled ? 'Header--dark-mode' : ''}`}>
@@ -56,8 +108,10 @@ const Header = () => {
             id="dark-mode-select"
             className="Header__content__dark-mode__input"
             type="checkbox"
-            // value={}
-            onChange={() => {}}
+            // @ts-ignore
+            value={ isDarkModeEnabled }
+            // @ts-ignore
+            onChange={ toggleDarkMode }
           />
         </div>
         <div className="Header__content__write">
@@ -76,39 +130,15 @@ const Header = () => {
                 Post Blog
             </button>
         </div>
-        { isUserAuthenticated && <div className="Header__content__user">
-            <button 
-              className='Header__content__user-format'
-              onClick={() => setAuthModalActive(true)}
-            >
-                <div>
-                <BiUserCircle size={30} />
-                </div>
-                </button>
-            <button 
-              className='Header__content__user-format-text'
-              onClick={() => setAuthModalActive(true)}
-            >
-                Connected
-            </button>
-        </div>
-        }
-        { isUserAuthenticated && <div className="Header__content__keys">
-            <button 
-              className='Header__content__keys-format'
-              onClick={() => setKeyModalActive(true)}
-            >
-                <div>
-                <BsFillKeyFill size={30} />
-                </div>
-                </button>
-            <button 
-              className='Header__content__user-format-text'
-              onClick={() => setKeyModalActive(true)}
-            >
-                Your Keys
-            </button>
-        </div>
+        {isUserAuthenticated &&
+          <Popover
+          content={<PopoverContent />}
+          trigger="click"
+          visible={popoverVisible.visible}
+          onVisibleChange={handleVisibleChange}
+        >
+          <Button style={{ background: "green", borderColor: "transparent" }} type="primary">Connected</Button>
+        </Popover>
         }
 
       </div>
