@@ -129,6 +129,7 @@ export const KeyAuthModal = () => {
 
     const handleReset = () => {
         clearInput();
+        setIsKeyValidated(false);
     }
 
     const handleGenerate = () => {

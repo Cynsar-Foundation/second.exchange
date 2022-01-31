@@ -1,8 +1,12 @@
 import './ArticleView.style.scss';
+
 import React, { useState } from 'react';
 import { useLocation } from "react-router-dom"
 import ReactMarkdown from 'react-markdown'
+import { useRecoilValue } from 'recoil';
+
 import ArticleService from 'src/shared/ArticleService';
+import { darkModeState } from '../../shared/GlobalState';
 
 function formatDate(dateIsoString: any) {
   const dateObject = new Date(dateIsoString);
@@ -15,7 +19,7 @@ function formatDate(dateIsoString: any) {
 }
 
 export const ArticleView = () => {
-
+  const isDarkModeEnabled = useRecoilValue(darkModeState);
   const getRouteSlug = () => {
     const location = useLocation();
     if (location.pathname.indexOf("article") >= 0)
@@ -39,15 +43,15 @@ export const ArticleView = () => {
   getArticle(getRouteSlug());
 
   return(
-      <div>
+      <div className="article-view">
             {articleLoaded && 
               <div className="article-view__container">
                 {/* @ts-ignore */}
-                <h1 className="article-view__title">{article.title}</h1>
+                <h1 className="article-view__title" style={{ color: (isDarkModeEnabled ? "white" : "black")}}>{article.title}</h1>
                 {/* @ts-ignore */}
                 <h4 className="article-view__date">{formatDate(article.date)}</h4>
                 {/* @ts-ignore */}
-                <h3 className="article-view__subtitle">{article.subtitle}</h3>
+                <h3 className="article-view__subtitle" style={{ color: (isDarkModeEnabled ? "white" : "black")}}>{article.subtitle}</h3>
                 {/* @ts-ignore */}
                 <p className="article-view__body"><ReactMarkdown>{String(article.body)}</ReactMarkdown></p>
               </div>}
