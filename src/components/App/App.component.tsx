@@ -4,7 +4,7 @@ import { RelayService } from '@libs/api';
 import { AppConfig } from '@libs/api/types';
 import { inject } from 'njct';
 import React, { useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 
 import { darkModeState } from '../../shared/GlobalState';
 import Header from '../Header/Header.component';
@@ -12,6 +12,7 @@ import MainContent from '../MainContent/MainContent.component';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Writer } from '../Writer/Writer';
+import { ArticleView } from '../ArticleView/ArticleView.component';
 
 function useApp() {
   useEffect(() => {
@@ -31,6 +32,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<MainContent />} />
           <Route path="/write" element={<Writer />} />
+          <Route path="/article/:slug" element={<ArticleView />} />
         </Routes>
     </div>
       </Router>

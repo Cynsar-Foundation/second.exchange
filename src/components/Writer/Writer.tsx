@@ -40,7 +40,7 @@ export const Writer = () => {
           placeholder='Write your blog! (Markdown supported)'
         />
       </Form.Item>
-      <Form.Item>
+      <Form.Item className="writer-container__fdss">
         <Button type="primary" htmlType="submit">
           Publish Blog
         </Button>
