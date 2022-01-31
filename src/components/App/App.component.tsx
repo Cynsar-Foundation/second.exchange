@@ -7,7 +7,7 @@ import React, { useEffect } from 'react';
 import { useRecoilValue, useRecoilState } from 'recoil';
 
 import { darkModeState } from '../../shared/GlobalState';
-import Header from '../Header/Header.component';
+import HeaderNav from '../Header/Header.component';
 import MainContent from '../MainContent/MainContent.component';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -28,7 +28,7 @@ const App = () => {
   return (
     <Router>
     <div className={`App ${isDarkModeEnabled ? 'App--dark-mode' : ''}`}>
-      <Header />
+      <HeaderNav />
         <Routes>
           <Route path="/" element={<MainContent />} />
           <Route path="/write" element={<Writer />} />

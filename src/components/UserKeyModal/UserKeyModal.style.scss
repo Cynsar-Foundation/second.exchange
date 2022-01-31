@@ -1,0 +1,26 @@
+.key-modal {
+    &__body {
+        line-height: 25px;
+    }
+
+    &__subtitle {
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+    &__info {
+        color: grey;
+        margin-bottom: 15px;
+    }
+
+    &__generated-key-value {
+        background-color: rgb(224, 224, 224);
+        font-size: 12.5px;
+        padding: 5px;
+    }
+
+    &__generated-key-tag {
+        font-weight: bold;
+        margin-top: 10px;
+    }
+}

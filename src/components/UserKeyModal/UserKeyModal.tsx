@@ -1,90 +1,86 @@
+import './UserKeyModal.style.scss';
+
 import React, { FC } from 'react';
-import { IoCloseOutline } from 'react-icons/io5';
 import { useRecoilState } from 'recoil';
+import { Button, Modal } from 'antd';
 
 import { keyModalState } from 'src/application/state';
 import { sessionKeyState } from 'src/application/state';
 
 interface IProps {
-  fromLandingPage?: boolean;
-  generatedKeys?: any;
-  toExecute?: any;
+    fromLandingPage?: boolean;
+    generatedKeys?: any;
+    toExecute?: any;
 }
 
 export const UserKeyModal: FC<IProps> = ({
-  fromLandingPage = false,
-  generatedKeys,
-  toExecute,
+    fromLandingPage = false,
+    generatedKeys,
+    toExecute,
 }) => {
+    const [sessionKey, setSessionKey] = useRecoilState(sessionKeyState);
+    const [keyModalActive, setKeyModalActive] = useRecoilState(keyModalState);
 
-  const [sessionKey, setSessionKey ] = useRecoilState(sessionKeyState);
-
-  var parsedSessionKey;
-  fromLandingPage
-    ? (parsedSessionKey = generatedKeys)
+    var parsedSessionKey;
+    fromLandingPage
+        ? (parsedSessionKey = generatedKeys)
+        : // @ts-ignore
+        (parsedSessionKey = JSON.parse(sessionKey));
     // @ts-ignore
-    : (parsedSessionKey = JSON.parse(sessionKey));
-  // @ts-ignore
-  const userMnemonic = parsedSessionKey['mnemonic'];
-  // @ts-ignore
-  const userPrivateKey = parsedSessionKey['privKey'];
-  // @ts-ignore
-  const userPublicKey = parsedSessionKey['pubKey'];
+    const userMnemonic = parsedSessionKey['mnemonic'];
+    // @ts-ignore
+    const userPrivateKey = parsedSessionKey['privKey'];
+    // @ts-ignore
+    const userPublicKey = parsedSessionKey['pubKey'];
 
-  const [keyOverlayActive, setKeyOverlayActive] = useRecoilState(keyModalState);
+    const refreshPage = () => {
+        window.location.reload();
+    };
 
-  const refreshPage = () => {
-    window.location.reload();
-  };
+    const handleCancel = () => {
+        setKeyModalActive(false);
+    };
 
-  return (
-    <div className="wallet-modal__top-level">
-      <div className="wallet-modal__container">
-        {!fromLandingPage && (
-          <button
-            className="wallet-modal__close-button"
-            onClick={() => setKeyOverlayActive(false)}
-          >
-            <IoCloseOutline size={25} />
-          </button>
-        )}
-        <div className="wallet-modal__header">
-          <div className="wallet-modal__title">Your Keys</div>
-          <hr />
+    return (
+        <div className="key-modal__container">
+            {<Modal
+                className="key-modal__modal"
+                title="Your Keys"
+                visible={fromLandingPage || keyModalActive}
+                onCancel={handleCancel}
+                footer={fromLandingPage && [
+                    <Button
+                        key="proceed"
+                        onClick={() => {
+                            toExecute(true);
+                            refreshPage();
+                        }}
+                    >
+                        Proceed
+                    </Button>
+                ]}
+            >
+                <div className="key-modal__body">
+                    <div className="key-modal__subtitle">
+                        Make sure you back up your private key!
+                    </div>
+                    <div className="key-modal__info">
+                        Posts are published using your private key. Others can see your posts or
+                        follow you using only your public key.
+                    </div>
+                    <div className="key-modal__generated-key">
+                        <div>
+                            <div className="key-modal__generated-key-tag">Seed Words</div>
+                            {/* Need to add these in a copy text block */}
+                            <div className="key-modal__generated-key-value">{userMnemonic}</div>
+                            <div className="key-modal__generated-key-tag">Private key</div>
+                            <div className="key-modal__generated-key-value">{userPrivateKey}</div>
+                            <div className="key-modal__generated-key-tag">Public key</div>
+                            <div className="key-modal__generated-key-value">{userPublicKey}</div>
+                        </div>
+                    </div>
+                </div>
+            </Modal>}
         </div>
-        <div className="key-modal__body">
-          <div className="key-modal__subtitle">
-            Make sure you back up your private key!
-          </div>
-          <div className="key-modal__info">
-            Posts are published using your private key. Others can see your posts or
-            follow you using only your public key.
-          </div>
-          <div className="key-setup__generated-key">
-            <span className="key-setup__generated-key-value">
-              <span className="key-setup__generated-key-tag">Seed Words</span> <br />
-              {/* Need to add these in a copy text block */}
-              {userMnemonic} <br />
-              <span className="key-setup__generated-key-tag">Private key</span> <br />
-              {userPrivateKey} <br />
-              <span className="key-setup__generated-key-tag">Public key</span> <br />
-              {userPublicKey}
-            </span>
-          </div>
-        </div>
-        <hr />
-        {fromLandingPage && (
-          <button
-            className="key-modal__proceed-button"
-            onClick={() => {
-              toExecute(true);
-              refreshPage();
-            }}
-          >
-            Proceed
-          </button>
-        )}
-      </div>
-    </div>
-  );
+    );
 };
