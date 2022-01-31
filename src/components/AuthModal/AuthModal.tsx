@@ -11,7 +11,7 @@ import { useRecoilState } from 'recoil';
 
 import { UserKeyModal } from '../UserKeyModal/UserKeyModal';
 import { sessionKeyState, userAuthState, authModalState } from 'src/application/state';
-import { Button, Input, Modal } from 'antd';
+import { Button, Modal } from 'antd';
 
 const isKey = (key: any) => {
     return key?.toLowerCase()?.match(/^[0-9a-f]{64}$/);

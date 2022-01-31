@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+
 import './Header.style.scss';
 
 import React, { useEffect, useState } from 'react';
@@ -14,7 +14,7 @@ import { darkModeState, toggleDarkModeState } from '../../shared/GlobalState';
 import { userAuthState, authModalState, keyModalState } from 'src/application/state';
 import { Button, Popover } from 'antd';
 
-const Header = () => {
+const HeaderNav = () => {
   const isDarkModeEnabled = useRecoilValue(darkModeState);
   const [darkMode, toggleDarkMode] = useRecoilState(toggleDarkModeState);
 
@@ -148,4 +148,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default HeaderNav;

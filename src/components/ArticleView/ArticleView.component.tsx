@@ -1,7 +1,7 @@
 import './ArticleView.style.scss';
 import React, { useState } from 'react';
 import { useLocation } from "react-router-dom"
-
+import ReactMarkdown from 'react-markdown'
 import ArticleService from 'src/shared/ArticleService';
 
 function formatDate(dateIsoString: any) {
@@ -40,18 +40,17 @@ export const ArticleView = () => {
 
   return(
       <div>
-          {articleLoaded && 
-            <div className="article-view__container">
-              {/* @ts-ignore */}
-              <h1 className="article-view__title">{article.title}</h1>
-              {/* @ts-ignore */}
-              <h4 className="article-view__date">{formatDate(article.date)}</h4>
-              {/* @ts-ignore */}
-              <h3 className="article-view__subtitle">{article.subtitle}</h3>
-              {/* @ts-ignore */}
-              <p className="article-view__body">{article.body}</p>
-            </div>
-          }
+            {articleLoaded && 
+              <div className="article-view__container">
+                {/* @ts-ignore */}
+                <h1 className="article-view__title">{article.title}</h1>
+                {/* @ts-ignore */}
+                <h4 className="article-view__date">{formatDate(article.date)}</h4>
+                {/* @ts-ignore */}
+                <h3 className="article-view__subtitle">{article.subtitle}</h3>
+                {/* @ts-ignore */}
+                <p className="article-view__body"><ReactMarkdown>{String(article.body)}</ReactMarkdown></p>
+              </div>}
       </div>
   )
 }
