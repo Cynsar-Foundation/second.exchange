@@ -21,21 +21,9 @@ export const toggleDarkModeState = selector({
   },
   set: ({ get, set }) => {
       const currentValue = get(darkModeState);
-      console.log('HEHEHREHH')
       set(darkModeState, !currentValue);
   }
 });
-
-// export const toggleDarkModeState = selector({
-//   key: 'toggleDarkMode',
-//     set: ({ set }, newState) => {
-//       // @ts-ignore
-//       set(darkModeState, newState);
-//     },
-//   get: ({ get }) => {
-//     get(darkModeState);
-//   },
-// });
 
 export const articleByIdQuery = selectorFamily({
   key: 'articleByIdQuery',

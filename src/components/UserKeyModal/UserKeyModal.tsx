@@ -18,7 +18,6 @@ export const UserKeyModal: FC<IProps> = ({
 }) => {
 
   const [sessionKey, setSessionKey ] = useRecoilState(sessionKeyState);
-  console.log("From userkeymodal: ", sessionKey);
 
   var parsedSessionKey;
   fromLandingPage
