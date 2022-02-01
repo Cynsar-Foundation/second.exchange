@@ -11,7 +11,7 @@ export interface RelayService {
   subBulk(callback: EventCallback, filter: BulkSubFilter): void;
   publish(event: NostrEvent): void;
   sub(callback: EventCallback, filter: SubFilter, id: string): void;
-  setPrivateKey(key:string):void;
+  setPrivateKey(key: string): void;
 }
 
 export type NostrEvent = {

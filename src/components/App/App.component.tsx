@@ -29,7 +29,10 @@ function useApp() {
         console.log(event);
       },
       {
-        authors: ['3cc926bad81f4128b7c5d08e49a1025e0120d32b79285fd3f9b70fa2404992e5'],
+        authors: [
+          '3cc926bad81f4128b7c5d08e49a1025e0120d32b79285fd3f9b70fa2404992e5',
+          '7b0ba10b13233979d17e545d56b1c1f6563ce0c9b0d1f3691b5ad3bf3cced6c0',
+        ],
         kinds: [0, 1, 3],
       },
       'main-channel',
