@@ -8,7 +8,8 @@ import { useRecoilValue } from 'recoil';
 // import ArticleService from 'src/shared/ArticleService';
 import { darkModeState } from '../../shared/GlobalState';
 import { nostrEventState } from 'src/application/states/relay.state';
-import { NostrEvent } from 'src/application/interfaces';
+import { NostrEvent, RelayService } from 'src/application/interfaces';
+import { inject } from 'njct';
 
 function formatDate(dateIsoString: any) {
   const dateObject = new Date(dateIsoString);
@@ -22,9 +23,10 @@ function formatDate(dateIsoString: any) {
 
 export const ArticleView: React.FC = () => {
   const isDarkModeEnabled = useRecoilValue(darkModeState);
-  const nostrArticles = useRecoilValue(nostrEventState);
+//   const nostrArticles = useRecoilValue(nostrEventState);
   const [article, setArticle] = useState<any>();
   const [articleLoaded, setArticleLoaded] = useState(false);
+  const relayService: RelayService = inject('relayservice');
 
   const getRouteSlug = () => {
     const location = useLocation();
@@ -43,13 +45,27 @@ export const ArticleView: React.FC = () => {
     //     setArticleLoaded(true);
     //     return result;
     //   });
-    var result = nostrArticles.filter(articleObj => {
-      return articleObj.id === id
-    });
-    // @ts-ignore
-    if(nostrArticles[0]) 
-      console.log(nostrArticles[0].id)
-    temp = result;
+    // var result = nostrArticles.filter(articleObj => {
+    //   return articleObj.id === id
+    // });
+    // // @ts-ignore
+    // if(nostrArticles[0]) 
+    //   console.log(nostrArticles[0].id)
+    // temp = result;
+    relayService.sub(
+        async (event: any) => {
+          // this.eventSub.unsub()
+          temp = event
+          // this.$store.dispatch('useProfile', {
+          //   pubkey: this.event.pubkey,
+          //   request: true
+          // })
+          // this.listenAncestors()
+        },
+        {authors: [id], kinds: [1]/*[this.$route.params.eventId]*/},
+      'event-browser'
+    )
+    console.log(temp);
   }
 
   useEffect(() => {
