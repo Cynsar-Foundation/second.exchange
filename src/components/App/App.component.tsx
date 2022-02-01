@@ -13,12 +13,10 @@ import MainContent from '../MainContent/MainContent.component';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Writer } from '../Writer/Writer';
 import { ArticleView } from '../ArticleView/ArticleView.component';
-
-import { nostrEventState, nostrEvents } from 'src/application/states/relay.state';
+import { nostrEventState } from 'src/application/states/relay.state';
 
 function useApp() {
   const [nostrEventsValue, setNostrEventsValue] = useRecoilState(nostrEventState);
-  // const [updateNostrEvents] = useRecoilState(nostrEvents);
   useEffect(() => {
     const test: AppConfig = inject('config');
     const relayService: RelayService = inject('relayservice');
@@ -31,10 +29,7 @@ function useApp() {
     for (const relayUrl of test.defaultRelays) relayService.addRelay(relayUrl);
     relayService.sub(
       (event, relay) => {
-        setNostrEventsValue((events) => [
-          ...events,
-          event
-        ]);
+        setNostrEventsValue(events => [...events, event]);
       },
       {
         authors: [
@@ -45,7 +40,6 @@ function useApp() {
       },
       'main-channel',
     );
-    
   }, []);
 }
 
@@ -54,8 +48,8 @@ const App = () => {
   useApp();
   return (
     <Router>
-    <div className={`App ${isDarkModeEnabled ? 'App--dark-mode' : ''}`}>
-      <HeaderNav />
+      <div className={`App ${isDarkModeEnabled ? 'App--dark-mode' : ''}`}>
+        <HeaderNav />
         <Routes>
           <Route path="/" element={<MainContent />} />
           <Route path="/write" element={<Writer />} />

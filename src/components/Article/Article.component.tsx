@@ -9,52 +9,48 @@ import { darkModeState } from '../../shared/GlobalState';
 import { NostrEvent } from 'src/application/interfaces';
 
 interface ArticleProps {
-  item?: NostrEvent
+  item?: NostrEvent;
 }
 
-// const defaultProps: ArticleProps = {
-//   item: []
-// }
-
 const Article: React.FC<ArticleProps> = ({ item }) => {
-
   const isDarkModeEnabled = useRecoilValue(darkModeState);
   const navigate = useNavigate();
 
-    // var {
-    //   id,
-    //   title: "default title",
-    //   created_at,
-    //   subtitle,
-    //   body,
-    //   statistics: { likes, dislikes },
-    // } = article;
-
-
-
   return (
-   <article className={`Article ${isDarkModeEnabled ? 'Article--dark-mode' : ''}`}>
-      <Card 
-        size="small" 
+    <article className={`Article ${isDarkModeEnabled ? 'Article--dark-mode' : ''}`}>
+      <Card
+        size="small"
         title={
           <div>
-            <h1 className="Article__header__title" style={{ fontSize: "25px", color: (isDarkModeEnabled ? "white" : "black")}}>{"Default title"}</h1>
-            <span className="Article__header__date" style={{color: (isDarkModeEnabled ? "white" : "black")}}>{formatDate(item?.created_at)}</span>
+            <h1
+              className="Article__header__title"
+              style={{ fontSize: '25px', color: isDarkModeEnabled ? 'white' : 'black' }}
+            >
+              {'Default title'}
+            </h1>
+            <span
+              className="Article__header__date"
+              style={{ color: isDarkModeEnabled ? 'white' : 'black' }}
+            >
+              {formatDate(item?.created_at)}
+            </span>
           </div>
-        } 
-        style={{ backgroundColor: (isDarkModeEnabled ? "black" : "white"),  width: 1050, color: (isDarkModeEnabled ? "white" : "black") }}
+        }
+        style={{
+          backgroundColor: isDarkModeEnabled ? 'black' : 'white',
+          width: 1050,
+          color: isDarkModeEnabled ? 'white' : 'black',
+        }}
         onClick={() => navigate(`/article/${item?.id}`)}
       >
-        <main className="Article__main" style={{ }}>
-          {
-            <p>{item?.content}</p>
-          }
+        <main className="Article__main" style={{}}>
+          {<p>{item?.content}</p>}
         </main>
-          <footer className="Article__footer">
-            <button className="Article__footer__vote-up" />
-              <span className="Article__footer__rating">{formatRating(5, 10)}</span>
-            <button className="Article__footer__vote-down" />
-          </footer>
+        <footer className="Article__footer">
+          <button className="Article__footer__vote-up" />
+          <span className="Article__footer__rating">{formatRating(5, 10)}</span>
+          <button className="Article__footer__vote-down" />
+        </footer>
       </Card>
     </article>
   );

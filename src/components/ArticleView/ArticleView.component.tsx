@@ -7,6 +7,7 @@ import { useRecoilValue } from 'recoil';
 
 import ArticleService from 'src/shared/ArticleService';
 import { darkModeState } from '../../shared/GlobalState';
+import { nostrEventState } from 'src/application/states/relay.state';
 import { NostrEvent } from 'src/application/interfaces';
 
 function formatDate(dateIsoString: any) {
