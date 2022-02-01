@@ -16,12 +16,13 @@ export const articleQuery = selector({
 
 export const toggleDarkModeState = selector({
   key: 'toggleDarkMode',
-  //   set: ({ set }, newState) => {
-  //     set(darkModeState, newState);
-  //   },
   get: ({ get }) => {
     get(darkModeState);
   },
+  set: ({ get, set }) => {
+      const currentValue = get(darkModeState);
+      set(darkModeState, !currentValue);
+  }
 });
 
 export const articleByIdQuery = selectorFamily({
