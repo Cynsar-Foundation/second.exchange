@@ -18,7 +18,26 @@ function useApp() {
   useEffect(() => {
     const test: AppConfig = inject('config');
     const relayService: RelayService = inject('relayservice');
+    const privFromLocalStorage = localStorage.getItem('user-auth');
+    // todo proper auth state management
+    const privKey = JSON.parse(privFromLocalStorage ? privFromLocalStorage : '{}')[
+      'privKey'
+    ];
+    relayService.setPrivateKey(privKey);
     for (const relayUrl of test.defaultRelays) relayService.addRelay(relayUrl);
+    relayService.sub(
+      (event, relay) => {
+        console.log(event);
+      },
+      {
+        authors: [
+          '3cc926bad81f4128b7c5d08e49a1025e0120d32b79285fd3f9b70fa2404992e5',
+          '7b0ba10b13233979d17e545d56b1c1f6563ce0c9b0d1f3691b5ad3bf3cced6c0',
+        ],
+        kinds: [0, 1, 3],
+      },
+      'main-channel',
+    );
   }, []);
 }
 
@@ -34,8 +53,8 @@ const App = () => {
           <Route path="/write" element={<Writer />} />
           <Route path="/article/:slug" element={<ArticleView />} />
         </Routes>
-    </div>
-      </Router>
+      </div>
+    </Router>
   );
 };
 

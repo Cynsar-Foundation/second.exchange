@@ -18,15 +18,18 @@ export class RelayService implements Interface.RelayService {
     RelayService.pool.removeRelay(url);
   }
   subSingle(callback: EventCallback, filter: SingleSubFilter) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     RelayService.pool.subSingle(callback, filter);
   }
   subBulk(callback: EventCallback, filter: BulkSubFilter) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     RelayService.pool.subBulk(callback, filter);
   }
   publish(event: any) {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     RelayService.pool.publish(event);
+  }
+  sub(callback: EventCallback, filter: Interface.SubFilter, id: string): void {
+    RelayService.pool.sub({ cb: callback, filter: filter }, id);
+  }
+  setPrivateKey(key: string) {
+    RelayService.pool.setPrivateKey(key);
   }
 }
