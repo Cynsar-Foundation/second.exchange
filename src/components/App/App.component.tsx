@@ -14,7 +14,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Writer } from '../Writer/Writer';
 import { ArticleView } from '../ArticleView/ArticleView.component';
 
+import { nostrEventState, nostrEvents } from 'src/application/states/relay.state';
+
 function useApp() {
+  const [nostrEventsValue, setNostrEventsValue] = useRecoilState(nostrEventState);
+  // const [updateNostrEvents] = useRecoilState(nostrEvents);
   useEffect(() => {
     const test: AppConfig = inject('config');
     const relayService: RelayService = inject('relayservice');
@@ -27,7 +31,10 @@ function useApp() {
     for (const relayUrl of test.defaultRelays) relayService.addRelay(relayUrl);
     relayService.sub(
       (event, relay) => {
-        console.log(event);
+        setNostrEventsValue((events) => [
+          ...events,
+          event
+        ]);
       },
       {
         authors: [
@@ -38,6 +45,7 @@ function useApp() {
       },
       'main-channel',
     );
+    
   }, []);
 }
 

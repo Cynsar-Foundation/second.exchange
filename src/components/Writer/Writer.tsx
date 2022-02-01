@@ -18,14 +18,14 @@ export const Writer = () => {
     <div className="writer-container">
       <Form name="nest-messages" onFinish={onFinish}>
         <Form.Item name="blog-title">
-          <Input placeholder="Blog Title" className="writer__title" style={{ width: "850px"}} />
+          <Input placeholder="Blog Title" className="writer__title" style={{ width: "850px", color: (isDarkModeEnabled ? "white" : "black")}} />
         </Form.Item>
         <Form.Item name="blog-description">
-          <Input className="writer__description" placeholder="Blog Brief Description" />
+          <Input className="writer__description" placeholder="Blog Brief Description" style={{ color: (isDarkModeEnabled ? "white" : "black")}} />
         </Form.Item>
         <Form.Item name="blog-content">
           <Textarea
-            style={{ height: "300px"}}
+            style={{ height: "300px" , color: (isDarkModeEnabled ? "white" : "black") }}
             size='lg'
             className="writer__content"
             placeholder="Write your blog! (Markdown supported)"

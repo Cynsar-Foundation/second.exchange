@@ -7,6 +7,7 @@ import { useRecoilValue } from 'recoil';
 
 import ArticleService from 'src/shared/ArticleService';
 import { darkModeState } from '../../shared/GlobalState';
+import { NostrEvent } from 'src/application/interfaces';
 
 function formatDate(dateIsoString: any) {
   const dateObject = new Date(dateIsoString);
@@ -18,7 +19,7 @@ function formatDate(dateIsoString: any) {
   return `${day}/${month + 1}/${year}`;
 }
 
-export const ArticleView = () => {
+export const ArticleView: React.FC = () => {
   const isDarkModeEnabled = useRecoilValue(darkModeState);
   const getRouteSlug = () => {
     const location = useLocation();
