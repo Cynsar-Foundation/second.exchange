@@ -36,14 +36,14 @@ const Article: React.FC<ArticleProps> = ({ item: article }) => {
         size="small" 
         title={
           <div>
-            <h1 className="Article__header__title">{title}</h1>
-            <span className="Article__header__date">{formatDate(date)}</span>
+            <h1 className="Article__header__title" style={{ fontSize: "25px", color: (isDarkModeEnabled ? "white" : "black")}}>{title}</h1>
+            <span className="Article__header__date" style={{color: (isDarkModeEnabled ? "white" : "black")}}>{formatDate(date)}</span>
           </div>
         } 
-        style={{ width: 1050 }}
+        style={{ backgroundColor: (isDarkModeEnabled ? "black" : "white"),  width: 1050, color: (isDarkModeEnabled ? "white" : "black") }}
         onClick={() => navigate(`/article/${id}`)}
       >
-        <main className="Article__main">
+        <main className="Article__main" style={{ }}>
           {body.map((paragraph: any, index: any) => (
             <p key={index}>{paragraph}</p>
           ))}

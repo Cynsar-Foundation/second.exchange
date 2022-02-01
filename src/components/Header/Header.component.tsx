@@ -1,29 +1,39 @@
-/* eslint-disable prettier/prettier */
 import './Header.style.scss';
 
 import React, { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { BsFillKeyFill, BsPencilSquare } from 'react-icons/bs';
-import { BiUserCircle, BiLogOut } from 'react-icons/bi';
-import { useNavigate } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { BsPencilSquare } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
+import { Popover } from 'antd';
+import {
+  Box,
+  Stack,
+  Heading,
+  Flex,
+  Button,
+  useDisclosure,
+} from '@chakra-ui/react';
+import { HamburgerIcon } from '@chakra-ui/icons';
 
-import { KeyAuthModal } from "../AuthModal/AuthModal";
+import { KeyAuthModal } from '../AuthModal/AuthModal';
 import { UserKeyModal } from '../UserKeyModal/UserKeyModal';
+import { PopoverContent } from './HeaderPopoverContent';
 
 import { darkModeState, toggleDarkModeState } from '../../shared/GlobalState';
 import { userAuthState, authModalState, keyModalState } from 'src/application/state';
-import { Button, Popover } from 'antd';
 
-const Header = () => {
+const HeaderNav: React.FC = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
+
   const isDarkModeEnabled = useRecoilValue(darkModeState);
   const [darkMode, toggleDarkMode] = useRecoilState(toggleDarkModeState);
+  const [authModalActive, setAuthModalActive] = useRecoilState(authModalState);
+  const [isUserAuthenticated] = useRecoilState(userAuthState);
+  const [keyModalActive, setKeyModalActive] = useRecoilState(keyModalState);
 
-  const navigate = useNavigate();
-  const [ authModalActive, setAuthModalActive ] = useRecoilState(authModalState);
-  const [ isUserAuthenticated ] = useRecoilState(userAuthState);
-  const [ keyModalActive, setKeyModalActive ] = useRecoilState(keyModalState);
-
-  const [ popoverVisible, setPopoverVisible ] = useState({visible: false});
+  const [popoverVisible, setPopoverVisible] = useState({ visible: false });
+  const handleToggle = () => (isOpen ? onClose() : onOpen());
 
   const hidePopover = () => {
     setPopoverVisible({
@@ -36,116 +46,118 @@ const Header = () => {
   };
 
   const handleAuthClick = () => {
-    isUserAuthenticated 
-      ?
-        navigate('/write')
-      :
-        setAuthModalActive(true);
+    isUserAuthenticated ? navigate('/write') : setAuthModalActive(true);
   };
 
   useEffect(() => {
     setAuthModalActive(false);
   }, [isUserAuthenticated]);
 
-  const PopoverContent = () => {
-    return(
-      <div>
-        <div className="Header__content__user">
-            <button 
-              className='Header__content__user-format'
-              onClick={() => { hidePopover(); setAuthModalActive(true)}}
-            >
-                <div>
-                <BiLogOut size={30} />
-                </div>
-                </button>
-            <button 
-              className='Header__content__user-format-text'
-              onClick={() => { hidePopover(); setAuthModalActive(true) }}
-            >
-                Logout
-            </button>
-        </div>
-        <div className="Header__content__keys">
-            <button 
-              className='Header__content__keys-format'
-              onClick={() => { hidePopover(); setKeyModalActive(true)}}
-            >
-                <div>
-                <BsFillKeyFill size={30} />
-                </div>
-                </button>
-            <button 
-              className='Header__content__user-format-text'
-              onClick={() => { hidePopover(); setKeyModalActive(true)}}
-            >
-                Your Keys
-            </button>
-        </div>
-      </div>
-    )
-  }
-
   return (
-    <header className={`Header ${isDarkModeEnabled ? 'Header--dark-mode' : ''}`}>
-      <div className="Header__content">
-        <div className="Header__content__logo" onClick={() => navigate('/')} />
-        <div className="Header__content__title-container">
-          <span className="Header__content__title-container__title" onClick={() => navigate('/')}>
-            Second Exchange
-          </span>
-        </div>
-        <div className="Header__content__dark-mode">
-          <label
-            htmlFor="dark-mode-select"
-            className={`Header__content__dark-mode__label ${
-              isDarkModeEnabled ? 'Header__content__dark-mode__label--toggled' : ''
-            }`}
+      <Flex
+        as="nav"
+        align="center"
+        justify="space-between"
+        wrap="wrap"
+        padding={6}
+        bg="transparent"
+        color={isDarkModeEnabled ? 'white' : 'black'}
+        w="100%"
+        borderBottom="1px"
+        pos="relative"
+        position="static"
+      >
+        <Flex align="center" mr={5}>
+          <Heading
+            color={isDarkModeEnabled ? 'white' : 'black'}
+            as="h1"
+            size="lg"
+            letterSpacing={'tighter'}
+            onClick={() => navigate('/')}
+            style={{ cursor: 'pointer' }}
           >
-            Dark mode:
-          </label>
-          <input
-            id="dark-mode-select"
-            className="Header__content__dark-mode__input"
-            type="checkbox"
-            // @ts-ignore
-            value={ isDarkModeEnabled }
-            // @ts-ignore
-            onChange={ toggleDarkMode }
-          />
-        </div>
-        <div className="Header__content__write">
-            <button 
-                className="Header__content__write-button"
-                onClick={handleAuthClick}
+            Second Exchange
+          </Heading>
+        </Flex>
+
+        <Box display={{ base: 'block', md: 'none' }} onClick={handleToggle}>
+          <HamburgerIcon />
+        </Box>
+
+        <Stack
+          direction={{ base: 'column', md: 'row' }}
+          display={{ base: isOpen ? 'block' : 'none', md: 'flex' }}
+          width={{ base: 'full', md: 'auto' }}
+          alignItems="center"
+          flexGrow={1}
+          mt={{ base: 4, md: 0 }}
+        ></Stack>
+        <Box style={{ marginLeft: '90px' }}>
+          <div className="Header__content__dark-mode">
+            <label
+              htmlFor="dark-mode-select"
+              className={`Header__content__dark-mode__label ${
+                isDarkModeEnabled ? 'Header__content__dark-mode__label--toggled' : ''
+              }`}
             >
-                <div>
+              Dark mode:
+            </label>
+            <input
+              id="dark-mode-select"
+              className="Header__content__dark-mode__input"
+              type="checkbox"
+              // @ts-ignore
+              value={isDarkModeEnabled}
+              // @ts-ignore
+              onChange={toggleDarkMode}
+            />
+          </div>
+        </Box>
+        <Box style={{ marginLeft: '90px' }}>
+          <div className="Header__content__write">
+            <button className="Header__content__write-button" onClick={handleAuthClick}>
+              <div>
                 <BsPencilSquare size={20} />
-                </div>
+              </div>
             </button>
             <button
-                className="Header__content__write-button-text"
-                onClick={handleAuthClick}
+              className="Header__content__write-button-text"
+              onClick={handleAuthClick}
+              style={{ paddingLeft: '10px' }}
             >
-                Post Blog
+              Post Blog
             </button>
-        </div>
-        {isUserAuthenticated &&
-          <Popover
-          content={<PopoverContent />}
-          trigger="click"
-          visible={popoverVisible.visible}
-          onVisibleChange={handleVisibleChange}
+          </div>
+        </Box>
+        <Box
+          display={{ base: isOpen ? 'block' : 'none', md: 'block' }}
+          mt={{ base: 4, md: 0 }}
         >
-          <Button style={{ background: "transparent", borderColor: "black", color: "black" }} type="primary">Connected</Button>
-        </Popover>
-        }
-
-      </div>
-      { keyModalActive && <UserKeyModal />}
-      { authModalActive && <KeyAuthModal />}
-    </header>
+          {isUserAuthenticated && (
+            <Popover
+              content={<PopoverContent hidePopover={hidePopover} />}
+              trigger="click"
+              visible={popoverVisible.visible}
+              onVisibleChange={handleVisibleChange}
+            >
+              <Button
+                border="1px"
+                style={{
+                  background: 'transparent',
+                  borderColor: isDarkModeEnabled ? 'white' : 'black',
+                  color: isDarkModeEnabled ? 'white' : 'black',
+                  marginLeft: '50px',
+                }}
+              >
+                Connected
+              </Button>
+            </Popover>
+          )}
+        </Box>
+      {keyModalActive && <UserKeyModal />}
+      {authModalActive && <KeyAuthModal />}
+      </Flex>
   );
 };
 
-export default Header;
+export default HeaderNav;
