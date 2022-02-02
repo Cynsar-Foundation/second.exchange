@@ -5,8 +5,10 @@ import { useRecoilValue, useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { Card } from 'antd';
 
+import { blogContentState } from 'src/application/state/';
 import { darkModeState } from '../../shared/GlobalState';
 import { NostrEvent } from 'src/application/interfaces';
+import ReactMarkdown from 'react-markdown';
 
 interface ArticleProps {
   item?: NostrEvent;
@@ -15,6 +17,7 @@ interface ArticleProps {
 const Article: React.FC<ArticleProps> = ({ item }) => {
   const isDarkModeEnabled = useRecoilValue(darkModeState);
   const navigate = useNavigate();
+  const [ blogContent, setBlogContent ] = useRecoilState(blogContentState);
 
   return (
     <article className={`Article ${isDarkModeEnabled ? 'Article--dark-mode' : ''}`}>
@@ -41,15 +44,18 @@ const Article: React.FC<ArticleProps> = ({ item }) => {
           width: 1050,
           color: isDarkModeEnabled ? 'white' : 'black',
         }}
-        onClick={() => navigate(`/article/${item?.id}`)}
+        onClick={() => {  
+          setBlogContent(item?.content);
+          navigate(`/article/${item?.id}`); 
+        }}
       >
         <main className="Article__main" style={{}}>
-          {<p>{item?.content}</p>}
+          { /* @ts-ignore */}
+          {<p><ReactMarkdown>{item?.content}</ReactMarkdown></p>}
         </main>
         <footer className="Article__footer">
           <button className="Article__footer__vote-up" />
-          <span className="Article__footer__rating">{formatRating(5, 10)}</span>
-          <button className="Article__footer__vote-down" />
+          <span className="Article__footer__rating">{formatRating(15, 10)}</span>
         </footer>
       </Card>
     </article>

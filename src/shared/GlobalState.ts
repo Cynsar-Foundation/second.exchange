@@ -28,6 +28,7 @@ export const toggleDarkModeState = selector({
 export const articleByIdQuery = selectorFamily({
   key: 'articleByIdQuery',
   get: id => async () => {
+    // @ts-ignore
     return await ArticleService.getById(id);
   },
 });
