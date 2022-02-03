@@ -13,7 +13,7 @@ export default function ({}: ConfigEnv): UserConfigExport {
     },
     define: {
       // global: {},
-      'process.env': {},
+      // 'process.env': {},
     },
     optimizeDeps: {
       esbuildOptions: {
