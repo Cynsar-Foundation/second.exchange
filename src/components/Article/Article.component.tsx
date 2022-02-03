@@ -17,7 +17,7 @@ interface ArticleProps {
 const Article: React.FC<ArticleProps> = ({ item }) => {
   const isDarkModeEnabled = useRecoilValue(darkModeState);
   const navigate = useNavigate();
-  const [ blogContent, setBlogContent ] = useRecoilState(blogContentState);
+  const [blogContent, setBlogContent] = useRecoilState(blogContentState);
 
   return (
     <article className={`Article ${isDarkModeEnabled ? 'Article--dark-mode' : ''}`}>
@@ -29,7 +29,7 @@ const Article: React.FC<ArticleProps> = ({ item }) => {
               className="Article__header__title"
               style={{ fontSize: '25px', color: isDarkModeEnabled ? 'white' : 'black' }}
             >
-              {'Default title'}
+              {'Title not available'}
             </h1>
             <span
               className="Article__header__date"
@@ -44,9 +44,9 @@ const Article: React.FC<ArticleProps> = ({ item }) => {
           width: 1050,
           color: isDarkModeEnabled ? 'white' : 'black',
         }}
-        onClick={() => {  
+        onClick={() => {
           setBlogContent(item?.content);
-          navigate(`/article/${item?.id}`); 
+          navigate(`/article/${item?.id}`);
         }}
       >
         <main className="Article__main" style={{}}>

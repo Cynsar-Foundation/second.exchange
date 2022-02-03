@@ -11,10 +11,10 @@ export default function ({}: ConfigEnv): UserConfigExport {
       brotliSize: false,
       target: ['es2020'],
     },
-    // define: {
-    //   global: {},
-    //   'process.env': {},
-    // },
+    define: {
+      // global: {},
+      'process.env': {},
+    },
     optimizeDeps: {
       esbuildOptions: {
         plugins: [
