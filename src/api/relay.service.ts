@@ -6,6 +6,7 @@ import {
   SingleSubFilter,
 } from '@libs/application/interfaces';
 
+// @ts-ignore
 import { relayPool } from '../external/nostr-tools';
 
 export class RelayService implements Interface.RelayService {

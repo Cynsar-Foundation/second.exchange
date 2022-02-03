@@ -5,60 +5,62 @@ import { useRecoilValue, useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { Card } from 'antd';
 
+import { blogContentState } from 'src/application/state/';
 import { darkModeState } from '../../shared/GlobalState';
+import { NostrEvent } from 'src/application/interfaces';
+import ReactMarkdown from 'react-markdown';
 
 interface ArticleProps {
-  item?: any,
-  fromNavigation?: boolean
+  item?: NostrEvent;
 }
 
-const defaultProps: ArticleProps = {
-  fromNavigation: false
-}
-
-const Article: React.FC<ArticleProps> = ({ item: article }) => {
-
+const Article: React.FC<ArticleProps> = ({ item }) => {
   const isDarkModeEnabled = useRecoilValue(darkModeState);
   const navigate = useNavigate();
-
-    var {
-      id,
-      title,
-      date,
-      subtitle,
-      body,
-      statistics: { likes, dislikes },
-    } = article;
+  const [blogContent, setBlogContent] = useRecoilState(blogContentState);
 
   return (
-   <article className={`Article ${isDarkModeEnabled ? 'Article--dark-mode' : ''}`}>
-      <Card 
-        size="small" 
+    <article className={`Article ${isDarkModeEnabled ? 'Article--dark-mode' : ''}`}>
+      <Card
+        size="small"
         title={
           <div>
-            <h1 className="Article__header__title" style={{ fontSize: "25px", color: (isDarkModeEnabled ? "white" : "black")}}>{title}</h1>
-            <span className="Article__header__date" style={{color: (isDarkModeEnabled ? "white" : "black")}}>{formatDate(date)}</span>
+            <h1
+              className="Article__header__title"
+              style={{ fontSize: '25px', color: isDarkModeEnabled ? 'white' : 'black' }}
+            >
+              {'Title not available'}
+            </h1>
+            <span
+              className="Article__header__date"
+              style={{ color: isDarkModeEnabled ? 'white' : 'black' }}
+            >
+              {formatDate(item?.created_at)}
+            </span>
           </div>
-        } 
-        style={{ backgroundColor: (isDarkModeEnabled ? "black" : "white"),  width: 1050, color: (isDarkModeEnabled ? "white" : "black") }}
-        onClick={() => navigate(`/article/${id}`)}
+        }
+        style={{
+          backgroundColor: isDarkModeEnabled ? 'black' : 'white',
+          width: 1050,
+          color: isDarkModeEnabled ? 'white' : 'black',
+        }}
+        onClick={() => {
+          setBlogContent(item?.content);
+          navigate(`/article/${item?.id}`);
+        }}
       >
-        <main className="Article__main" style={{ }}>
-          {body.map((paragraph: any, index: any) => (
-            <p key={index}>{paragraph}</p>
-          ))}
+        <main className="Article__main" style={{}}>
+          { /* @ts-ignore */}
+          {<p><ReactMarkdown>{item?.content}</ReactMarkdown></p>}
         </main>
-          <footer className="Article__footer">
-            <button className="Article__footer__vote-up" />
-              <span className="Article__footer__rating">{formatRating(likes, dislikes)}</span>
-            <button className="Article__footer__vote-down" />
-          </footer>
+        <footer className="Article__footer">
+          <button className="Article__footer__vote-up" />
+          <span className="Article__footer__rating">{formatRating(15, 10)}</span>
+        </footer>
       </Card>
     </article>
   );
 };
-
-Article.defaultProps = defaultProps;
 
 function formatRating(likes: any, dislikes: any) {
   const likeDislikeRatio = likes - dislikes;

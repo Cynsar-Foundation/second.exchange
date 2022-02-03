@@ -5,7 +5,9 @@ import {
     validateWords,
     seedFromWords,
     privateKeyFromSeed,
+    // @ts-ignore
 } from '../../external/nostr-tools/nip06';
+// @ts-ignore
 import { getPublicKey } from '../../external/nostr-tools';
 import { useRecoilState } from 'recoil';
 

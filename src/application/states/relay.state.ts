@@ -6,7 +6,7 @@ export const nostrEventState = atom<NostrEvent[] | []>({
   default: [],
 });
 
-export const nostrEvents = selector({
+export const nostrEvents = selector<NostrEvent[]>({
   key: 'nostrEvents',
-  get: ({ get }) => get(nostrEventState),
+  get: ({ get }) => get(nostrEventState)
 });
