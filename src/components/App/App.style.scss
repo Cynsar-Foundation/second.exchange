@@ -1,0 +1,24 @@
+@import '../../shared/shared';
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.App {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    color: $light-mode-color;
+    background-color: $light-mode-background-color;
+
+    transition: 300ms color ease-in, 300ms background-color ease-in;
+
+    &--dark-mode {
+        color: $dark-mode-color;
+        background-color: $dark-mode-background-color;
+    }
+}
+
+

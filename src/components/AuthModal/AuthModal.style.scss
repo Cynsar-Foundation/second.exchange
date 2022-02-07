@@ -1,0 +1,52 @@
+@mixin regular-modal($max-width) {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+@mixin regular-button($width: 50px) {
+    border: 1px solid black;
+    width: $width;
+    background-color: white;
+    font-family: Nunito-Regular;
+    cursor: pointer;
+  }
+
+.key-setup {
+    &__container {
+        line-height: 25px;
+    }
+
+    &__input-box {
+        height: 40px;
+        width: 450px;
+        border: 1px solid rgb(218, 218, 218);
+        border-radius: 2px;
+        text-indent: 10px;
+    }
+
+    &__title {
+        font-size: 15px;
+        font-weight: bold;
+    }
+    &__subtitle {
+        font-size: 15px;
+        color: grey;
+        margin-bottom: 10px;
+    }
+}
+
+.delete-storage {
+    &__title {
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    &__info {
+        font-size: 14px;
+        color: grey;
+    }
+}

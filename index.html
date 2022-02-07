@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="second Exchange" />
+  <title>Second Exchange</title>
+
+  <script>
+    window.global = window; // https://github.com/vitejs/vite/issues/3817#issuecomment-864450199
+  </script>
+  <script type="module">
+    import process from 'process';
+    import { Buffer } from 'buffer';
+    import EventEmitter from 'events';
+    window.Buffer = Buffer;
+    window.process = process;
+    window.EventEmitter = EventEmitter;
+  </script>
+  <!-- <script lang="javascript" src="./browserified-libs.js"></script> -->
+  <!-- for PROD build only -->
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+  <script>window.global = window;</script>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
+</html>

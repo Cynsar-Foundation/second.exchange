@@ -1,0 +1,19 @@
+.writer {
+    &-container {
+        margin-top: 40px;
+        margin-bottom: 166px;
+    }
+
+    &__title {
+        height: 50px;
+        width: 850px;
+    }
+
+    &__description {
+        height: 35px;
+    }
+
+    &__content {
+        height: 200px;
+    }
+}

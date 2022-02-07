@@ -1,0 +1,26 @@
+.article-view {
+    height: 100vh;
+    line-height: 50px;
+
+    &__title {
+        font-size: 40px;
+    }
+
+    &__date {
+        color: grey;
+    }
+
+    &__subtitle {
+        font-style: italic;
+        font-size: 20px;
+    }
+
+    &__body {
+        line-height: 25px;
+        font-size: 16px
+    }
+
+    &__container {
+        padding: 75px
+    }
+}
