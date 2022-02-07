@@ -1,15 +1,14 @@
 # second.exchange
 
 ## Dev Setup
-For now since the repository is unstable we are dependent on some external git submodules particularly nostr-tools
+For now since the repository is unstable we are dependent on some external git submodules particularly nostr-tools. This is going to change in near future. For now dev setup requires initiating git submodules
 
-For older version of git you might need to init and update submodules explicitly
-
-For macos and linux:
+For macos and linux: Provided you have configured ssh and added the key to your github account, you have to open the terminal and execute following command
 ```
 git submodule update --init --recursive
 ```
 For windows:
+ssh based submodules is bit involved in windows. You have to create a ssh key and add it to your github account, then open git bash navigate to the repo folder or open vscode in location with `code .` and start new git bash terminal and type following command
 ```
 GIT_SSH_COMMAND="ssh -i ~/.ssh/<Your ssh private key>" git submodule update --init --recursive 
 ```
@@ -40,15 +39,11 @@ Second exchange is an experimental social media service that lets anyone, anywhe
 
 We are looking for amazing front end developers who can contribute to this great way of sharing information and knowledge that points back to the users.
 
-The stack is based on various tech stack, the structure of the tech stack is quite simple: 
-
-1. Nostr
 
 ## UI
 
 Works as usual , the code of UI @TODO please add dev docs here 
 
-You call implementor contracts that does most of the methods like mint() 
 
 ## Contribute back 
 
@@ -71,7 +66,7 @@ The code in this repository has not been audited.
 
 ## Deployed Instance 
 
-https://second.exchange
+Coming soon
 
 
 
