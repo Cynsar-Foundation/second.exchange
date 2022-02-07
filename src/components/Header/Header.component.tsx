@@ -81,17 +81,19 @@ const HeaderNav: React.FC = () => {
         </Heading>
       </Flex>
 
+      <Flex>
       <Input
         placeholder="Search for profiles"
         style={{
           color: isDarkModeEnabled ? 'white' : 'black',
-          marginLeft: '180px',
+          marginLeft: '260px',
           width: '450px',
           border: '1px solid #A0AEC2',
           borderRadius: "50px",
           textIndent: "10px"
         }}
       />
+      </Flex>
       <Box display={{ base: 'block', md: 'none' }} onClick={handleToggle}>
         <HamburgerIcon />
       </Box>
