@@ -4,8 +4,14 @@
 For now since the repository is unstable we are dependent on some external git submodules particularly nostr-tools
 
 For older version of git you might need to init and update submodules explicitly
+
+For macos and linux:
 ```
 git submodule update --init --recursive
+```
+For windows:
+```
+GIT_SSH_COMMAND="ssh -i ~/.ssh/<Your ssh private key>" git submodule update --init --recursive 
 ```
 Once the submodule is added, navigate to the submodule folder and apply patch from the patches folder and do npm install
 ```
