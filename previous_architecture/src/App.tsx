@@ -16,7 +16,6 @@ import { useUserAuthContext, UserAuthProvider } from "./context";
 import { AuthModalProvider } from "./context";
 import { MetarootModalProvider } from "./context";
 import { SessionKeyProvider } from "./context";
-import { RelayProvider/*, useRelayContext*/ } from './context';
 
 import { Navbar } from "./components/layout/Navbar";
 import { Sidebar } from "./components/layout/Sidebar";

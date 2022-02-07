@@ -15,7 +15,7 @@ export const BlogEditor = () => {
   };
   // @ts-ignore
   const pubKey = JSON.parse(localStorage.getItem('user-auth'))['pubKey'];
-  var following = ["wss://relayer.fiatjaf.com", "wss://nostr-pub.wellorder.net"]
+  var following: [] | [string] = ['ce597b3f0057916aa991dcfc6eb0503cef523927a2d8819292423d4f9f3031a0']
   var mainSub = initialRelayState;
   function restartMainSubscription() {
     mainSub = initialRelayState.pool.sub(
@@ -41,6 +41,7 @@ export const BlogEditor = () => {
         ],
         cb: async (event: any, relay: any) => {
           //              store.dispatch('addEvent', {event, relay})
+          console.log(following);
         }
       },
       'main-channel'
