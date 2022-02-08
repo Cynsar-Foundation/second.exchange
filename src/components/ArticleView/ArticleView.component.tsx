@@ -88,6 +88,7 @@ export const ArticleView: React.FC = () => {
   
   return(
       <div className="article-view">
+        
             {articleLoaded &&
               <div className="article-view__container">
                 { something() }
