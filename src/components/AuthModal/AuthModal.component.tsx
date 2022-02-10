@@ -11,7 +11,7 @@ import {
 import { getPublicKey } from '../../external/nostr-tools';
 import { useRecoilState } from 'recoil';
 
-import { UserKeyModal } from '../UserKeyModal/UserKeyModal';
+import { UserKeyModal } from '../UserKeyModal/UserKeyModal.component';
 import { sessionKeyState, userAuthState, authModalState } from 'src/application/state';
 import { Button, Modal } from 'antd';
 

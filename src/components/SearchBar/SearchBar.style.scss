@@ -1,0 +1,30 @@
+.search-bar {
+    margin-left: 14em !important;
+    width: 28em !important;
+    border: 1px solid #A0AEC2 !important;
+    border-radius: 50px !important;
+    text-indent: 10px !important;
+
+    &__dark-mode {
+        margin-left: 14em !important;
+        width: 28em !important;
+        border: 1px solid #A0AEC2 !important;
+        border-radius: 50px !important;
+        text-indent: 10px !important;
+        color: white !important;
+    }
+
+    &__button {
+        background-color: transparent !important;
+        border: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    &__button:active,
+    &__button:focus {
+        background-color: transparent !important;
+        border: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+}

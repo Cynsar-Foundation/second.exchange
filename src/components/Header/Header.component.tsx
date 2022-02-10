@@ -16,9 +16,10 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon } from '@chakra-ui/icons';
 
-import { KeyAuthModal } from '../AuthModal/AuthModal';
-import { UserKeyModal } from '../UserKeyModal/UserKeyModal';
+import { KeyAuthModal } from '../AuthModal/AuthModal.component';
+import { UserKeyModal } from '../UserKeyModal/UserKeyModal.component';
 import { PopoverContent } from './HeaderPopoverContent';
+import { SearchBar } from '../SearchBar/SearchBar.component';
 
 import { darkModeState, toggleDarkModeState } from '../../shared/GlobalState';
 import { userAuthState, authModalState, keyModalState } from 'src/application/state';
@@ -82,17 +83,7 @@ const HeaderNav: React.FC = () => {
       </Flex>
 
       <Flex>
-      <Input
-        placeholder="Search for profiles"
-        style={{
-          color: isDarkModeEnabled ? 'white' : 'black',
-          marginLeft: '260px',
-          width: '450px',
-          border: '1px solid #A0AEC2',
-          borderRadius: "50px",
-          textIndent: "10px"
-        }}
-      />
+        <SearchBar />
       </Flex>
       <Box display={{ base: 'block', md: 'none' }} onClick={handleToggle}>
         <HamburgerIcon />

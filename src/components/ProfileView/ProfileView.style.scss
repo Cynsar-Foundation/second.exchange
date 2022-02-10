@@ -1,0 +1,10 @@
+.post-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    .post {
+        margin-top: 100px !important;
+    }
+}
