@@ -1,75 +1,41 @@
-# second.exchange
+# branle
 
-## Dev Setup
-For now since the repository is unstable we are dependent on some external git submodules particularly nostr-tools
+a twitter-like nostr client forked off from https://github.com/arcbtc/nostr.
 
-For older version of git you might need to init and update submodules explicitly
+https://user-images.githubusercontent.com/1653275/149637874-5ae1e400-1de0-42f1-9946-c4cec19347ed.mp4
+
+## Install the dependencies
+```bash
+yarn
 ```
-git submodule update --init --recursive
+
+### Start the app in development mode (hot-code reloading, error reporting, etc.)
+```bash
+quasar dev
 ```
-Once the submodule is added, navigate to the submodule folder and apply patch from the patches folder and do npm install
+
+### Lint the files
+```bash
+yarn run lint
 ```
-> cd src/external/nostr-tools/
-> git apply ../patches/nostr-tools-modification-for-second-exchange.patch
-> npm install
+
+### Build the app for production
+```bash
+quasar build
 ```
-Now go back to the root folder and start with usual react workflow
+
+## Docker
+
+### Build the docker image
+```bash
+docker build -t branle .
 ```
-> cd ../../../
-> npm install
-> npm run dev
+
+### Run the container
+```bash
+docker run -d -p 8080:80 --name branle branle
 ```
-This entire submodule stuff needs to be done only once. For the subsequent run just `npm install` and `npm run dev` should suffice
 
-## The first exchange was not good ,this one is really good
-
-Second exchange is an experimental social media service that lets anyone, anywhere in the world to create content. Second Exchange uses peer-to-peer technology to operate with no central authority, Second Exchange Core is the name of open source software which enables the use of this service.
-
-1. Create a blog post/content or collections that is stored on client side only and is realyed using nostr.
-2. Follow people and content 
-3. Group content
-4. Feature in future like adding tips , votes, and more in pipeline 
-
-## Developer
-
-We are looking for amazing front end developers who can contribute to this great way of sharing information and knowledge that points back to the users.
-
-The stack is based on various tech stack, the structure of the tech stack is quite simple: 
-
-1. Nostr
-
-## UI
-
-Works as usual , the code of UI @TODO please add dev docs here 
-
-You call implementor contracts that does most of the methods like mint() 
-
-## Contribute back 
-
-👋 Get started contributing with a good first issue
-
-Before explaining how you can contribute, It's worth mentioning that we use develop branch as the default one. This makes it easier for us to have all the latest, development changes without affecting the current production version. Though, We don't use release branches to make the process a little bit easier !
-
-Pushing to develop branch via PR deploys changes to testing environments(currently only rinkeby).
-Pushing to master branch via PR from develop deploys changes to production servers(mainnet).
-Pushing to master|develop directly will be restricted to make sure the PR's are reviewed.
-Creating PRs end up in relation to develop by default.
-Don't be shy to contribute even the smallest tweak. Everyone will be especially nice and helpful to beginners to help you get started!
-
-
-
-## Security Audit 
-
-The code in this repository has not been audited.
-
-
-## Deployed Instance 
-
-https://second.exchange
-
-
-
-
-
-
-
+### Customize the brand
+Edit `customize.json` and replace the colors, icon, name and dark mode setting.
+When setting the dark mode, you can also set the colors `"dark-page"` and `"dark"`.
