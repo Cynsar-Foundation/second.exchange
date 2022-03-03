@@ -5,7 +5,8 @@
       <div class="hidden sm:flex w-1/4 justify-center px-8" />
       <div class="w-full sm:w-3/4 lg:w-2/4 pl-4">
         <q-page>
-          <ArticleList />
+          <!-- <ArticleList /> -->
+          <router-view />
         </q-page>
       </div>
     </div>
@@ -59,14 +60,13 @@ import helpersMixin from '../utils/mixin'
 import {validateWords} from 'nostr-tools/nip06'
 import {generatePrivateKey} from 'nostr-tools'
 import Header from '../components/Header/Header.vue'
-import ArticleList from '../components/ArticleList/ArticleList.vue'
+// import ArticleList from '../components/ArticleList/ArticleList.vue'
 
 export default {
   name: 'MainLayout',
   components: {
     Header,
-    ArticleList
-//     OriginalHeader
+//     ArticleList
   },
   mixins: [helpersMixin],
   data() {
@@ -92,21 +92,6 @@ export default {
       if (this.isKeyKey) return true
       if (validateWords(this.key?.toLowerCase())) return true
       return false
-    }
-  },
-
-  async created() {
-    if (this.$store.state.keys.pub) {
-      // keys already set up
-      this.$store.dispatch('launch')
-      this.initializeKeys = false
-    } else {
-      // keys not set up, offer the option to try to get a pubkey from window.nostr
-      setTimeout(() => {
-        if (window.nostr) {
-          this.hasExtension = true
-        }
-      }, 1000)
     }
   },
 

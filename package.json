@@ -1,8 +1,6 @@
 {
-  "name": "branle",
+  "name": "second.exchange",
   "version": "0.0.1",
-  "description": "a twitter-like nostr client",
-  "author": "fiatjaf <fiatjaf@gmail.com>",
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",

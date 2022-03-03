@@ -300,7 +300,7 @@ export default {
       navigator.registerProtocolHandler(
         'web+nostr',
         `https://${location.host}/%s`,
-        'Branle'
+        'SecondExchange'
       )
     }
   }

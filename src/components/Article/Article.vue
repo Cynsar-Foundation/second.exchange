@@ -2,7 +2,7 @@
   <article className="Article">
       <q-card flat bordered class="Article__card">
         <!-- <q-card-section class=Article__card-title @click="openArticle"> -->
-        <q-card-section class="Article__card-title">
+        <q-card-section class="Article__card-title" @click="openArticle">
           <span>Our Changing Planet</span>
         </q-card-section>
         <q-card-section class=Article__card-date>

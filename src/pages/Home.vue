@@ -1,12 +1,9 @@
 <template>
   <q-page class="px-4 pt-6">
-    <div class="text-xl">Home</div>
-
-    <Publish />
-
-    <q-infinite-scroll :disable="reachedEnd" :offset="150" @load="loadMore">
+    <ArticleList />
+    <!-- <q-infinite-scroll :disable="reachedEnd" :offset="150" @load="loadMore">
       <Thread v-for="thread in homeFeed" :key="thread[0].id" :events="thread" />
-    </q-infinite-scroll>
+    </q-infinite-scroll> -->
   </q-page>
 </template>
 
@@ -14,9 +11,13 @@
 import helpersMixin from '../utils/mixin'
 import {addToThread} from '../utils/threads'
 import {dbGetHomeFeedNotes, onNewHomeFeedNote} from '../db'
+import ArticleList from '../components/ArticleList/ArticleList.vue'
 
 export default {
   name: 'Home',
+  components: {
+    ArticleList,
+  },
   mixins: [helpersMixin],
 
   data() {

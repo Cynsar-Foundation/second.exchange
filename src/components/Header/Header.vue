@@ -1,7 +1,7 @@
 <template>
     <q-header bordered class="bg-transparent text-black">
         <q-toolbar>
-            <q-toolbar-title class="header__title">
+            <q-toolbar-title class="header__title" @click="toHome">
                 Second Exchange
             </q-toolbar-title>
             <q-space />
@@ -25,7 +25,7 @@
                 </label>
                 <q-toggle />
                 <q-space />
-                <div class="header__post-button">
+                <div class="header__post-button" @click="toWriter">
                     <Icon icon="fa6-solid:pen-to-square" font-size="20px" color="grey" />
                     <span class="header__post-button-text">Post Blog</span>
                 </div>
@@ -45,6 +45,14 @@ export default {
     components: {
         Icon,
         HeaderDropdown
+    },
+    methods: {
+        toHome() {
+            this.$router.push('/')
+        },
+        toWriter() {
+            this.$router.push('/write')
+        }
     }
 }
 </script>
