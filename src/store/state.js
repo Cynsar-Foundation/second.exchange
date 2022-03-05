@@ -39,6 +39,7 @@ export default function () {
   const relays = isClientUsingTor() ? getTorRelays() : getMainnetRelays()
 
   return {
+    homeFeed: [],
     keys: LocalStorage.getItem('keys') || {}, // {priv, pub }
 
     relays, // { [url]: {} }

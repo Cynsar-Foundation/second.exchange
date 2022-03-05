@@ -24,7 +24,7 @@ export default {
   name: 'Article',
   methods: {
     openArticle() {
-      this.$router.push(this.toProfile(this.event.pubkey))
+      this.$router.push('/post/' + 'defaultarticle')
     }
   }
 }

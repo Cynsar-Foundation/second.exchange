@@ -1,16 +1,18 @@
 <template>
   <q-page class="px-4 pt-6">
-    <ArticleList />
-    <!-- <q-infinite-scroll :disable="reachedEnd" :offset="150" @load="loadMore">
-      <Thread v-for="thread in homeFeed" :key="thread[0].id" :events="thread" />
-    </q-infinite-scroll> -->
+    <button style="margin-top: 100px" @click="logFromHome">Home log</button>
+    <q-infinite-scroll v-if="notes" :disable="reachedEnd" :offset="150" @load="loadMore">
+      <!-- <Thread v-for="thread in homeFeed" :key="thread[0].id" :events="thread" /> -->
+      <!-- <ArticleList v-for="thread in homeFeed" :key="thread[0].id" :events="thread" /> -->
+      <ArticleList v-for="thread in homeFeed" :key="thread[0].id" :events="thread" />
+    </q-infinite-scroll>
   </q-page>
 </template>
 
 <script>
 import helpersMixin from '../utils/mixin'
 import {addToThread} from '../utils/threads'
-import {dbGetHomeFeedNotes, onNewHomeFeedNote} from '../db'
+import {dbGetHomeFeedNotes } from '../db'
 import ArticleList from '../components/ArticleList/ArticleList.vue'
 
 export default {
@@ -25,34 +27,32 @@ export default {
       listener: null,
       reachedEnd: false,
       homeFeed: [],
-      notesSet: new Set()
+      notesSet: new Set(),
+      notes: this.$store.state.homeFeed
     }
   },
-
   async mounted() {
-    let notes = await dbGetHomeFeedNotes(50)
-    if (notes.length > 0) {
-      this.reachedEnd = false
-    }
-
-    for (let i = notes.length - 1; i >= 0; i--) {
-      addToThread(this.homeFeed, notes[i])
-      this.notesSet.add(notes[i].id)
-    }
-
-    this.listener = onNewHomeFeedNote(event => {
-      if (this.notesSet.has(event.id)) return
-
-      addToThread(this.homeFeed, event)
-      this.notesSet.add(event.id)
-    })
-  },
+//     let notes = await dbGetHomeFeedNotes(50)
+     let notes = await this.$store.state.homeFeed[0]
+     console.log('yes')
+     if (notes.length > 0) {
+       this.reachedEnd = false
+     }
+     console.log(notes)
+     for (let i = notes.length - 1; i >= 0; i--) {
+       addToThread(this.homeFeed, notes[i])
+       this.notesSet.add(notes[i].id)
+     }
+   },
 
   async beforeUnmount() {
     if (this.listener) this.listener.cancel()
   },
 
   methods: {
+    logFromHome() {
+        console.log(this.$store.state.homeFeed)
+    },
     async loadMore(_, done) {
       if (this.homeFeed.length === 0) {
         this.reachedEnd = true

@@ -4,7 +4,7 @@
       text-color="black"
       color="transparent"
       flat
-      outline=True
+      outline
       label="Connected"
       class="dropdown-button"
     >

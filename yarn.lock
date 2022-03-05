@@ -5275,6 +5275,11 @@
     "mdurl" "^1.0.1"
     "uc.micro" "^1.0.5"
 
+"marked@^4.0.12":
+  "integrity" "sha512-hgibXWrEDNBWgGiK18j/4lkS6ihTe9sxtV4Q1OQppb/0zzyPSzoFANBa5MfsG/zgsWklmNnhm0XACZOH/0HBiQ=="
+  "resolved" "https://registry.npmjs.org/marked/-/marked-4.0.12.tgz"
+  "version" "4.0.12"
+
 "math-clamp-x@^1.2.0":
   "integrity" "sha512-tqpjpBcIf9UulApz3EjWXqTZpMlr2vLN9PryC9ghoyCuRmqZaf3JJhPddzgQpJnKLi2QhoFnvKBFtJekAIBSYg=="
   "resolved" "https://registry.npmjs.org/math-clamp-x/-/math-clamp-x-1.2.0.tgz"
@@ -8212,6 +8217,14 @@
     "hash-sum" "^2.0.0"
     "loader-utils" "^2.0.0"
 
+"vue-markdown-render@^2.0.0":
+  "integrity" "sha512-t11tT8PdOe43GGDq7LSJVzy6hVPw8JX2YI5IXKEakfTZnHxSw/8pHeLrihCHxn4KP3+Xz+pxeM5LxUNpHFjn8Q=="
+  "resolved" "https://registry.npmjs.org/vue-markdown-render/-/vue-markdown-render-2.0.0.tgz"
+  "version" "2.0.0"
+  dependencies:
+    "markdown-it" "^12.3.0"
+    "vue" "^3.2.25"
+
 "vue-router@4.0.12":
   "integrity" "sha512-CPXvfqe+mZLB1kBWssssTiWg4EQERyqJZes7USiqfW9B5N2x+nHlnsM1D3b5CaJ6qgCvMmYJnz+G0iWjNCvXrg=="
   "resolved" "https://registry.npmjs.org/vue-router/-/vue-router-4.0.12.tgz"
@@ -8227,7 +8240,7 @@
     "hash-sum" "^1.0.2"
     "loader-utils" "^1.0.2"
 
-"vue@^2.4.0", "vue@^2.5.18", "vue@^2.6.10", "vue@^3.0.0", "vue@^3.0.2", "vue@^3.2.24", "vue@>= 3.0.0 < 4", "vue@>=2.6.10", "vue@3.2.26", "vue@3.x":
+"vue@^2.4.0", "vue@^2.5.18", "vue@^2.6.10", "vue@^3.0.0", "vue@^3.0.2", "vue@^3.2.24", "vue@^3.2.25", "vue@>= 3.0.0 < 4", "vue@>=2.6.10", "vue@3.2.26", "vue@3.x":
   "integrity" "sha512-KD4lULmskL5cCsEkfhERVRIOEDrfEL9CwAsLYpzptOGjaGFNWo3BQ9g8MAb7RaIO71rmVOziZ/uEN/rHwcUIhg=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-3.2.26.tgz"
   "version" "3.2.26"

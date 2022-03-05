@@ -67,7 +67,17 @@ const routes = [
         path: '/write',
         component: () => import('pages/Writer/Writer.vue'),
         name: 'write'
-      }
+      },
+      {
+        path: '/settings',
+        component: () => import('pages/Settings.vue'),
+        name: 'settings'
+      },
+      {
+        path: '/post/:eventId',
+        component: () => import('pages/ArticleView/ArticleView.vue'),
+        name: 'post'
+      },
     ]
   },
   {
