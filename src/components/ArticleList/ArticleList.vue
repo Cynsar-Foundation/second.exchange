@@ -7,7 +7,7 @@
     >
       <ShowMore v-if="event === 'FILLER'" :root="root" />
       <Post v-else :event="event" :position="position(index)" /> -->
-      <Article />
+      <Article v-for="article in articleList" :key="article" />
     </div>
   <!-- </div> -->
 </template>
@@ -23,8 +23,10 @@ export default {
   },
   mixins: [helpersMixin],
   props: {
-    events: {type: Array, required: true},
-    isAncestors: {type: Boolean, default: false}
+//     events: {type: Array, required: true},
+//     isAncestors: {type: Boolean, default: false}
+    // eslint-disable-next-line vue/require-valid-default-prop
+    articleList: {type: [Object], default: false}
   },
 
   computed: {

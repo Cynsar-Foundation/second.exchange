@@ -1,10 +1,29 @@
 .writer {
     &__container {
         margin-top: 130px;
+        display: block;
+    }
+
+    &__input-item {
+        list-style-type: none;
+        margin: 20px;
     }
 
     &__button {
         border: 1px solid grey;
         margin: 10px;
+    }
+
+    &__input {
+        border: 1px grey solid;
+        width: 700px;
+        height: 50px;
+        padding: 15px;
+        letter-spacing: 0.8px;
+        border-radius: 2px;
+    }
+
+    &__textarea {
+        height: 250px;
     }
 }

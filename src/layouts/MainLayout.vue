@@ -2,7 +2,6 @@
   <q-layout>
     <div class="flex">
       <Header />
-      <button @click="logPosts">Log Posts</button>
       <div class="hidden sm:flex w-1/4 justify-center px-8" />
       <div class="w-full sm:w-3/4 lg:w-2/4 pl-4">
         <q-page>
@@ -98,11 +97,6 @@ export default {
   },
 
   methods: {
-    async logPosts() {
-        // let notes = await dbGetHomeFeedNotes(50)
-        console.log('-------------------------------LOGS-----------------------')
-        console.log(this.threads)
-    },
     async getFromExtension() {
       try {
         this.key = await window.nostr.getPublicKey()
@@ -153,7 +147,6 @@ export default {
               case 2:
                 if (this.eventsSet.has(event.id)) return
                 this.eventsSet.add(event.id)
-
                 addToThread(this.threads, event)
                 this.$store.state.homeFeed = this.threads
                 return
