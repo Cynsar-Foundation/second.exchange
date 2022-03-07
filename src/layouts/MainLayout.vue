@@ -9,49 +9,6 @@
         </q-page>
       </div>
     </div>
-    <q-dialog v-if="!$store.state.keys.pub" v-model="initializeKeys" persistent>
-      <q-card class="px-4 py-2">
-        <q-card-section class="text-base">
-          <div class="text-lg text-bold tracking-wide leading-relaxed py-2">
-            Initial Key Setup
-          </div>
-          <div class="mb-2">
-            Type your private key from a previous Nostr account or generate a
-            new one.
-          </div>
-          <div>
-            You can also type just a public key and later sign events manually
-            or using a Nostr-capable browser extension.
-          </div>
-
-          <q-form @submit="proceed">
-            <q-input
-              v-model="key"
-              autogrow
-              autofocus
-              label="Private key or public key"
-              class="text-lg"
-            />
-            <q-toggle
-              v-if="isKeyKey"
-              v-model="watchOnly"
-              label="This is a public key"
-            />
-            <div class="flex w-full mt-4 justify-between">
-              <q-btn @click="generate">Generate</q-btn>
-              <q-btn
-                v-if="hasExtension && !isKeyValid"
-                @click="getFromExtension"
-                >Use Public Key from Extension</q-btn
-              >
-              <q-btn v-if="isKeyValid" color="primary" @click="proceed"
-                >Proceed</q-btn
-              >
-            </div>
-          </q-form>
-        </q-card-section>
-      </q-card>
-    </q-dialog>
   </q-layout>
 </template>
 <script>
