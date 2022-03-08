@@ -1,0 +1,31 @@
+// Shared colors
+
+$dark-mode-color: #fff;
+$light-mode-color: #000;
+
+$dark-mode-background-color: #000;
+$light-mode-background-color: #fff;
+
+$dark-mode-link-color: #7fc3e0;
+$light-mode-link-color: #3d7e9a;
+
+$light-mode-vote-color: rgba($color: $light-mode-color, $alpha: .6);
+$dark-mode-vote-color: rgba($color: $dark-mode-color, $alpha: .6);
+
+.Article {
+    &__card {
+        margin-top: 100px;
+    }
+
+    &__card-title {
+        font-weight: bold;
+        font-size: 25px;
+        cursor: pointer;
+    }
+
+    &__card-date {
+        color: grey;
+        margin-top: -30px;
+        font-size: normal;
+    }
+}

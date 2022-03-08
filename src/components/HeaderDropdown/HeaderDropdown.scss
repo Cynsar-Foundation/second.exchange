@@ -1,0 +1,13 @@
+.dropdown-button {
+    border: 1px solid grey;
+    margin-left: 20px;
+}
+
+.dropdown {
+    &__item {
+        display: flex;
+    }
+    &__item-text {
+        margin-left: 10px;
+    }
+}
