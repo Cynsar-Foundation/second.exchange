@@ -71,6 +71,7 @@ export async function launch(store) {
 export async function initialize(store) {
   pool.registerSigningFunction(signAsynchronously)
   pool.addRelay('wss://nostr-pub.wellorder.net')
+  pool.addRelay('wss://relay.cynsar.foundation')
   // const relays = [
   //   'wss://rsslay.fiatjaf.com',
   //   'wss://nostr-pub.wellorder.net',
