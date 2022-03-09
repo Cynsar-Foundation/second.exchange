@@ -121,9 +121,9 @@
 </template>
 
 <script>
-import {pool} from '../pool'
-import helpersMixin from '../utils/mixin'
-import {addToThread} from '../utils/threads'
+import {pool} from '../../pool'
+import helpersMixin from '../../utils/mixin'
+import {addToThread} from '../../utils/threads'
 
 export default {
   name: 'Profile',
