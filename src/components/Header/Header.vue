@@ -23,7 +23,7 @@
                 <label class="Header__content__dark-mode__label">
                   Dark mode:
                 </label>
-                <q-toggle v-model="dark_mode_toggle" />
+                <q-toggle v-model="dark_mode_toggle" disable />
                 <q-space />
                 <div class="header__post-button" @click="toWriter">
                     <Icon icon="fa6-solid:pen-to-square" font-size="20px" color="grey" />
