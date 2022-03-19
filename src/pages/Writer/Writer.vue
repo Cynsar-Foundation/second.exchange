@@ -56,7 +56,7 @@ export default {
   name: 'Writer',
   methods: {
     async sendPost() {
-      const userBlog = {'Title': this.title_input, 'Tags': this.tag_input, 'Content': this.content_input}
+      const userBlog = {'Title': this.title_input, 'Tags': this.tag_input, 'Content': this.content_input, 'Date': new Date()}
       console.log(userBlog)
       if (!this.title_input) {
         return

@@ -78,6 +78,11 @@ const routes = [
         component: () => import('pages/ArticleView/ArticleView.vue'),
         name: 'post'
       },
+      {
+        path: '/:pubkey',
+        component: () => import('pages/Profile/Profile.vue'),
+        name: 'profile'
+      }
     ]
   },
   {

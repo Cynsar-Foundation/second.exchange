@@ -32,7 +32,6 @@ export default {
   },
   computed: {
     notes() {
-      console.log(this.$store.state.homeFeed)
       return this.$store.state.homeFeed
     }
   },

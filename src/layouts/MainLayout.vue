@@ -52,7 +52,40 @@ export default {
       return false
     }
   },
+  mounted() {
+    console.log('this still active')
+    this.$store.dispatch('initialize')
 
+    this.threads = []
+    this.eventsSet = new Set()
+    this.sub = pool.sub(
+      {
+        cb: async (event, relay) => {
+          switch (event.kind) {
+            case 0:
+              await this.$store.dispatch('addEvent', {event, relay})
+              return
+            case 1:
+            case 2:
+              if (this.eventsSet.has(event.id)) return
+              this.eventsSet.add(event.id)
+              addToThread(this.threads, event)
+              this.$store.state.homeFeed = this.threads
+              return
+          }
+        },
+        filter: [
+          {
+            authors: [
+              '7b0ba10b13233979d17e545d56b1c1f6563ce0c9b0d1f3691b5ad3bf3cced6c0'
+            ],
+            kinds: [0, 1, 3]
+          }
+        ]
+      },
+      'profile-browser'
+    )
+  },
   methods: {
     async getFromExtension() {
       try {
@@ -111,10 +144,12 @@ export default {
           },
           filter: [
             {
-              authors: ['7b0ba10b13233979d17e545d56b1c1f6563ce0c9b0d1f3691b5ad3bf3cced6c0'],
+              authors: [
+                '7b0ba10b13233979d17e545d56b1c1f6563ce0c9b0d1f3691b5ad3bf3cced6c0'
+              ],
               kinds: [0, 1, 3]
             }
-          ],
+          ]
         },
         'profile-browser'
       )

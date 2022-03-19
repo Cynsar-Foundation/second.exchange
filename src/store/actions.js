@@ -47,11 +47,9 @@ export async function launch(store) {
     relays = LocalStorage.getItem('relays') || relays
     following = LocalStorage.getItem('following') || following
   }
-
   // update store state
   store.commit('setFollowing', following)
   store.commit('setRelays', relays)
-
   // setup pool
   for (let url in store.state.relays) {
     pool.addRelay(url, store.state.relays[url])
@@ -68,6 +66,50 @@ export async function launch(store) {
 
   // start listening for nostr events
   store.dispatch('restartMainSubscription')
+}
+
+export async function initialize(store) {
+  pool.registerSigningFunction(signAsynchronously)
+  pool.addRelay('wss://nostr-pub.wellorder.net')
+  pool.addRelay('wss://relay.cynsar.foundation')
+  // const relays = [
+  //   'wss://rsslay.fiatjaf.com',
+  //   'wss://nostr-pub.wellorder.net',
+  //   'wss://relayer.fiatjaf.com',
+  //   'wss://nostr-pub.wellorder.net',
+  //   'wss://expensive-relay.fiatjaf.com'
+  // ]
+  // store.commit('setRelays', relays)
+
+  // for (let url in relays) {
+  //   // What exactly is store.state.relays???
+  //   // pool.addRelay(url, store.state.relays[url])
+  //   console.log(typeof url)
+  //   pool.addRelay(url, {read: true, write: true})
+  // }
+  // pool.onNotice((notice, relay) => {
+  //   Notify.create({
+  //     message: `Relay ${relay.url} says: ${notice}`,
+  //     color: 'info'
+  //   })
+  // })
+
+  //Add a hardcoded restartMainSubscription()
+  // store.dispatch('restartMainSubscription')
+  // mainSub = mainSub.sub(
+  //   {
+  //     filter: [
+  //       {
+  //         kinds: [0, 1, 3],
+  //         authors: '7b0ba10b13233979d17e545d56b1c1f6563ce0c9b0d1f3691b5ad3bf3cced6c0'
+  //       },
+  //     ],
+  //     cb: async (event, relay) => {
+  //       console.log(event)
+  //     }
+  //   },
+  //   'main-channel'
+  // )
 }
 
 var mainSub = pool

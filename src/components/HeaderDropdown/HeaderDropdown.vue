@@ -10,15 +10,12 @@
       class="dropdown-button"
     >
       <q-list>
-        <q-item
-          v-close-popup
-          clickable
-          @click="initializeKeys = true"
-        >
+        <q-item v-close-popup clickable @click="initializeKeys = true">
           <q-item-section>
             <div class="dropdown__item">
               <Icon icon="icon-park-outline:login" font-size="20px" />
-              <span class="dropdown__item-text">Login</span></div>
+              <span class="dropdown__item-text">Login</span>
+            </div>
           </q-item-section>
         </q-item>
       </q-list>
@@ -33,18 +30,15 @@
       class="dropdown-button"
     >
       <q-list>
-        <q-item
-          v-close-popup
-          clickable
-          @click="hardReset"
-        >
+        <q-item v-close-popup clickable @click="hardReset">
           <q-item-section>
             <div class="dropdown__item">
               <Icon icon="ic:twotone-logout" font-size="20px" />
-              <span class="dropdown__item-text">Logout</span></div>
+              <span class="dropdown__item-text">Logout</span>
+            </div>
           </q-item-section>
         </q-item>
-        <q-item v-close-popup clickable @click="onItemClick">
+        <q-item v-close-popup clickable>
           <q-item-section>
             <div class="dropdown__item" @click="keysDialog = true">
               <Icon icon="bxs:key" font-size="22px" />
@@ -135,7 +129,7 @@
 
 <script>
 import './HeaderDropdown.scss'
-import { Icon } from '@iconify/vue'
+import {Icon} from '@iconify/vue'
 import {LocalStorage} from 'quasar'
 import {eraseDatabase} from '../../db'
 import {validateWords} from 'nostr-tools/nip06'
@@ -143,20 +137,10 @@ import {generatePrivateKey} from 'nostr-tools'
 import {pool} from '../../pool'
 import {addToThread} from '../../utils/threads'
 
-// import {KeysModal} from 'src/components/KeysModal/KeysModal.vue'
-
 export default {
-    name: 'HeaderDropdown',
-    components: {
-      Icon,
-      // KeysModal
-    },
-    setup () {
-    return {
-      onItemClick () {
-        // console.log('Clicked on an Item')
-      }
-    }
+  name: 'HeaderDropdown',
+  components: {
+    Icon
   },
   data() {
     return {
@@ -186,9 +170,6 @@ export default {
     }
   },
   methods: {
-    openKeyModal() {
-      this.$refs.key_modal.show()
-    },
     async hardReset() {
       this.$q
         .dialog({
@@ -242,10 +223,12 @@ export default {
           },
           filter: [
             {
-              authors: ['7b0ba10b13233979d17e545d56b1c1f6563ce0c9b0d1f3691b5ad3bf3cced6c0'],
+              authors: [
+                '7b0ba10b13233979d17e545d56b1c1f6563ce0c9b0d1f3691b5ad3bf3cced6c0'
+              ],
               kinds: [0, 1, 3]
             }
-          ],
+          ]
         },
         'profile-browser'
       )
@@ -270,7 +253,7 @@ export default {
     generate() {
       this.key = generatePrivateKey()
       this.watchOnly = false
-    },
-  },
+    }
+  }
 }
 </script>

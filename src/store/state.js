@@ -1,5 +1,7 @@
 import {LocalStorage} from 'quasar'
 
+export const selectedArticle = {'Title': '', 'Tags': '', 'Content': '', 'Date': new Date()}
+
 const isClientUsingTor = () => window.location.hostname.endsWith('.onion')
 
 const getMainnetRelays = () => {
