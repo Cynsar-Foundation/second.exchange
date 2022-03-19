@@ -1,20 +1,23 @@
 <template>
-  <div class="flex my-4 ml-[25px]">
-    <!-- <div
-      v-for="(event, index) in filledEvents"
-      :key="event.id"
-      class="w-full -translate-x-[33px]"
+  <div class="flex my-4 ml-[25px] articlelist">
+    <button
+      v-show="delayShow"
+      v-if="!showPosts"
+      class="show-posts"
+      @click="makePostsVisible"
     >
-      <ShowMore v-if="event === 'FILLER'" :root="root" />
-      <Post v-else :event="event" :position="position(index)" /> -->
-      <Article v-for="article in articleList" :key="article" />
+        Explore Posts
+    </button>
+      <div v-if="showPosts" v-show="delayShow">
+        <Article v-for="article in articleList" :key="article" />
+      </div>
     </div>
-  <!-- </div> -->
 </template>
 
 <script>
 import helpersMixin from '../../utils/mixin'
 import Article from '../Article/Article.vue'
+import './ArticleList.scss'
 
 export default {
   name: 'ArticleList',
@@ -28,7 +31,12 @@ export default {
     // eslint-disable-next-line vue/require-valid-default-prop
     articleList: {type: [Object], default: false}
   },
-
+  data() {
+    return {
+      showPosts: false,
+      delayShow: false,
+    }
+  },
   computed: {
     root() {
       return this.events[0].id
@@ -51,6 +59,11 @@ export default {
       return filled
     }
   },
+  created() {
+    setTimeout(() => {
+      this.delayShow = true
+    }, 1000)
+  },
 
   methods: {
     position(index) {
@@ -69,7 +82,10 @@ export default {
         if (index === this.filledEvents.length - 1) return 'middle'
         return 'middle'
       }
-    }
+    },
+    makePostsVisible() {
+      this.showPosts = true
+    },
   }
 }
 </script>

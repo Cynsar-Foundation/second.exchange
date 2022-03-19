@@ -1,11 +1,12 @@
-.ArticleList {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.articlelist {
+    padding-top: 80px;
+}
 
-    width: 100%;
-
-    .Article {
-        margin: 20px 0;
-    }
+.show-posts {
+    cursor: pointer;
+    margin: 200px 300px 300px 300px;
+    padding: 10px;
+    border: 1px solid grey;
+    font-size: 20px;
+    font-weight: bold;
 }

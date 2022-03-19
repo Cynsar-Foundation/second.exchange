@@ -53,7 +53,6 @@ export default {
     }
   },
   mounted() {
-    console.log('this still active')
     this.$store.dispatch('initialize')
 
     this.threads = []
