@@ -76,7 +76,8 @@ const routes = [
       {
         path: '/post/:eventId',
         component: () => import('pages/ArticleView/ArticleView.vue'),
-        name: 'post'
+        name: 'post',
+        props: true
       },
       {
         path: '/:pubkey',

@@ -2,7 +2,7 @@
   <article className="Article">
       <q-card flat bordered class="Article__card">
         <!-- <q-card-section class=Article__card-title @click="openArticle"> -->
-        <q-card-section class="Article__card-title" @click="openArticle">
+        <q-card-section class="Article__card-title" @click="openArticle(article[0]['id'], article)">
           <span>{{extractTitle(article[0]['content'])}}</span>
         </q-card-section>
         <q-card-section class=Article__card-date>
@@ -21,6 +21,7 @@ import './Article.scss'
 
 export default {
   name: 'Article',
+  // eslint-disable-next-line vue/require-prop-types
   props: ['article'],
   methods: {
     truncateContent(content, maxLength = 250) {
@@ -43,8 +44,9 @@ export default {
       var formattedDate = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear() + '  ' + strTime
       return formattedDate.slice(0, 8)
     },
-    openArticle() {
-      this.$router.push('/post/' + 'defaultarticle')
+    openArticle(id, post) {
+      // this.$router.push({name: 'post', path: '/post/' + id, params: {eventId: id}})
+      this.$router.push({name: 'post', params: {eventId: id, article: post[0]['content']}})
     }
   }
 }
