@@ -46,6 +46,14 @@
             </div>
           </q-item-section>
         </q-item>
+        <q-item v-close-popup clickable>
+          <q-item-section>
+            <div class="dropdown__item" @click="showUserPosts">
+              <Icon icon="majesticons:paper-fold-text-line" font-size="22px" />
+              <span class="dropdown__item-text">My Posts</span>
+            </div>
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-btn-dropdown>
     <q-dialog v-model="keysDialog">
@@ -170,6 +178,11 @@ export default {
     }
   },
   methods: {
+    showUserPosts() {
+      console.log('clicked')
+      console.log(this.$store.state.keys.pub)
+      this.$router.push('/myposts/' + this.$store.state.keys.pub)
+    },
     async hardReset() {
       this.$q
         .dialog({

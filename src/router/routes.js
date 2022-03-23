@@ -83,6 +83,11 @@ const routes = [
         path: '/:pubkey',
         component: () => import('pages/Profile/Profile.vue'),
         name: 'profile'
+      },
+      {
+        path: '/myposts/:pubkey',
+        component: () => import('pages/UserPosts/UserPosts.vue'),
+        name: 'userPosts'
       }
     ]
   },
