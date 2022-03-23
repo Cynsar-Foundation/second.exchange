@@ -115,8 +115,9 @@
     <q-separator class="my-6" />
 
     <div>
-      <div class="text-lg mx-4">Posts</div>
-      <Thread v-for="thread in threads" :key="thread[0].id" :events="thread" />
+      <div class="text-lg mx-4 profile__page-subtitle">Posts</div>
+      <!-- <Thread v-for="thread in threads" :key="thread[0].id" :events="thread" /> -->
+      <Article v-for="thread in threads" :key="thread[0].id" :article="thread" />
     </div>
   </q-page>
 </template>
@@ -127,11 +128,13 @@ import helpersMixin from '../../utils/mixin'
 import {addToThread} from '../../utils/threads'
 import {Icon} from '@iconify/vue'
 import './Profile.scss'
+import Article from '../../components/Article/Article'
 
 export default {
   name: 'Profile',
     components: {
-        Icon
+        Icon,
+        Article
     },
   mixins: [helpersMixin],
 
