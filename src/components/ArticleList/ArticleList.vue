@@ -9,7 +9,7 @@
         Explore Posts
     </button>
       <div v-if="showPosts" v-show="delayShow">
-        <Article v-for="article in articleList" :key="article" />
+        <Article v-for="article in articleList" :key="article" :article="article" />
       </div>
     </div>
 </template>
@@ -62,7 +62,7 @@ export default {
   created() {
     setTimeout(() => {
       this.delayShow = true
-    }, 1000)
+    }, 1500)
   },
 
   methods: {
