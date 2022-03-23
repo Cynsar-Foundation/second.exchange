@@ -54,6 +54,13 @@ import './Writer.scss'
 
 export default {
   name: 'Writer',
+  data() {
+    return {
+      title_input: '',
+      tag_input: '',
+      content_input: '',
+    }
+  },
   methods: {
     async sendPost() {
       const userBlog = {'Title': this.title_input, 'Tags': this.tag_input, 'Content': this.content_input, 'Date': new Date()}

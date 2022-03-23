@@ -4,7 +4,7 @@
       <!-- <Thread v-for="thread in homeFeed" :key="thread[0].id" :events="thread" /> -->
       <!-- <ArticleList v-for="thread in homeFeed" :key="thread[0].id" :events="thread" /> -->
       <!-- <ArticleList v-for="thread in notes" :key="thread[0].id" :events="thread" /> -->
-      <ArticleList v-bind:articleList="notes" />
+      <ArticleList :article-list="notes" />
     </q-infinite-scroll>
   </q-page>
 </template>
