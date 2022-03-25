@@ -3,24 +3,27 @@
     <div class="flex">
       <Header />
       <div class="hidden sm:flex w-1/4 justify-center px-8" />
-      <div class="w-full sm:w-3/4 lg:w-2/4 pl-4">
+      <div class="w-full sm:w-3/4 lg:w-2/4 pl-4" style="margin-bottom: 60px">
         <q-page>
           <router-view />
         </q-page>
       </div>
+      <Footer />
     </div>
   </q-layout>
 </template>
 <script>
 import helpersMixin from '../utils/mixin'
 import Header from '../components/Header/Header.vue'
+import Footer from '../components/Footer/Footer.vue'
 import {pool} from '../pool'
 import {addToThread} from '../utils/threads'
 
 export default {
   name: 'MainLayout',
   components: {
-    Header
+    Header,
+    Footer
   },
   mixins: [helpersMixin],
   data() {
