@@ -1,29 +1,116 @@
+/* Basic editor styles */
+.ProseMirror {
+    > * + * {
+      margin-top: 0.75em;
+    }
+  
+    ul,
+    ol {
+      padding: 0 1rem;
+    }
+  
+    blockquote {
+      padding-left: 1rem;
+      border-left: 2px solid rgba(#0D0D0D, 0.1);
+    }
+  }
+
+.ProseMirror:focus {
+  outline: none;
+}
+  
+  .bubble-menu {
+    display: flex;
+    background-color: #0D0D0D;
+    padding: 0.2rem;
+    border-radius: 0.5rem;
+  
+    button {
+      border: none;
+      background: none;
+      color: #FFF;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0 0.2rem;
+      opacity: 0.6;
+  
+      &:hover,
+      &.is-active {
+        opacity: 1;
+      }
+    }
+  }
+  
+  .floating-menu {
+    display: flex;
+    background-color: #0D0D0D10;
+    padding: 0.2rem;
+    border-radius: 0.5rem;
+  
+    button {
+      border: none;
+      background: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0 0.2rem;
+      opacity: 0.6;
+  
+      &:hover,
+      &.is-active {
+        opacity: 1;
+      }
+    }
+  }
+
+.editor__container {
+  margin: 130px 0 0 -130px;
+  border: 1px solid #C2C2C2;
+  padding: 15px;
+  width: 1000px;
+  height: 500px;
+  background-color: #fffdfb;
+  text-align: left;
+}
+
 .writer {
-    &__container {
-        margin-top: 130px;
-        display: block;
-    }
+  &__container {
+    text-align: center;
+  }
 
-    &__input-item {
-        list-style-type: none;
-        margin: 20px;
-    }
+  &__editor {
+    outline: none;
+  }
 
-    &__button {
-        border: 1px solid grey;
-        margin: 10px;
-    }
+  &__post-button {
+    padding: 5px 10px 5px 10px;
+    margin: 10px 0 0 0;
+    width: 120px;
+    height: 40px;
+    font-size: 18px;
+    color: white;
+    background-color: black;
+  }
+  &__post-button:hover {
+    color: black;
+    background-color: white;
+    border: 1px solid grey;
+  }
+}
 
-    &__input {
-        border: 1px grey solid;
-        width: 700px;
-        height: 50px;
-        padding: 15px;
-        letter-spacing: 0.8px;
-        border-radius: 2px;
-    }
+.formatting-option {
+  border: 1px solid grey;
+  padding: 3px 7px 3px 7px;
+}
 
-    &__textarea {
-        height: 250px;
-    }
+.formatting-option:hover {
+  color: white;
+  background-color: black;
+}
+
+.formatting-list {
+  padding: 5px;
+}
+
+.formatting-list > * {
+  margin: 0 5px 5px 0;
 }
