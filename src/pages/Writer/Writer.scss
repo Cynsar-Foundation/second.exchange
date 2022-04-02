@@ -70,10 +70,12 @@
   height: 500px;
   background-color: #fffdfb;
   text-align: left;
+  display: table;
 }
 
 .writer {
   &__container {
+    display: table-row;
     text-align: center;
   }
 
@@ -83,7 +85,7 @@
 
   &__post-button {
     padding: 5px 10px 5px 10px;
-    margin: 10px 0 0 0;
+    margin: 10px 0 80px -100px;
     width: 120px;
     height: 40px;
     font-size: 18px;
