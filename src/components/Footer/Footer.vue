@@ -7,7 +7,7 @@
           <br />
           <div class="footer-2">
             Visit
-            <a href="https://github.com/Cynsar-Foundation/second.exchange"
+            <a href="https://github.com/muellners/second.exchange"
               >Second Exchange GitHub repository</a
             >
             to contribute to the source code

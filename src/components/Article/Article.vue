@@ -1,5 +1,5 @@
 <template>
-  <article className="Article">
+  <article class="Article">
       <q-card flat bordered class="Article__card">
         <q-card-section class="Article__card-title" @click="openArticle(article[0]['id'], article)">
           <span>{{extractTitle(JSON.parse(article[0]['content'])['content'][0]['content'][0]['text'])}}</span>

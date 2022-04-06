@@ -1,7 +1,10 @@
 <template>
   <article className="ArticleView__container">
-          <p v-html="getHTMLFromJSON(article)"></p>
-    </article>
+    <p v-html="getHTMLFromJSON(article)"></p>
+  </article>
+  <div class="ArticleView__reply-container">
+    <Reply />
+  </div>
 </template>
 
 <script>

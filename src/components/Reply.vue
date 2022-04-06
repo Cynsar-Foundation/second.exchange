@@ -5,7 +5,7 @@
       v-model="text"
       autogrow
       autofocus
-      label="Reply to this note"
+      label="Leave a comment"
       maxlength="280"
       @keypress.ctrl.enter="sendReply"
     >
