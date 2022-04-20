@@ -1,5 +1,5 @@
 <template>
-  <q-page class="px-4 py-6">
+  <q-page class="px-4 py-6 settings__container">
     <div class="text-xl">Settings</div>
 
     <q-separator />
@@ -178,8 +178,10 @@ import {LocalStorage} from 'quasar'
 import {nextTick} from 'vue'
 import {queryName} from 'nostr-tools/nip05'
 
-import helpersMixin from '../utils/mixin'
-import {eraseDatabase} from '../db'
+import helpersMixin from '../../utils/mixin'
+import {eraseDatabase} from '../../db'
+
+import './Settings.scss'
 
 export default {
   name: 'Settings',

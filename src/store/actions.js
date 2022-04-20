@@ -210,6 +210,10 @@ export async function sendPost(store, {message, tags = [], kind = 1}) {
   }
 
   store.dispatch('addEvent', {event})
+  Notify.create({
+    message: `Successfully Posted!`,
+    color: 'positive'
+  })
   return event
 }
 

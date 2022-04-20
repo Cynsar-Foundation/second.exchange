@@ -1,6 +1,6 @@
 <template>
-  <q-page class="px-4 py-6">
-    <div class="text-xl">Encrypted Chat</div>
+  <q-page class="px-4 py-6 chats__container">
+    <div class="text-xl">My Chats</div>
 
     <q-list v-if="chats.length" class="my-4">
       <q-item
@@ -44,8 +44,10 @@
 </template>
 
 <script>
-import {dbGetChats} from '../db'
-import helpersMixin from '../utils/mixin'
+import {dbGetChats} from '../../db'
+import helpersMixin from '../../utils/mixin'
+
+import './Chats.scss'
 
 export default {
   name: 'Chats',

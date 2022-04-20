@@ -6,7 +6,7 @@ import Publish from '../components/Publish.vue'
 import Balloon from '../components/Balloon.vue'
 import Thread from '../components/Thread.vue'
 import Follow from '../components/Follow.vue'
-import Reply from '../components/Reply.vue'
+import Reply from '../components/Reply/Reply.vue'
 import Post from '../components/Post.vue'
 import Name from '../components/Name.vue'
 

@@ -1,5 +1,5 @@
 <template>
-  <q-page class="px-4 pt-6 relative">
+  <q-page class="px-4 pt-6 relative messages__container">
     <div class="text-xl">
       Chat with
       <span
@@ -50,9 +50,11 @@
 import {debounce} from 'quasar'
 import {decrypt} from 'nostr-tools/nip04'
 
-import helpersMixin from '../utils/mixin'
-import {getElementFullHeight, isElementFullyScrolled} from '../utils/helpers'
-import {dbGetMessages, onNewMessage} from '../db'
+import helpersMixin from '../../utils/mixin'
+import {getElementFullHeight, isElementFullyScrolled} from '../../utils/helpers'
+import {dbGetMessages, onNewMessage} from '../../db'
+
+import './Messages.scss'
 
 export default {
   name: 'Messages',
