@@ -12,6 +12,9 @@
             >
             to contribute to the source code
           </div>
+          <div>
+          <a href="https://www.netlify.com/">This site is powered by Netlify</a>
+          </div>
         </q-toolbar-title>
       </q-toolbar>
     </q-footer>

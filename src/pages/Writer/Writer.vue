@@ -143,7 +143,6 @@
           </button>
         </bubble-menu>
       </div>
-      <div contentEditable="true" data-text="Enter text here"></div>
       <editor-content :editor="editor" class="writer__editor" />
     </div>
     <button class="writer__post-button" @click="onPost">Post</button>
@@ -193,10 +192,10 @@ export default {
       ],
       content: `
         <h1 style="font-weight: bold">
-          Add a heading
+          Remove this text and add a heading!
         </h1>
         <p>
-          Start writing here
+          Start writing your blog here!
         </p>
       `
     })
