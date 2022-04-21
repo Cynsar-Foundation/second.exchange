@@ -1,5 +1,7 @@
 import {relayPool} from 'nostr-tools'
-import {Dialog} from 'quasar'
+// import {Dialog} from 'quasar'
+import { signEvent } from 'nostr-tools'
+import { LocalStorage } from 'quasar'
 
 export const pool = relayPool()
 
@@ -18,27 +20,34 @@ export async function signAsynchronously(event) {
         throw new Error('Failed to sign with Nostr extension.')
     }
   } else {
-    return new Promise((resolve, reject) => {
-      Dialog.create({
-        class: 'px-6 py-1 overflow-hidden',
-        title: 'Sign this event manually',
-        message: `<pre class="font-mono">${JSON.stringify(
-          event,
-          null,
-          2
-        )}</pre>`,
-        html: true,
-        prompt: {
-          model: '',
-          type: 'text',
-          isValid: val => !!val.toLowerCase().match(/^[a-z0-9]{128}$/),
-          attrs: {autocomplete: 'off'},
-          label: 'Paste the signature here (as hex)'
-        }
-      })
-        .onOk(resolve)
-        .onCancel(() => reject('Canceled.'))
-        .onDismiss(() => reject('Canceled.'))
-    })
+    let privKey = LocalStorage.getItem('keys')['priv']
+    let signatureOrEvent = await signEvent(event, privKey)
+    return signatureOrEvent
+    // return new Promise(() => {
+    //   let signatureOrEvent = signEvent(event)
+    //   console.log(signatureOrEvent)
+    // })
+    // return new Promise((resolve, reject) => {
+    //   Dialog.create({
+    //     class: 'px-6 py-1 overflow-hidden',
+    //     title: 'Sign this event manually',
+    //     message: `<pre class="font-mono">${JSON.stringify(
+    //       event,
+    //       null,
+    //       2
+    //     )}</pre>`,
+    //     html: true,
+    //     prompt: {
+    //       model: '',
+    //       type: 'text',
+    //       isValid: val => !!val.toLowerCase().match(/^[a-z0-9]{128}$/),
+    //       attrs: {autocomplete: 'off'},
+    //       label: 'Paste the signature here (as hex)'
+    //     }
+    //   })
+    //     .onOk(resolve)
+    //     .onCancel(() => reject('Canceled.'))
+    //     .onDismiss(() => reject('Canceled.'))
+    // })
   }
 }

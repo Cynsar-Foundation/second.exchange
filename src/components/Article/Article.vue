@@ -1,7 +1,7 @@
 <template>
   <article class="Article">
       <q-card flat bordered class="Article__card">
-        <q-card-section class="Article__card-title" @click="openArticle(article[0]['id'], article)">
+        <q-card-section class="Article__card-title" @click="openArticle(article[0]['pubkey'], article[0]['id'], article)">
           <span>{{extractTitle(JSON.parse(article[0]['content'])['content'][0]['content'][0]['text'])}}</span>
         </q-card-section>
         <q-card-section class=Article__card-date>
@@ -27,10 +27,7 @@ export default {
       let postBody = ''
       for (let i = 1; i < postContent.content.length; i++) {
         if (postContent.content[i].content)
-          // console.log(postContent.content[i].content[0].text)
           postBody += postContent.content[i].content[0].text
-        // if (blogContent.content[i])
-        //   blogBody += blogContent.content[i].content[0]['text']
       }
       return this.truncateContent(postBody, 350)
     },
@@ -56,8 +53,8 @@ export default {
       var formattedDate = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear() + '  ' + strTime
       return formattedDate.slice(0, 11)
     },
-    openArticle(id, post) {
-      this.$router.push({name: 'post', params: {eventId: id, article: post[0]['content']}})
+    openArticle(uid, pid, post) {
+      this.$router.push({name: 'post', params: {userId: uid, eventId: pid, article: post[0]['content']}})
     }
   }
 }
