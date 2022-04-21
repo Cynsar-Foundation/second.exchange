@@ -116,3 +116,11 @@
 .formatting-list > * {
   margin: 0 5px 5px 0;
 }
+
+.ProseMirror p.is-editor-empty:first-child::before {
+	content: 'Write your thoughts...';
+	float: left;
+	color: #ced4da;
+	pointer-events: none;
+	height: 0;
+}
