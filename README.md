@@ -1,5 +1,9 @@
 # second.exchange
+
 Forked from https://github.com/fiatjaf/branle
+
+Powered by Netlify Open Source Program https://www.netlify.com/
+
 ## Dev Setup
 
 ### Install the dependencies
@@ -55,4 +59,4 @@ The code in this repository has not been audited.
 
 ## Deployed Instance
 
-Coming soon
+https://splendid-scone-c4f247.netlify.app/
