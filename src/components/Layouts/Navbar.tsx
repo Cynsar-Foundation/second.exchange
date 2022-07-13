@@ -16,13 +16,19 @@ import { IoKeySharp, IoNewspaperSharp } from "react-icons/io5";
 import { BsBellFill, BsFillChatRightTextFill } from "react-icons/bs";
 import { IoMdSettings } from "react-icons/io";
 import { BiLogOut, BiLogIn } from "react-icons/bi";
-import { useAtomValue } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
 import { authAtom } from "../../atoms/authStateAtom";
+import { authModalState } from "../../atoms/authModalStateAtom";
+import AuthModal from "../Modals/AuthModal";
+import { useRouter } from "next/router";
 
 export default function Navbar() {
   const userAuthenticated = useAtomValue(authAtom);
   const { colorMode, toggleColorMode } = useColorMode();
+  const setModalOpen = useSetAtom(authModalState);
+  const router = useRouter();
+
   return (
     <>
       <Box
@@ -32,7 +38,12 @@ export default function Navbar() {
         borderColor={useColorModeValue("#cbcbcb", "transparent")}
       >
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-          <Text fontSize="2xl" fontWeight="bold">
+          <Text
+            fontSize="2xl"
+            fontWeight="bold"
+            onClick={() => router.push("/")}
+            cursor="pointer"
+          >
             Second Exchange
           </Text>
 
@@ -58,7 +69,7 @@ export default function Navbar() {
                 </MenuButton>
                 {!userAuthenticated ? (
                   <MenuList alignItems="center">
-                    <MenuItem display="flex">
+                    <MenuItem display="flex" onClick={() => setModalOpen(true)}>
                       <BiLogIn fontSize="20px" />
                       <Text pl="10px">Login</Text>
                     </MenuItem>
@@ -96,6 +107,7 @@ export default function Navbar() {
           </Flex>
         </Flex>
       </Box>
+      <AuthModal />
     </>
   );
 }
