@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 import {
   Box,
   Flex,
@@ -10,13 +11,17 @@ import {
   Stack,
   useColorMode,
   Text,
+  Input,
+  InputRightElement,
+  InputGroup,
 } from "@chakra-ui/react";
 import { ChevronDownIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { IoKeySharp, IoNewspaperSharp } from "react-icons/io5";
-import { BsBellFill, BsFillChatRightTextFill } from "react-icons/bs";
+import { BsBellFill, BsFillChatRightTextFill, BsSearch } from "react-icons/bs";
 import { IoMdSettings } from "react-icons/io";
 import { BiLogOut, BiLogIn } from "react-icons/bi";
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
+import { RiPencilRulerFill } from "react-icons/ri";
 
 import { authAtom } from "../../atoms/authStateAtom";
 import { authModalState } from "../../atoms/authModalStateAtom";
@@ -31,28 +36,57 @@ export default function Navbar() {
 
   return (
     <>
-      <Box
-        bg={useColorModeValue("white", "gray.900")}
-        px={4}
-        borderBottom="1px solid"
-        borderColor={useColorModeValue("#cbcbcb", "transparent")}
-      >
-        <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
+      <Box bg={useColorModeValue("white", "gray.900")} px={{ base: 2, lg: 4 }}>
+        <Flex
+          h={16}
+          alignItems={"center"}
+          justifyContent={"space-between"}
+          borderBottom="1px solid"
+          borderColor={useColorModeValue("#cbcbcb", "transparent")}
+        >
           <Text
-            fontSize="2xl"
+            fontSize={{ lg: "2xl", md: "xl", base: "md" }}
             fontWeight="bold"
             onClick={() => router.push("/")}
             cursor="pointer"
           >
             Second Exchange
           </Text>
-
+          <Flex>
+            <InputGroup>
+              <InputRightElement pointerEvents="none" children={<BsSearch />} />
+              <Input
+                placeholder="Search for profiles"
+                borderRadius="xl"
+                borderColor="gray.400"
+                width={{ base: "130px", md: "300px", lg: "450px" }}
+                fontSize={{ base: "12px", lg: "16px", md: "16px" }}
+              />
+            </InputGroup>
+          </Flex>
           <Flex alignItems={"center"}>
             <Stack direction={"row"} spacing={7}>
-              <Button onClick={toggleColorMode}>
+              <Button
+                display={{ base: "none", lg: "flex", md: "flex" }}
+                alignItems="center"
+                cursor="pointer"
+                onClick={() => {
+                  userAuthenticated
+                    ? router.push("/write")
+                    : setModalOpen(true);
+                }}
+              >
+                <RiPencilRulerFill />
+                <Text cursor="pointer" pl="5px">
+                  Post Blog
+                </Text>
+              </Button>
+              <Button
+                onClick={toggleColorMode}
+                display={{ base: "none", lg: "flex", md: "flex" }}
+              >
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
-
               <Menu>
                 <MenuButton
                   cursor="pointer"
