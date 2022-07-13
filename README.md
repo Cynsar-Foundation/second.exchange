@@ -1,6 +1,6 @@
 # second.exchange
 
-Forked from https://github.com/fiatjaf/branle
+Based on Nostr-tools https://github.com/fiatjaf/nostr-tools
 
 Powered by Netlify Open Source Program https://www.netlify.com/
 
@@ -15,13 +15,13 @@ yarn
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
 
 ```bash
-quasar dev
+yarn dev
 ```
 
 ### Build the app for production
 
 ```bash
-quasar build
+yarn build
 ```
 
 ## The first exchange was not good, this one is really good
@@ -32,10 +32,6 @@ Second exchange is an experimental social media service that lets anyone, anywhe
 2. Follow people and content
 3. Group content
 4. Feature in future like adding tips, votes, and more in pipeline
-
-## Developer
-
-We are looking for amazing front end developers who can contribute to this great way of sharing information and knowledge that points back to the users.
 
 ## Contribute back
 
