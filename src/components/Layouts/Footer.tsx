@@ -22,6 +22,8 @@ const Footer: React.FC<FooterProps> = () => {
       <Text>
         Made at{" "}
         <a
+          rel="noreferrer"
+          target="_blank"
           href="https://github.com/muellners"
           color={useColorModeValue("brand.100", "brand.200")}
         >
@@ -32,11 +34,15 @@ const Footer: React.FC<FooterProps> = () => {
         <Text pr="5px" fontSize="20px">
           Contribute to Second Exchange on
         </Text>
-        <a href="https://github.com/muellners/second.exchange">
+        <a
+          rel="noreferrer"
+          target="_blank"
+          href="https://github.com/muellners/second.exchange"
+        >
           <AiOutlineGithub fontSize="20px" />
         </a>
       </Flex>
-      <a href="https://www.netlify.com/">
+      <a rel="noreferrer" target="_blank" href="https://www.netlify.com/">
         <Text
           cursor="pointer"
           textDecoration="underline"

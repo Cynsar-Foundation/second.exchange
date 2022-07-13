@@ -14,6 +14,7 @@ import {
   Input,
   InputRightElement,
   InputGroup,
+  Divider,
 } from "@chakra-ui/react";
 import { ChevronDownIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { IoKeySharp, IoNewspaperSharp } from "react-icons/io5";

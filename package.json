@@ -19,6 +19,7 @@
     "framer-motion": "^6.4.3",
     "jotai": "^1.7.4",
     "lint-staged": "^13.0.3",
+    "moment": "^2.29.4",
     "next": "12.2.2",
     "prettier": "^2.7.1",
     "react": "18.2.0",
