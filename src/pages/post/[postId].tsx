@@ -9,7 +9,6 @@ import {
 import moment from "moment";
 import { useRouter } from "next/router";
 import React from "react";
-import MainLayout from "../../components/Layouts/MainLayout";
 
 type PostProps = {};
 
@@ -22,7 +21,7 @@ const Post: React.FC<PostProps> = () => {
   const date = new Date();
 
   return (
-    <MainLayout>
+    <>
       <Flex width="100%" alignItems="center" justifyContent="center">
         <Flex
           flexDirection="column"
@@ -54,7 +53,7 @@ const Post: React.FC<PostProps> = () => {
           </Flex>
         </Flex>
       </Flex>
-    </MainLayout>
+    </>
   );
 };
 

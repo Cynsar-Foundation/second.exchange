@@ -14,7 +14,9 @@ const MainLayout: React.FC<PropsWithChildren<MainLayoutProps>> = ({
   return (
     <Box minHeight="100vh">
       <Navbar />
-      <Box p="10px">{children}</Box>
+      <Box p="10px" pb="125px">
+        {children}
+      </Box>
       <Footer />
     </Box>
   );

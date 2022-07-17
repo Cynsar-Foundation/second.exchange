@@ -1,53 +1,36 @@
 import { ChakraProvider } from "@chakra-ui/react";
+import { useSetAtom, useAtom } from "jotai";
 import type { AppProps } from "next/app";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
+import { authAtom } from "../atoms/authStateAtom";
+import { homeFeed } from "../atoms/homeFeedAtom";
 import theme from "../chakra/theme";
-import { defaultRelays } from "../config/defaultRelays";
+import MainLayout from "../components/Layouts/MainLayout";
+import { initConnection } from "../service/nostrSetup";
 import { NostrEvent } from "../types";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [nostrEventsValue, setNostrEventsValue] = useState<NostrEvent[]>();
-  const eventsSet = new Set();
-  const [posts, setPosts] = useState();
+  const [feed, setFeed] = useAtom(homeFeed);
+  const setUserAuthenticated = useSetAtom(authAtom);
+
+  useEffect(() => {
+    setUserAuthenticated(localStorage.getItem("keys") !== null);
+  }, []);
   useEffect(() => {
     const init = async () => {
-      const { relayPool } = await import("nostr-tools");
-      const pool = relayPool();
-      // pool.setPrivateKey(
-      //   "9d8553f19267c5930162f576eb3b2652ea63a637dc576bc85871cdc44a2ebf50"
-      // );
-      defaultRelays.map((relayUrl: string) => pool.addRelay(relayUrl));
-      pool.sub(
-        {
-          cb: async (event: NostrEvent) => {
-            switch (event.kind) {
-              case 0:
-              case 1:
-              case 2:
-                if (eventsSet.has(event.id)) return;
-                eventsSet.add(event.id);
-                return;
-            }
-          },
-          filter: [
-            {
-              authors: [
-                "d27f3a85ed00f0faa0e4b03386fffd283ff3f8c9089f4ec4a13338a9d7844f54",
-              ],
-              kinds: [0, 1, 3],
-            },
-          ],
-        },
-        "profile-browser"
-      );
+      const postList: NostrEvent[] = await initConnection();
+      console.log(postList.length);
+      if (feed.length === 0) setFeed(postList);
     };
-    init();
+    setTimeout(() => init(), 1000);
   }, []);
 
   return (
     <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
+      <MainLayout>
+        <Component {...pageProps} />
+      </MainLayout>
     </ChakraProvider>
   );
 }

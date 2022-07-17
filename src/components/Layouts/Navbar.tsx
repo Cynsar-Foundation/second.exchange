@@ -8,13 +8,11 @@ import {
   MenuList,
   MenuItem,
   useColorModeValue,
-  Stack,
   useColorMode,
   Text,
   Input,
   InputRightElement,
   InputGroup,
-  Divider,
 } from "@chakra-ui/react";
 import { ChevronDownIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { IoKeySharp, IoNewspaperSharp } from "react-icons/io5";
@@ -32,7 +30,7 @@ import { useRouter } from "next/router";
 export default function Navbar() {
   const userAuthenticated = useAtomValue(authAtom);
   const { colorMode, toggleColorMode } = useColorMode();
-  const setModalOpen = useSetAtom(authModalState);
+  const setAuthModalOpen = useSetAtom(authModalState);
   const router = useRouter();
 
   return (
@@ -66,7 +64,7 @@ export default function Navbar() {
             </InputGroup>
           </Flex>
           <Flex alignItems={"center"}>
-            <Stack direction={"row"} spacing={7}>
+            <Flex direction={"row"} gap={7}>
               <Button
                 display={{ base: "none", lg: "flex", md: "flex" }}
                 alignItems="center"
@@ -74,7 +72,7 @@ export default function Navbar() {
                 onClick={() => {
                   userAuthenticated
                     ? router.push("/write")
-                    : setModalOpen(true);
+                    : setAuthModalOpen(true);
                 }}
               >
                 <RiPencilRulerFill />
@@ -104,7 +102,10 @@ export default function Navbar() {
                 </MenuButton>
                 {!userAuthenticated ? (
                   <MenuList alignItems="center">
-                    <MenuItem display="flex" onClick={() => setModalOpen(true)}>
+                    <MenuItem
+                      display="flex"
+                      onClick={() => setAuthModalOpen(true)}
+                    >
                       <BiLogIn fontSize="20px" />
                       <Text pl="10px">Login</Text>
                     </MenuItem>
@@ -131,14 +132,17 @@ export default function Navbar() {
                       <IoMdSettings fontSize="20px" />
                       <Text pl="10px">Settings</Text>
                     </MenuItem>
-                    <MenuItem display="flex">
+                    <MenuItem
+                      display="flex"
+                      onClick={() => setAuthModalOpen(true)}
+                    >
                       <BiLogOut fontSize="20px" />
                       <Text pl="10px">Logout</Text>
                     </MenuItem>
                   </MenuList>
                 )}
               </Menu>
-            </Stack>
+            </Flex>
           </Flex>
         </Flex>
       </Box>

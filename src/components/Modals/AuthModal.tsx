@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Modal,
@@ -10,15 +10,75 @@ import {
   ModalFooter,
   Text,
   Input,
+  Flex,
 } from "@chakra-ui/react";
 import { useAtom } from "jotai";
 import { authModalState } from "../../atoms/authModalStateAtom";
+import { authAtom } from "../../atoms/authStateAtom";
+import { initConnection } from "../../service/nostrSetup";
 
 const AuthModal: React.FC = () => {
   const [modalOpen, setModalOpen] = useAtom(authModalState);
+  const [privateKey, setPrivateKey] = useState("");
+  const [publicKey, setPublicKey] = useState("");
+  const [userAuthenticated, setUserAuthenticated] = useAtom(authAtom);
 
   const handleClose = () => {
     setModalOpen(false);
+  };
+
+  const generateKey = async () => {
+    const { generatePrivateKey } = await import("nostr-tools");
+    setPrivateKey(generatePrivateKey());
+  };
+
+  useEffect(() => {
+    const generatePublicKey = async () => {
+      const { getPublicKey } = await import("nostr-tools");
+      if (isKey(privateKey) !== null) setPublicKey(getPublicKey(privateKey));
+    };
+    generatePublicKey();
+  }, [privateKey]);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setPrivateKey(event.target.value);
+
+  const isKey = (key: string) => {
+    return key?.toLowerCase()?.match(/^[0-9a-f]{64}$/);
+  };
+
+  const handleProceed = () => {
+    if (typeof window !== "undefined") {
+      try {
+        localStorage.setItem(
+          "keys",
+          JSON.stringify({
+            publicKey: publicKey,
+            privateKey: privateKey,
+          })
+        );
+      } catch (error) {
+        console.log("handleProceed error", error);
+      } finally {
+        setUserAuthenticated(true);
+        setPrivateKey("");
+        initConnection();
+        handleClose();
+      }
+    }
+  };
+
+  const handleLogout = () => {
+    if (typeof window !== "undefined") {
+      try {
+        localStorage.removeItem("keys");
+      } catch (error) {
+        console.log("handleLogout error", error);
+      } finally {
+        setUserAuthenticated(false);
+        handleClose();
+      }
+    }
   };
 
   return (
@@ -28,18 +88,51 @@ const AuthModal: React.FC = () => {
         <ModalHeader>Initial Key Setup</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Text>
-            Type your private key from a previous Nostr account or generate a
-            new one.
-          </Text>
-          <Text mt="10px">
-            You can also type just a public key and later sign events manually
-            or using a Nostr-capable browser extension.
-          </Text>
-          <Input mt="15px" placeholder="Private key or Public key" />
+          {!userAuthenticated ? (
+            <Flex flexDirection="column">
+              <Text>
+                Type your private key from a previous Nostr account or generate
+                a new one.
+              </Text>
+              <Text mt="10px">
+                You can also type just a public key and later sign events
+                manually or using a Nostr-capable browser extension.
+              </Text>
+              <Input
+                mt="15px"
+                placeholder="Private key or Public key"
+                value={privateKey}
+                onChange={handleChange}
+              />
+            </Flex>
+          ) : (
+            <Flex flexDirection="column">
+              <Text>Are you sure you want to logout?</Text>
+              <Text mt="10px">
+                Logging out will delete all your data from this device
+              </Text>
+            </Flex>
+          )}
         </ModalBody>
         <ModalFooter>
-          <Button variant="solid">Generate</Button>
+          {!userAuthenticated ? (
+            <Flex columnGap="10px">
+              <Button variant="solid" onClick={() => generateKey()}>
+                Generate
+              </Button>
+              <Button
+                disabled={isKey(privateKey) === null}
+                onClick={handleProceed}
+              >
+                Proceed
+              </Button>
+            </Flex>
+          ) : (
+            <Flex columnGap="10px">
+              <Button onClick={handleClose}>Cancel</Button>
+              <Button onClick={handleLogout}>Yes, log me out</Button>
+            </Flex>
+          )}
         </ModalFooter>
       </ModalContent>
     </Modal>
