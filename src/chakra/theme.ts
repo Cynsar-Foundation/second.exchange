@@ -24,7 +24,7 @@ const components = {
 };
 
 const fonts = {
-  body: "Poppins, sans-serif",
+  body: "Roboto, sans-serif",
 };
 
 const colors = {
@@ -36,8 +36,8 @@ const colors = {
 };
 
 const config = {
-  initialColorMode: "light",
-  useSystemColorMode: "false",
+  initialColorMode: "dark",
+  useSystemColorMode: "true",
 };
 
 const theme = extendTheme({
