@@ -1,12 +1,21 @@
-import { Box, Input, useColorModeValue } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  useColorModeValue,
+  useToast,
+} from "@chakra-ui/react";
 import Placeholder from "@tiptap/extension-placeholder";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Document from "@tiptap/extension-document";
 import Heading from "@tiptap/extension-heading";
+import createDOMPurify from "dompurify";
 
 import { MenuBar } from "./Menubar";
+import { Post } from "../../types";
+import { publishPost } from "../../service/nostrOps";
 
 const CustomDocument = Document.extend({
   content: "heading block*",
@@ -14,6 +23,58 @@ const CustomDocument = Document.extend({
 
 const Editor = () => {
   const [title, setTitle] = useState("");
+  const [loading, setLoading] = useState(false);
+  // const [content, setContent] = useState<any>();
+  const [titleError, setTitleError] = useState(false);
+  const toast = useToast();
+  const DOMPurify =
+    typeof window !== "undefined" ? createDOMPurify(window) : undefined;
+
+  useEffect(() => {
+    if (titleError)
+      toast({
+        title: "Give your post a title",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+    setTitleError(false);
+  }, [titleError]);
+
+  const handlePost = async () => {
+    setLoading(true);
+    if (title === "") {
+      setTitleError(true);
+      setLoading(false);
+      return;
+    }
+    try {
+      const post: Post = {
+        title: title,
+        contentType: "html",
+        content: editor ? editor.getHTML() : "",
+      };
+      await publishPost(post);
+    } catch (error) {
+      toast({
+        title: "Failed to post",
+        description: "Check logs for the reason of failure",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      console.log("handlePost error: ", error);
+    } finally {
+      toast({
+        title: "Posted Successfully",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
+    setLoading(false);
+  };
+
   const editor = useEditor({
     extensions: [
       CustomDocument,
@@ -30,7 +91,7 @@ const Editor = () => {
         //   }
         //   return "Can you add some further context?";
         // },
-        placeholder: "Start writing your blog here!",
+        placeholder: "Your content goes here!",
       }),
     ],
     // content: `
@@ -59,6 +120,17 @@ const Editor = () => {
       <Box border="1px solid #CBCBCB" p="15px" mt="10px" cursor="text">
         <EditorContent editor={editor} />
       </Box>
+      <Flex mt="15px" justifyContent="center">
+        <Button fontSize="xl" onClick={handlePost} isLoading={loading}>
+          Post
+        </Button>
+      </Flex>
+      {/* {DOMPurify && content && (
+        <div
+          style={{ fontSize: "20px" }}
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
+        />
+      )} */}
     </Box>
   );
 };

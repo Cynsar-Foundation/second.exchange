@@ -1,5 +1,3 @@
-import { useSetAtom } from "jotai";
-import { homeFeed } from "../atoms/homeFeedAtom";
 import { defaultRelays } from "../config/defaultRelays";
 import { NostrEvent } from "../types";
 
@@ -29,7 +27,7 @@ export const initConnection = async () => {
       filter: [
         {
           authors: [
-            "d27f3a85ed00f0faa0e4b03386fffd283ff3f8c9089f4ec4a13338a9d7844f54",
+            "33d27697907362b8f82a69d251011535591faca9cca172de0c29880316e027dc",
           ],
           kinds: [0, 1, 3],
         },

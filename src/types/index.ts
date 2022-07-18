@@ -24,18 +24,8 @@ export type NostrEvent = {
   sig?: string; //<64-bytes signature of the sha256 hash of the serialized event data, which is the same as the id field>
 };
 
-export interface Story {
-  id: string;
+export type Post = {
   title: string;
+  contentType: "html" | "json";
   content: any;
-  contentVersion?: "2";
-  coverImage?: string;
-  type: "private" | "public";
-  metaTitle?: string;
-  metaDescription?: string;
-  metaImage?: string;
-  featured?: boolean;
-  hideCoverImage?: boolean;
-  createdAt: number;
-  updatedAt: number;
-}
+};
