@@ -37,6 +37,5 @@ export const initConnection = async () => {
     },
     "profile-browser"
   );
-  console.log(fetchedEvents.length);
   return fetchedEvents;
 };

@@ -21,16 +21,19 @@ import { IoMdSettings } from "react-icons/io";
 import { BiLogOut, BiLogIn } from "react-icons/bi";
 import { useAtomValue, useSetAtom } from "jotai";
 import { RiPencilRulerFill } from "react-icons/ri";
+import { useRouter } from "next/router";
 
 import { authAtom } from "../../atoms/authStateAtom";
 import { authModalState } from "../../atoms/authModalStateAtom";
 import AuthModal from "../Modals/AuthModal";
-import { useRouter } from "next/router";
+import KeyModal from "../Modals/KeyModal";
+import { keyModalState } from "../../atoms/keyModalStateAtom";
 
 export default function Navbar() {
   const userAuthenticated = useAtomValue(authAtom);
   const { colorMode, toggleColorMode } = useColorMode();
   const setAuthModalOpen = useSetAtom(authModalState);
+  const setKeyModalOpen = useSetAtom(keyModalState);
   const router = useRouter();
 
   return (
@@ -112,32 +115,59 @@ export default function Navbar() {
                   </MenuList>
                 ) : (
                   <MenuList alignItems="center">
-                    <MenuItem display="flex">
+                    <MenuItem
+                      display="flex"
+                      onClick={() => router.push("/myposts")}
+                    >
                       <IoNewspaperSharp fontSize="20px" />
-                      <Text pl="10px">My Posts</Text>
+                      <Text pl="10px" cursor="pointer">
+                        My Posts
+                      </Text>
                     </MenuItem>
-                    <MenuItem display="flex">
+                    <MenuItem
+                      display="flex"
+                      onClick={() => router.push("/messages")}
+                    >
                       <BsFillChatRightTextFill fontSize="20px" />
-                      <Text pl="10px">My Chats</Text>
+                      <Text pl="10px" cursor="pointer">
+                        My Chats
+                      </Text>
                     </MenuItem>
-                    <MenuItem display="flex">
+                    <MenuItem
+                      display="flex"
+                      onClick={() => router.push("/notifications")}
+                    >
                       <BsBellFill fontSize="20px" />
-                      <Text pl="10px">Notifications</Text>
+                      <Text pl="10px" cursor="pointer">
+                        Notifications
+                      </Text>
                     </MenuItem>
-                    <MenuItem display="flex">
+                    <MenuItem
+                      display="flex"
+                      onClick={() => setKeyModalOpen(true)}
+                    >
                       <IoKeySharp fontSize="20px" />
-                      <Text pl="10px">My Keys</Text>
+                      <Text pl="10px" cursor="pointer">
+                        My Keys
+                      </Text>
                     </MenuItem>
-                    <MenuItem display="flex">
+                    <MenuItem
+                      display="flex"
+                      onClick={() => router.push("/settings")}
+                    >
                       <IoMdSettings fontSize="20px" />
-                      <Text pl="10px">Settings</Text>
+                      <Text pl="10px" cursor="pointer">
+                        Settings
+                      </Text>
                     </MenuItem>
                     <MenuItem
                       display="flex"
                       onClick={() => setAuthModalOpen(true)}
                     >
                       <BiLogOut fontSize="20px" />
-                      <Text pl="10px">Logout</Text>
+                      <Text pl="10px" cursor="pointer">
+                        Logout
+                      </Text>
                     </MenuItem>
                   </MenuList>
                 )}
@@ -147,6 +177,7 @@ export default function Navbar() {
         </Flex>
       </Box>
       <AuthModal />
+      <KeyModal />
     </>
   );
 }

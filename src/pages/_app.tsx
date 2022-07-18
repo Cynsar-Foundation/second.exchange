@@ -15,12 +15,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   const setUserAuthenticated = useSetAtom(authAtom);
 
   useEffect(() => {
-    setUserAuthenticated(localStorage.getItem("keys") !== null);
+    if (typeof window !== "undefined")
+      setUserAuthenticated(localStorage.getItem("keys") !== null);
   }, []);
   useEffect(() => {
     const init = async () => {
       const postList: NostrEvent[] = await initConnection();
-      console.log(postList.length);
       if (feed.length === 0) setFeed(postList);
     };
     setTimeout(() => init(), 1000);

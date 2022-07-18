@@ -9,7 +9,7 @@ import PostItem from "../components/Post/PostItem";
 const Home: NextPage = () => {
   const postList = useAtomValue(homeFeed);
   const [showPosts, setShowPosts] = useState(false);
-  const [loadTime, setLoadTime] = useState(500);
+  const [loadTime, setLoadTime] = useState(1000);
 
   const increaseLoadTime = () => {
     setShowPosts(false);
@@ -35,12 +35,15 @@ const Home: NextPage = () => {
           rowGap="15px"
           position="absolute"
           top="40%"
-          left="37%"
+          left="30%"
         >
           <Text>Looks like there is no data here :(</Text>
-          <Text>Sometimes due to network or Relay connection issues the </Text>
+          <Text>
+            Sometimes due to network or Relay connection issues the data
+            doesn&apos;t load properly.
+          </Text>
           {loadTime < 5500 ? (
-            <Button onClick={increaseLoadTime}>Reload data</Button>
+            <Button onClick={increaseLoadTime}>Reload</Button>
           ) : (
             <Text>
               Maximum requests reached, please confirm that the data exists or
