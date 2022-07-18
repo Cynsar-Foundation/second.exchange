@@ -10,6 +10,8 @@ import MainLayout from "../components/Layouts/MainLayout";
 import { initConnection } from "../service/nostrSetup";
 import { NostrEvent } from "../types";
 
+import "../global.scss";
+
 function MyApp({ Component, pageProps }: AppProps) {
   const [feed, setFeed] = useAtom(homeFeed);
   const setUserAuthenticated = useSetAtom(authAtom);

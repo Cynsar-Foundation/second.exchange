@@ -1,8 +1,8 @@
 import React from "react";
+import Editor from "../components/Editor/Editor";
 
-type writeProps = {};
-
-const write: React.FC<writeProps> = () => {
-  return <div>Have a good coding</div>;
+const Write: React.FC = () => {
+  return <Editor />;
 };
-export default write;
+
+export default Write;
