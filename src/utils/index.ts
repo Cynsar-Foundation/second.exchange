@@ -18,3 +18,9 @@ export const getPublicKey = () => {
         : null;
   return privKey;
 };
+
+export const toDateTime = (secs: number) => {
+  var t = new Date(1970, 0, 1); // Epoch
+  t.setSeconds(secs);
+  return t;
+};

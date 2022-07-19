@@ -39,6 +39,7 @@
     "sass": "^1.53.0"
   },
   "devDependencies": {
+    "@types/dompurify": "^2.3.3",
     "@types/node": "18.0.3",
     "@types/react": "18.0.15",
     "@types/react-dom": "18.0.6",

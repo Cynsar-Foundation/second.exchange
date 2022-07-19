@@ -1,10 +1,12 @@
-import { Button, Flex, Skeleton, Spinner, Text } from "@chakra-ui/react";
+import { Button, Flex, Spinner, Text } from "@chakra-ui/react";
 import { useAtomValue } from "jotai";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 
 import { homeFeed } from "../atoms/homeFeedAtom";
 import PostItem from "../components/Post/PostItem";
+import { toDateTime } from "../utils";
+import { Post } from "../types";
 
 const Home: NextPage = () => {
   const postList = useAtomValue(homeFeed);
@@ -60,16 +62,20 @@ const Home: NextPage = () => {
           mt="25px"
           rowGap="25px"
         >
-          {postList.map((post) => (
-            <PostItem
-              key={post.content}
-              date={new Date()}
-              authorId="testId"
-              postId="postId"
-              title="test"
-              body="Veniam eu id veniam magna eiusmod ex labore. Cillum aliquip est officia id culpa esse do voluptate ad eu anim commodo do. Irure duis deserunt velit adipisicing laborum culpa consequat qui ea consectetur consequat. Fugiat sunt culpa mollit ut excepteur labore sint. Exercitation cupidatat et occaecat minim proident commodo enim. Ullamco nisi non aliqua pariatur Lorem veniam consequat consequat exercitation."
-            />
-          ))}
+          {postList.map((post) => {
+            const postContent: Post = JSON.parse(post.content);
+            const postBody = postContent.content.replace(/<[^>]+>/g, "");
+            return (
+              <PostItem
+                key={String(post.id)}
+                date={toDateTime(post.created_at)}
+                authorId={post.pubkey}
+                postId={post.id!}
+                title={postContent.title}
+                body={postBody}
+              />
+            );
+          })}
         </Flex>
       )}
     </>

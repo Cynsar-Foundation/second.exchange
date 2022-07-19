@@ -41,10 +41,12 @@ const PostItem: React.FC<PostItemProps> = ({
       p="10px 15px 15px 15px"
       borderRadius="lg"
       maxWidth="650px"
+      minWidth={{ lg: "650px", md: "450px", base: "300px" }}
     >
       <Flex alignItems="center" columnGap="10px" mb="10px">
         <Tooltip label={authorId}>
           <Avatar
+            src={authorProfilePic}
             cursor="pointer"
             onClick={() => router.push(`/user/${authorId}`)}
           />
