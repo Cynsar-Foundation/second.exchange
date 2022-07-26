@@ -50,7 +50,6 @@
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-vue": "^7.0.0",
     "eslint-webpack-plugin": "^2.4.0",
-    "node-sass": "^6.0.1",
     "sass-loader": "^12.6.0"
   },
   "browserslist": [

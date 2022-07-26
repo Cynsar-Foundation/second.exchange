@@ -2,7 +2,7 @@
   <q-header bordered class="bg-transparent text-black">
     <q-toolbar>
       <q-toolbar-title class="header__title" @click="toHome">
-        Second Exchange
+        2nd.Ex
       </q-toolbar-title>
       <q-space />
       <q-form class="q-gutter-md">
