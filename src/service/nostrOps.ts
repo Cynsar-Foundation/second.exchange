@@ -1,5 +1,5 @@
 import { defaultRelays } from "../config/defaultRelays";
-import { Post } from "../types";
+import { NostrEvent, Post } from "../types";
 import { getPrivateKey, getPublicKey } from "../utils";
 
 export const publishPost = async (postContent: Post) => {
@@ -17,4 +17,8 @@ export const publishPost = async (postContent: Post) => {
     content: JSON.stringify(postContent),
   };
   await pool.publish(event);
+};
+
+export const getMyPosts = () => {
+  return [];
 };

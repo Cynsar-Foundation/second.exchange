@@ -9,17 +9,11 @@ import Placeholder from "@tiptap/extension-placeholder";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import React, { useEffect, useState } from "react";
-import Document from "@tiptap/extension-document";
-import Heading from "@tiptap/extension-heading";
 import createDOMPurify from "dompurify";
 
 import { MenuBar } from "./Menubar";
 import { Post } from "../../types";
 import { publishPost } from "../../service/nostrOps";
-
-const CustomDocument = Document.extend({
-  content: "heading block*",
-});
 
 const Editor = () => {
   const [title, setTitle] = useState("");
@@ -55,6 +49,12 @@ const Editor = () => {
         content: editor ? editor.getHTML() : "",
       };
       await publishPost(post);
+      toast({
+        title: "Posted Successfully",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
     } catch (error) {
       toast({
         title: "Failed to post",
@@ -65,21 +65,13 @@ const Editor = () => {
       });
       console.log("handlePost error: ", error);
     } finally {
-      toast({
-        title: "Posted Successfully",
-        status: "success",
-        duration: 2000,
-        isClosable: true,
-      });
     }
     setLoading(false);
   };
 
   const editor = useEditor({
     extensions: [
-      CustomDocument,
       StarterKit,
-      Heading,
       Placeholder.configure({
         showOnlyCurrent: false,
         // placeholder: ({ node }) => {
@@ -103,35 +95,37 @@ const Editor = () => {
   });
 
   return (
-    <Box m={3} maxWidth={900} marginLeft={"auto"} marginRight={"auto"} p={3}>
-      <MenuBar editor={editor} />
-      <input
-        style={{
-          outline: "none",
-          fontWeight: "bold",
-          fontSize: "30px",
-          marginTop: "10px",
-          backgroundColor: useColorModeValue("white", "#1A202C"),
-        }}
-        value={title}
-        placeholder="Title"
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <Box border="1px solid #CBCBCB" p="15px" mt="10px" cursor="text">
-        <EditorContent editor={editor} />
-      </Box>
-      <Flex mt="15px" justifyContent="center">
-        <Button fontSize="xl" onClick={handlePost} isLoading={loading}>
-          Post
-        </Button>
-      </Flex>
-      {/* {DOMPurify && content && (
+    <>
+      <Box m={3} maxWidth={900} marginLeft={"auto"} marginRight={"auto"} p={3}>
+        <MenuBar editor={editor} />
+        <input
+          style={{
+            outline: "none",
+            fontWeight: "bold",
+            fontSize: "30px",
+            marginTop: "10px",
+            backgroundColor: useColorModeValue("white", "#1A202C"),
+          }}
+          value={title}
+          placeholder="Title"
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <Box border="1px solid #CBCBCB" p="15px" mt="10px" cursor="text">
+          <EditorContent editor={editor} />
+        </Box>
+        <Flex mt="15px" justifyContent="center">
+          <Button fontSize="xl" onClick={handlePost} isLoading={loading}>
+            Post
+          </Button>
+        </Flex>
+        {/* {DOMPurify && content && (
         <div
           style={{ fontSize: "20px" }}
           dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
         />
       )} */}
-    </Box>
+      </Box>
+    </>
   );
 };
 

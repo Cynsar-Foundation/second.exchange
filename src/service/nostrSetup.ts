@@ -1,10 +1,8 @@
 import { defaultRelays } from "../config/defaultRelays";
 import { NostrEvent } from "../types";
 
-export const initConnection = async () => {
-  const { relayPool } = await import("nostr-tools");
+export const initConnection = async (pool: any) => {
   const fetchedEvents: NostrEvent[] = [];
-  const pool = relayPool();
   if (typeof window !== undefined) {
     const privKey =
       localStorage.getItem("keys") !== null
@@ -27,7 +25,7 @@ export const initConnection = async () => {
       filter: [
         {
           authors: [
-            "33d27697907362b8f82a69d251011535591faca9cca172de0c29880316e027dc",
+            "dfb0b888e9b322e90c3ee3b06fe5d3e79bc2f3bdf1ffe31002919512d90129a4",
           ],
           kinds: [0, 1, 3],
         },

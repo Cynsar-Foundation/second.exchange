@@ -7,6 +7,7 @@ import { homeFeed } from "../atoms/homeFeedAtom";
 import PostItem from "../components/Post/PostItem";
 import { toDateTime } from "../utils";
 import { Post } from "../types";
+import Head from "next/head";
 
 const Home: NextPage = () => {
   const postList = useAtomValue(homeFeed);
@@ -24,6 +25,9 @@ const Home: NextPage = () => {
 
   return (
     <>
+      <Head>
+        <title>Second Exchange</title>
+      </Head>
       {!showPosts && (
         <Flex position="absolute" top="45%" left="47%">
           <Spinner size="xl" />

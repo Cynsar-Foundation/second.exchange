@@ -10,10 +10,9 @@ import moment from "moment";
 import { useRouter } from "next/router";
 import React from "react";
 
-type PostProps = {};
-
-const Post: React.FC<PostProps> = () => {
+const Post: React.FC = () => {
   const router = useRouter();
+
   const authorId = "testId";
   const title = "Sample Title";
   const body =

@@ -11,22 +11,45 @@ import { initConnection } from "../service/nostrSetup";
 import { NostrEvent } from "../types";
 
 import "../global.scss";
+import { defaultRelays } from "../config/defaultRelays";
+import { relayPoolAtom } from "../atoms/relayPoolAtom";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [feed, setFeed] = useAtom(homeFeed);
   const setUserAuthenticated = useSetAtom(authAtom);
+  const [pool, setPool] = useAtom(relayPoolAtom);
 
   useEffect(() => {
     if (typeof window !== "undefined")
       setUserAuthenticated(localStorage.getItem("keys") !== null);
   }, []);
   useEffect(() => {
+    const initPool = async () => {
+      const { relayPool } = await import("nostr-tools");
+      const tempPool = relayPool();
+      if (typeof window !== undefined) {
+        const privKey =
+          localStorage.getItem("keys") !== null
+            ? JSON.parse(localStorage.getItem("keys")!).privateKey
+            : null;
+        if (privKey !== null) tempPool.setPrivateKey(privKey);
+      }
+      defaultRelays.map(
+        async (relayUrl: string) => await tempPool.addRelay(relayUrl)
+      );
+      setPool(tempPool);
+    };
+    initPool();
+  }, []);
+  useEffect(() => {
     const init = async () => {
-      const postList: NostrEvent[] = await initConnection();
-      if (feed.length === 0) setFeed(postList);
+      if (pool) {
+        const postList: NostrEvent[] = await initConnection(pool);
+        if (feed.length === 0) setFeed(postList);
+      }
     };
     setTimeout(() => init(), 1000);
-  }, []);
+  }, [pool]);
 
   return (
     <ChakraProvider theme={theme}>
