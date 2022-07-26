@@ -70,11 +70,11 @@ const routes = [
       },
       {
         path: '/settings',
-        component: () => import('pages/Settings.vue'),
+        component: () => import('src/pages/Settings/Settings.vue'),
         name: 'settings'
       },
       {
-        path: '/post/:eventId',
+        path: '/post/:userId/:eventId',
         component: () => import('pages/ArticleView/ArticleView.vue'),
         name: 'post',
         props: true
@@ -88,7 +88,27 @@ const routes = [
         path: '/myposts/:pubkey',
         component: () => import('pages/UserPosts/UserPosts.vue'),
         name: 'userPosts'
-      }
+      },
+      {
+        path: '/notifications',
+        component: () => import('pages/Notifications/Notifications.vue'),
+        name: 'notifications'
+      },
+      {
+        path: '/settings',
+        component: () => import('pages/Settings/Settings.vue'),
+        name: 'settings'
+      },
+      {
+        path: '/messages/:pubkey',
+        component: () => import('src/pages/Messages/Messages.vue'),
+        name: 'chat'
+      },
+      {
+        path: '/messages',
+        component: () => import('pages/Chats/Chats.vue'),
+        name: 'messages'
+      },
     ]
   },
   {

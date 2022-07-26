@@ -10,7 +10,7 @@
       class="dropdown-button"
     >
       <q-list>
-        <q-item v-close-popup clickable @click="initializeKeys = true">
+        <q-item v-close-popup clickable @click="loginUser">
           <q-item-section>
             <div class="dropdown__item">
               <Icon icon="icon-park-outline:login" font-size="20px" />
@@ -30,11 +30,27 @@
       class="dropdown-button"
     >
       <q-list>
-        <q-item v-close-popup clickable @click="hardReset">
+        <q-item v-close-popup clickable>
           <q-item-section>
-            <div class="dropdown__item">
-              <Icon icon="ic:twotone-logout" font-size="20px" />
-              <span class="dropdown__item-text">Logout</span>
+            <div class="dropdown__item" @click="showUserPosts">
+              <Icon icon="majesticons:paper-fold-text-line" font-size="22px" />
+              <span class="dropdown__item-text">My Posts</span>
+            </div>
+          </q-item-section>
+        </q-item>
+        <q-item v-close-popup clickable>
+          <q-item-section>
+            <div class="dropdown__item" @click="showUserChats">
+              <Icon icon="bi:chat-right-text-fill" font-size="22px" />
+              <span class="dropdown__item-text">My Chats</span>
+            </div>
+          </q-item-section>
+        </q-item>
+        <q-item v-close-popup clickable>
+          <q-item-section>
+            <div class="dropdown__item" @click="openNotifications">
+              <Icon icon="carbon:notification-filled" font-size="22px" />
+              <span class="dropdown__item-text">Notifications</span>
             </div>
           </q-item-section>
         </q-item>
@@ -42,15 +58,23 @@
           <q-item-section>
             <div class="dropdown__item" @click="keysDialog = true">
               <Icon icon="bxs:key" font-size="22px" />
-              <span class="dropdown__item-text">Your Keys</span>
+              <span class="dropdown__item-text">My Keys</span>
             </div>
           </q-item-section>
         </q-item>
         <q-item v-close-popup clickable>
           <q-item-section>
-            <div class="dropdown__item" @click="showUserPosts">
-              <Icon icon="majesticons:paper-fold-text-line" font-size="22px" />
-              <span class="dropdown__item-text">My Posts</span>
+            <div class="dropdown__item" @click="openSettings">
+              <Icon icon="ci:settings-filled" font-size="22px" />
+              <span class="dropdown__item-text">Settings</span>
+            </div>
+          </q-item-section>
+        </q-item>
+        <q-item v-close-popup clickable @click="hardReset">
+          <q-item-section>
+            <div class="dropdown__item">
+              <Icon icon="ic:twotone-logout" font-size="20px" />
+              <span class="dropdown__item-text">Logout</span>
             </div>
           </q-item-section>
         </q-item>
@@ -60,7 +84,7 @@
       <q-card class="px-4 py-2">
         <q-card-section>
           <div class="text-lg text-bold tracking-wide leading-relaxed py-2">
-            Your keys <q-icon name="vpn_key" />
+            My keys <q-icon name="vpn_key" />
           </div>
           <p v-if="$store.state.keys.priv">
             Make sure you back up your private key!
@@ -178,10 +202,20 @@ export default {
     }
   },
   methods: {
+    loginUser() {
+      this.initializeKeys = true
+    },
+    openSettings() {
+      this.$router.push('/settings')
+    },
+    openNotifications() {
+      this.$router.push('/notifications')
+    },
     showUserPosts() {
-      console.log('clicked')
-      console.log(this.$store.state.keys.pub)
       this.$router.push('/myposts/' + this.$store.state.keys.pub)
+    },
+    showUserChats() {
+      this.$router.push('/messages')
     },
     async hardReset() {
       this.$q
@@ -237,7 +271,7 @@ export default {
           filter: [
             {
               authors: [
-                '7b0ba10b13233979d17e545d56b1c1f6563ce0c9b0d1f3691b5ad3bf3cced6c0'
+                'd27f3a85ed00f0faa0e4b03386fffd283ff3f8c9089f4ec4a13338a9d7844f54'
               ],
               kinds: [0, 1, 3]
             }
@@ -245,6 +279,7 @@ export default {
         },
         'profile-browser'
       )
+      location.reload(false)
     },
 
     isKey(key) {

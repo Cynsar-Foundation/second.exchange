@@ -61,7 +61,7 @@ export default {
         filter: [
           {
             authors: [
-              '7b0ba10b13233979d17e545d56b1c1f6563ce0c9b0d1f3691b5ad3bf3cced6c0'
+              'd27f3a85ed00f0faa0e4b03386fffd283ff3f8c9089f4ec4a13338a9d7844f54'
             ],
             kinds: [0, 1, 3]
           }

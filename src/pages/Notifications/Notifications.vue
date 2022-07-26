@@ -1,5 +1,5 @@
 <template>
-  <q-page class="px-4 py-6">
+  <q-page class="px-4 py-6 notifications__container">
     <div class="text-xl">Notifications</div>
 
     <q-infinite-scroll
@@ -20,8 +20,9 @@
 </template>
 
 <script>
-import helpersMixin from '../utils/mixin'
-import {dbGetMentions, onNewMention} from '../db'
+import helpersMixin from '../../utils/mixin'
+import {dbGetMentions, onNewMention} from '../../db'
+import './Notifications.scss'
 
 export default {
   name: 'Notifications',
@@ -35,7 +36,6 @@ export default {
       reading: false
     }
   },
-
   async mounted() {
     this.notifications = await dbGetMentions(
       this.$store.state.keys.pub,

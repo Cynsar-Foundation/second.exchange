@@ -5,4 +5,24 @@
         line-height: 35px;
         font-size: 17px;
     }
+
+    &__reply-container {
+        margin: 10px 0 100px 0;
+    }
+
+    &__button {
+        width: 100px;
+        height: 40px;
+        font-size: 12px;
+        border: 1px solid grey;
+        padding: 3px;
+        margin: 0 0 20px 0;
+    }
+    &__button:hover {
+        background-color: black;
+        color: white;
+    }
+    &__replies {
+        margin: 0 0 50px 0;
+    }
 }
