@@ -14,8 +14,11 @@ import createDOMPurify from "dompurify";
 import { MenuBar } from "./Menubar";
 import { Post } from "../../types";
 import { publishPost } from "../../service/nostrOps";
+import { useAtomValue } from "jotai";
+import { relayPoolAtom } from "../../atoms/relayPoolAtom";
 
 const Editor = () => {
+  const pool = useAtomValue(relayPoolAtom);
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
   // const [content, setContent] = useState<any>();
@@ -48,7 +51,7 @@ const Editor = () => {
         contentType: "html",
         content: editor ? editor.getHTML() : "",
       };
-      await publishPost(post);
+      await publishPost(post, pool);
       toast({
         title: "Posted Successfully",
         status: "success",

@@ -10,7 +10,7 @@ export const initConnection = async (pool: any) => {
         : null;
     if (privKey !== null) pool.setPrivateKey(privKey);
   }
-  defaultRelays.map((relayUrl: string) => pool.addRelay(relayUrl));
+  defaultRelays.map(async (relayUrl: string) => await pool.addRelay(relayUrl));
   await pool.sub(
     {
       cb: async (event: NostrEvent) => {
@@ -34,4 +34,16 @@ export const initConnection = async (pool: any) => {
     "profile-browser"
   );
   return fetchedEvents;
+};
+
+export const reconnect = async (pool: any) => {
+  if (typeof window !== undefined) {
+    const privKey =
+      localStorage.getItem("keys") !== null
+        ? JSON.parse(localStorage.getItem("keys")!).privateKey
+        : null;
+    if (privKey !== null) pool.setPrivateKey(privKey);
+  }
+  defaultRelays.map(async (relayUrl: string) => await pool.addRelay(relayUrl));
+  return pool;
 };

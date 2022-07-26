@@ -1,31 +1,35 @@
 import { Button, Flex, Spinner, Text } from "@chakra-ui/react";
+import { useAtomValue } from "jotai";
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
+import { relayPoolAtom } from "../atoms/relayPoolAtom";
 import PostItem from "../components/Post/PostItem";
 import { getMyPosts } from "../service/nostrOps";
 import { NostrEvent, Post } from "../types";
 import { toDateTime } from "../utils";
 
-type MyPostsProps = {};
-
-const MyPosts: React.FC<MyPostsProps> = () => {
+const MyPosts: React.FC = () => {
+  const pool = useAtomValue(relayPoolAtom);
   const [showPosts, setShowPosts] = useState(false);
   const [loadTime, setLoadTime] = useState(1000);
   const [postList, setPostList] = useState<NostrEvent[]>([]);
 
-  useEffect(() => {
-    const fetchMyPosts = async () => {
-      const myPosts = await getMyPosts();
-      console.log(myPosts);
+  const fetchMyPosts = async () => {
+    if (pool && postList.length === 0) {
+      const myPosts = await getMyPosts(pool);
       setPostList(myPosts);
-    };
-    fetchMyPosts();
-  }, []);
+    }
+  };
 
   const increaseLoadTime = () => {
+    fetchMyPosts();
     setShowPosts(false);
     setLoadTime(loadTime + 1000);
   };
+
+  useEffect(() => {
+    fetchMyPosts();
+  }, [pool]);
 
   useEffect(() => {
     setTimeout(() => setShowPosts(true), loadTime);
