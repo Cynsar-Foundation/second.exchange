@@ -28,6 +28,7 @@ import { authModalState } from "../../atoms/authModalStateAtom";
 import AuthModal from "../Modals/AuthModal";
 import KeyModal from "../Modals/KeyModal";
 import { keyModalState } from "../../atoms/keyModalStateAtom";
+import { AiOutlineMenu } from "react-icons/ai";
 
 export default function Navbar() {
   const userAuthenticated = useAtomValue(authAtom);
@@ -52,7 +53,19 @@ export default function Navbar() {
             onClick={() => router.push("/")}
             cursor="pointer"
           >
-            Second Exchange
+            <Text
+              display={{ base: "none", lg: "flex", md: "flex" }}
+              cursor="pointer"
+            >
+              Second Exchange
+            </Text>
+            <Text
+              pl={{ base: "20px" }}
+              cursor="pointer"
+              display={{ base: "flex", lg: "none", md: "none" }}
+            >
+              SE
+            </Text>
           </Text>
           <Flex>
             <InputGroup>
@@ -61,7 +74,7 @@ export default function Navbar() {
                 placeholder="Search for profiles"
                 borderRadius="xl"
                 borderColor="gray.400"
-                width={{ base: "130px", md: "300px", lg: "450px" }}
+                width={{ base: "180px", md: "300px", lg: "450px" }}
                 fontSize={{ base: "12px", lg: "16px", md: "16px" }}
               />
             </InputGroup>
@@ -94,13 +107,22 @@ export default function Navbar() {
                   cursor="pointer"
                   minW={0}
                   p="5px 10px 5px 10px"
-                  border="1px solid #cbcbcb"
+                  border={{ base: "none", md: "1px solid #cbcbcb" }}
                   borderRadius="lg"
                   _hover={{ border: "1px solid transparent" }}
                 >
-                  <Flex alignItems="center">
+                  <Flex
+                    alignItems="center"
+                    display={{ lg: "flex", md: "flex", base: "none" }}
+                  >
                     {userAuthenticated ? "Connected" : "Connect"}
                     <ChevronDownIcon fontSize="20px" />
+                  </Flex>
+                  <Flex
+                    alignItems="center"
+                    display={{ lg: "none", md: "none", base: "flex" }}
+                  >
+                    <AiOutlineMenu fontSize="20px" />
                   </Flex>
                 </MenuButton>
                 {!userAuthenticated ? (

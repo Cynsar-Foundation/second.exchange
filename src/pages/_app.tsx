@@ -1,7 +1,7 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { useSetAtom, useAtom } from "jotai";
 import type { AppProps } from "next/app";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { authAtom } from "../atoms/authStateAtom";
 import { homeFeed } from "../atoms/homeFeedAtom";
@@ -17,6 +17,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [feed, setFeed] = useAtom(homeFeed);
   const setUserAuthenticated = useSetAtom(authAtom);
   const [pool, setPool] = useAtom(relayPoolAtom);
+  const [load, setLoad] = useState(false);
+
+  useEffect(() => {
+    setLoad(true);
+  }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined")
@@ -50,13 +55,14 @@ function MyApp({ Component, pageProps }: AppProps) {
     setTimeout(() => init(), 1000);
   }, [pool]);
 
-  return (
-    <ChakraProvider theme={theme}>
-      <MainLayout>
-        <Component {...pageProps} />
-      </MainLayout>
-    </ChakraProvider>
-  );
+  if (load)
+    return (
+      <ChakraProvider theme={theme}>
+        <MainLayout>
+          <Component {...pageProps} />
+        </MainLayout>
+      </ChakraProvider>
+    );
 }
 
 export default MyApp;

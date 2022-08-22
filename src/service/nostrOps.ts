@@ -49,6 +49,35 @@ export const useNostrOps = () => {
   const [fetchedPost, setFetchedPost] = useState<NostrEvent | undefined>(
     undefined
   );
+  const [fetchedUserPosts, setFetchedUserPosts] = useState<NostrEvent[]>();
+
+  const getUserPostsById = async (pool: any, userId: string) => {
+    if (!pool) pool = reconnect(pool);
+    await pool.sub(
+      {
+        cb: async (event: NostrEvent) => {
+          switch (event.kind) {
+            case 0:
+            case 1:
+            case 2:
+              setFetchedUserPosts((prev) => ({
+                ...prev,
+                event,
+              }));
+              return;
+          }
+        },
+        filter: [
+          {
+            authors: [userId],
+            kinds: [0, 1, 3],
+          },
+        ],
+      },
+      "profile-browser"
+    );
+  };
+
   const getPostById = async (pool: any, postId: string) => {
     if (!pool) {
       pool = await reconnect(pool);
@@ -77,5 +106,5 @@ export const useNostrOps = () => {
     );
   };
 
-  return { getPostById, fetchedPost };
+  return { getPostById, fetchedPost, getUserPostsById, fetchedUserPosts };
 };
