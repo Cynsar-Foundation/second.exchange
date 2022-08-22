@@ -5,8 +5,7 @@ import { useEffect, useState } from "react";
 
 import { homeFeed } from "../atoms/homeFeedAtom";
 import PostItem from "../components/Post/PostItem";
-import { toDateTime } from "../utils";
-import { Post } from "../types";
+import { getUniquePosts, toDateTime } from "../utils";
 import Head from "next/head";
 
 const Home: NextPage = () => {
@@ -66,7 +65,7 @@ const Home: NextPage = () => {
           mt="25px"
           rowGap="25px"
         >
-          {postList.map((post) => {
+          {getUniquePosts(postList).map((post) => {
             const postContent: Post = JSON.parse(post.content);
             const postBody = postContent.content.replace(/<[^>]+>/g, "");
             return (

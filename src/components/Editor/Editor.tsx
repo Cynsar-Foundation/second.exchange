@@ -12,7 +12,6 @@ import React, { useEffect, useState } from "react";
 import createDOMPurify from "dompurify";
 
 import { MenuBar } from "./Menubar";
-import { Post } from "../../types";
 import { publishPost } from "../../service/nostrOps";
 import { useAtomValue } from "jotai";
 import { relayPoolAtom } from "../../atoms/relayPoolAtom";

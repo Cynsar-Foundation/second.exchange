@@ -24,3 +24,10 @@ export const toDateTime = (secs: number) => {
   t.setSeconds(secs);
   return t;
 };
+
+export const getUniquePosts = (posts: NostrEvent[]) => {
+  const uniquePosts = posts.filter(
+    (value, index, self) => index === self.findIndex((t) => t.id === value.id)
+  );
+  return uniquePosts;
+};

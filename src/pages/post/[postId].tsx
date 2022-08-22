@@ -3,6 +3,7 @@ import {
   Divider,
   Flex,
   Heading,
+  Spinner,
   Text,
   Tooltip,
 } from "@chakra-ui/react";
@@ -12,41 +13,44 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { relayPoolAtom } from "../../atoms/relayPoolAtom";
-import { getPostById } from "../../service/nostrOps";
-import { NostrEvent, Post } from "../../types";
+import { useNostrOps } from "../../service/nostrOps";
+import { toDateTime } from "../../utils/index";
 
 const PostPage: React.FC = () => {
+  const { getPostById, fetchedPost } = useNostrOps();
   const router = useRouter();
   const pool = useAtomValue(relayPoolAtom);
   const postId = router.query.postId;
-  const [postContent, setPostContent] = useState<NostrEvent | undefined>(
+  const [postContent, setPostContent] = useState<PostStructure | undefined>(
     undefined
   );
-  const [reload, setReload] = useState(false);
 
   useEffect(() => {
-    let post;
     const fetchPost = async () => {
       if (pool) {
-        post = await getPostById(pool, String(postId));
+        await getPostById(pool, String(postId));
       }
     };
-    setTimeout(() => fetchPost(), 2000);
-    console.log(post);
-    if (post !== null) setPostContent(post);
-  }, [pool, reload, postId]);
-
-  const authorId = "testId";
-  const title = "Sample Title";
-  const body =
-    "Labore incididunt cillum cillum incididunt adipisicing tempor est occaecat nisi non irure anim nisi dolore. Sunt sunt cupidatat tempor do veniam incididunt laborum laboris qui ut fugiat Lorem. Occaecat labore esse proident duis in ad irure ullamco.";
-  const date = new Date();
+    if (!fetchedPost) setTimeout(() => fetchPost(), 2000);
+    if (fetchedPost)
+      setPostContent({
+        title: JSON.parse(fetchedPost?.content).title as string,
+        createdAt: toDateTime(fetchedPost.created_at),
+        content: JSON.parse(fetchedPost?.content).content as string,
+        authorId: fetchedPost.pubkey,
+      });
+  }, [pool, postId, fetchedPost]);
 
   return (
     <>
       <Head>
         <title>Post</title>
       </Head>
+      {!postContent && (
+        <Flex position="absolute" top="45%" left="47%">
+          <Spinner size="xl" />
+        </Flex>
+      )}
       {postContent && postContent !== null && (
         <Flex width="100%" alignItems="center" justifyContent="center">
           <Flex
@@ -57,21 +61,21 @@ const PostPage: React.FC = () => {
             rowGap="10px"
           >
             <Flex alignItems="center" columnGap="15px">
-              <Tooltip label={authorId}>
+              <Tooltip label={postContent.authorId}>
                 <Avatar
                   cursor="pointer"
-                  onClick={() => router.push(`/user/${authorId}`)}
+                  onClick={() => router.push(`/user/${postContent.authorId}`)}
                 />
               </Tooltip>
               <Flex flexDirection="column">
-                <Heading>{title}</Heading>
+                <Heading>{postContent.title}</Heading>
                 <Text color="gray.600" mt="5px">
-                  {moment(date).format("Do MMM YYYY")}
+                  {moment(postContent.createdAt).format("Do MMM YYYY")}
                 </Text>
               </Flex>
             </Flex>
             <Divider borderColor="#898989" />
-            <Text mt="10px">{body}</Text>
+            <Text mt="10px">{postContent.content}</Text>
             <Flex mt="20px" justifyContent="flex-start">
               <Text fontSize="25px" fontWeight="bold">
                 Comments

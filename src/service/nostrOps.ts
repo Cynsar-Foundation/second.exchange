@@ -1,4 +1,4 @@
-import { NostrEvent, Post } from "../types";
+import { useState } from "react";
 import { getPublicKey } from "../utils";
 import { reconnect } from "./nostrSetup";
 
@@ -45,34 +45,37 @@ export const getMyPosts = async (pool: any) => {
   return fetchedEvents;
 };
 
-export const getPostById = async (pool: any, postId: string) => {
-  if (!pool) {
-    pool = await reconnect(pool);
-  }
-  console.log(postId);
-  const fetchedEvents: NostrEvent[] = [];
-  await pool.sub(
-    {
-      cb: async (event: NostrEvent) => {
-        console.log("??");
-        switch (event.kind) {
-          case 0:
-          case 1:
-          case 2:
-          case 3:
-            fetchedEvents.push(event);
-            return;
-        }
-      },
-      filter: { ids: [postId] },
-      // filter: [
-      //   {
-      //     "#e": [postId],
-      //     kinds: [0, 1, 2, 3],
-      //   },
-      // ],
-    },
-    "profile-browser"
+export const useNostrOps = () => {
+  const [fetchedPost, setFetchedPost] = useState<NostrEvent | undefined>(
+    undefined
   );
-  return fetchedEvents;
+  const getPostById = async (pool: any, postId: string) => {
+    if (!pool) {
+      pool = await reconnect(pool);
+    }
+    await pool.sub(
+      {
+        cb: async (event: NostrEvent) => {
+          switch (event.kind) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+              setFetchedPost(event);
+              return;
+          }
+        },
+        filter: { ids: [postId] },
+        // filter: [
+        //   {
+        //     "#e": [postId],
+        //     kinds: [0, 1, 2, 3],
+        //   },
+        // ],
+      },
+      "profile-browser"
+    );
+  };
+
+  return { getPostById, fetchedPost };
 };

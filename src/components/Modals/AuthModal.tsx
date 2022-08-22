@@ -11,13 +11,19 @@ import {
   Text,
   Input,
   Flex,
+  useToast,
 } from "@chakra-ui/react";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { authModalState } from "../../atoms/authModalStateAtom";
 import { authAtom } from "../../atoms/authStateAtom";
 import { initConnection } from "../../service/nostrSetup";
+import { useRouter } from "next/router";
+import { relayPoolAtom } from "../../atoms/relayPoolAtom";
 
 const AuthModal: React.FC = () => {
+  const router = useRouter();
+  const toast = useToast();
+  const pool = useAtomValue(relayPoolAtom);
   const [modalOpen, setModalOpen] = useAtom(authModalState);
   const [privateKey, setPrivateKey] = useState("");
   const [publicKey, setPublicKey] = useState("");
@@ -62,7 +68,13 @@ const AuthModal: React.FC = () => {
       } finally {
         setUserAuthenticated(true);
         setPrivateKey("");
-        initConnection();
+        initConnection(pool);
+        toast({
+          title: "Logged in!",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
         handleClose();
       }
     }
@@ -77,6 +89,8 @@ const AuthModal: React.FC = () => {
       } finally {
         setUserAuthenticated(false);
         handleClose();
+        router.reload();
+        router.push("/");
       }
     }
   };

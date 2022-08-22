@@ -5,8 +5,7 @@ import React, { useEffect, useState } from "react";
 import { relayPoolAtom } from "../atoms/relayPoolAtom";
 import PostItem from "../components/Post/PostItem";
 import { getMyPosts } from "../service/nostrOps";
-import { NostrEvent, Post } from "../types";
-import { toDateTime } from "../utils";
+import { getUniquePosts, toDateTime } from "../utils";
 
 const MyPosts: React.FC = () => {
   const pool = useAtomValue(relayPoolAtom);
@@ -78,7 +77,7 @@ const MyPosts: React.FC = () => {
           mt="25px"
           rowGap="25px"
         >
-          {postList.map((post) => {
+          {getUniquePosts(postList).map((post) => {
             const postContent: Post = JSON.parse(post.content);
             const postBody = postContent.content.replace(/<[^>]+>/g, "");
             return (

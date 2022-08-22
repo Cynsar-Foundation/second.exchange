@@ -1,5 +1,4 @@
 import { defaultRelays } from "../config/defaultRelays";
-import { NostrEvent } from "../types";
 
 export const initConnection = async (pool: any) => {
   const fetchedEvents: NostrEvent[] = [];

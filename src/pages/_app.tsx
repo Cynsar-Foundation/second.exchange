@@ -8,7 +8,6 @@ import { homeFeed } from "../atoms/homeFeedAtom";
 import theme from "../chakra/theme";
 import MainLayout from "../components/Layouts/MainLayout";
 import { initConnection } from "../service/nostrSetup";
-import { NostrEvent } from "../types";
 
 import "../global.scss";
 import { defaultRelays } from "../config/defaultRelays";
