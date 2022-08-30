@@ -1,4 +1,4 @@
-import { Button, Flex, Spinner, Text } from "@chakra-ui/react";
+import { Button, Flex, Heading, Spinner, Text } from "@chakra-ui/react";
 import { useAtomValue } from "jotai";
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
@@ -39,6 +39,7 @@ const MyPosts: React.FC = () => {
       <Head>
         <title>Second Exchange</title>
       </Head>
+      <Heading textAlign="center">My Posts</Heading>
       {!showPosts && (
         <Flex position="absolute" top="45%" left="47%">
           <Spinner size="xl" />

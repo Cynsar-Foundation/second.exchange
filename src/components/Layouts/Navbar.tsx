@@ -29,6 +29,7 @@ import AuthModal from "../Modals/AuthModal";
 import KeyModal from "../Modals/KeyModal";
 import { keyModalState } from "../../atoms/keyModalStateAtom";
 import { AiOutlineMenu } from "react-icons/ai";
+import { GoPlus } from "react-icons/go";
 
 export default function Navbar() {
   const userAuthenticated = useAtomValue(authAtom);
@@ -144,6 +145,15 @@ export default function Navbar() {
                       <IoNewspaperSharp fontSize="20px" />
                       <Text pl="10px" cursor="pointer">
                         My Posts
+                      </Text>
+                    </MenuItem>
+                    <MenuItem
+                      display="flex"
+                      onClick={() => router.push("/write")}
+                    >
+                      <GoPlus fontSize="20px" />
+                      <Text pl="10px" cursor="pointer">
+                        Create Post
                       </Text>
                     </MenuItem>
                     <MenuItem

@@ -31,7 +31,7 @@ const Footer: React.FC<FooterProps> = () => {
         </a>
       </Text>
       <Flex alignItems="center">
-        <Text pr="5px" fontSize="20px">
+        <Text pr="5px" fontSize={{ base: "10px", md: "20px" }}>
           Contribute to Second Exchange on
         </Text>
         <a
