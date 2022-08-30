@@ -24,8 +24,15 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   useEffect(() => {
-    if (typeof window !== "undefined")
+    if (typeof window !== "undefined") {
       setUserAuthenticated(localStorage.getItem("keys") !== null);
+      localStorage.getItem("follow-list")
+        ? ""
+        : localStorage.setItem(
+            "follow-list",
+            "dfb0b888e9b322e90c3ee3b06fe5d3e79bc2f3bdf1ffe31002919512d90129a4"
+          );
+    }
   }, []);
   useEffect(() => {
     const initPool = async () => {

@@ -17,7 +17,7 @@ import { IoKeySharp, IoNewspaperSharp } from "react-icons/io5";
 import { BsBellFill, BsFillChatRightTextFill, BsSearch } from "react-icons/bs";
 import { IoMdSettings } from "react-icons/io";
 import { BiLogOut, BiLogIn } from "react-icons/bi";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { RiPencilRulerFill } from "react-icons/ri";
 import { useRouter } from "next/router";
 
@@ -28,13 +28,17 @@ import KeyModal from "../Modals/KeyModal";
 import { keyModalState } from "../../atoms/keyModalStateAtom";
 import { AiOutlineMenu } from "react-icons/ai";
 import { GoPlus } from "react-icons/go";
+import { FaUserPlus } from "react-icons/fa";
 import { useState } from "react";
+import { followModalState } from "../../atoms/followModalAtom";
+import FollowModal from "../Modals/FollowModal";
 
 export default function Navbar() {
   const userAuthenticated = useAtomValue(authAtom);
   const { colorMode, toggleColorMode } = useColorMode();
   const setAuthModalOpen = useSetAtom(authModalState);
   const setKeyModalOpen = useSetAtom(keyModalState);
+  const [followModalOpen, setFollowModalOpen] = useAtom(followModalState);
   const router = useRouter();
   const [inputProfile, setInputProfile] = useState("");
 
@@ -80,7 +84,9 @@ export default function Navbar() {
           <Flex columnGap="5px" alignItems="center">
             <Input
               onChange={(event) => setInputProfile(event.target.value)}
-              onKeyDown={() => navigateToUserProfile()}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") navigateToUserProfile();
+              }}
               placeholder="Search for profiles"
               borderRadius="xl"
               borderColor="gray.400"
@@ -111,8 +117,17 @@ export default function Navbar() {
                 </Text>
               </Button>
               <Button
+                onClick={() => setFollowModalOpen(true)}
+                display={{ base: "none", lg: "flex", md: "none" }}
+              >
+                <FaUserPlus />
+                <Text cursor="pointer" pl="5px">
+                  Add User
+                </Text>
+              </Button>
+              <Button
                 onClick={toggleColorMode}
-                display={{ base: "none", lg: "flex", md: "flex" }}
+                display={{ base: "none", lg: "flex", md: "none" }}
               >
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
@@ -223,6 +238,7 @@ export default function Navbar() {
       </Box>
       <AuthModal />
       <KeyModal />
+      {followModalOpen && <FollowModal />}
     </>
   );
 }
