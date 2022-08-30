@@ -15,13 +15,16 @@ export const publishPost = async (postContent: Post, pool: any) => {
   await pool.publish(event);
 };
 
-export const getMyPosts = async (pool: any) => {
+// Returns logged in user's posts if no userId is provided otherwise returns posts of given userId
+export const getUserPosts = async (pool: any, userId?: string) => {
   if (!pool) pool = reconnect(pool);
   const fetchedEvents: NostrEvent[] = [];
-  const pubKey =
-    localStorage.getItem("keys") !== null
-      ? JSON.parse(localStorage.getItem("keys")!).publicKey
-      : null;
+  console.log(userId);
+  const pubKey = userId
+    ? userId
+    : localStorage.getItem("keys") !== null
+    ? JSON.parse(localStorage.getItem("keys")!).publicKey
+    : null;
   await pool.sub(
     {
       cb: async (event: NostrEvent) => {
