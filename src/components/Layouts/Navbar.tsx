@@ -11,8 +11,6 @@ import {
   useColorMode,
   Text,
   Input,
-  InputRightElement,
-  InputGroup,
 } from "@chakra-ui/react";
 import { ChevronDownIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { IoKeySharp, IoNewspaperSharp } from "react-icons/io5";
@@ -30,6 +28,7 @@ import KeyModal from "../Modals/KeyModal";
 import { keyModalState } from "../../atoms/keyModalStateAtom";
 import { AiOutlineMenu } from "react-icons/ai";
 import { GoPlus } from "react-icons/go";
+import { useState } from "react";
 
 export default function Navbar() {
   const userAuthenticated = useAtomValue(authAtom);
@@ -37,6 +36,16 @@ export default function Navbar() {
   const setAuthModalOpen = useSetAtom(authModalState);
   const setKeyModalOpen = useSetAtom(keyModalState);
   const router = useRouter();
+  const [inputProfile, setInputProfile] = useState("");
+
+  const navigateToUserProfile = () => {
+    const profileId = inputProfile.trim().toLowerCase();
+    if (profileId.match(/^[a-f0-9A-F]{64}$/)) {
+      router.push("/user/" + profileId);
+      setInputProfile("");
+      return;
+    }
+  };
 
   return (
     <>
@@ -68,17 +77,21 @@ export default function Navbar() {
               SE
             </Text>
           </Text>
-          <Flex>
-            <InputGroup>
-              <InputRightElement pointerEvents="none" children={<BsSearch />} />
-              <Input
-                placeholder="Search for profiles"
-                borderRadius="xl"
-                borderColor="gray.400"
-                width={{ base: "180px", md: "300px", lg: "450px" }}
-                fontSize={{ base: "12px", lg: "16px", md: "16px" }}
-              />
-            </InputGroup>
+          <Flex columnGap="5px" alignItems="center">
+            <Input
+              onChange={(event) => setInputProfile(event.target.value)}
+              onKeyDown={() => navigateToUserProfile()}
+              placeholder="Search for profiles"
+              borderRadius="xl"
+              borderColor="gray.400"
+              width={{ base: "180px", md: "300px", lg: "450px" }}
+              fontSize={{ base: "12px", lg: "16px", md: "16px" }}
+            />
+            <BsSearch
+              fontSize="20px"
+              cursor="pointer"
+              onClick={() => navigateToUserProfile()}
+            />
           </Flex>
           <Flex alignItems={"center"}>
             <Flex direction={"row"} gap={7}>
