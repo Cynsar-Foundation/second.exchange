@@ -53,6 +53,7 @@ export const useNostrOps = () => {
 
   const getUserPostsById = async (pool: any, userId: string) => {
     if (!pool) pool = reconnect(pool);
+    const fetchedEvents: NostrEvent[] = [];
     await pool.sub(
       {
         cb: async (event: NostrEvent) => {
@@ -60,10 +61,8 @@ export const useNostrOps = () => {
             case 0:
             case 1:
             case 2:
-              setFetchedUserPosts((prev) => ({
-                ...prev,
-                event,
-              }));
+              // fetchedEvents.push(event);
+              if (fetchedUserPosts) setFetchedUserPosts((prev) => [event]);
               return;
           }
         },

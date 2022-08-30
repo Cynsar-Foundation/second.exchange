@@ -75,7 +75,10 @@ const PostPage: React.FC = () => {
               </Flex>
             </Flex>
             <Divider borderColor="#898989" />
-            <Text mt="10px">{postContent.content}</Text>
+            <div
+              dangerouslySetInnerHTML={{ __html: postContent.content }}
+              className="renderer"
+            />
             <Flex mt="20px" justifyContent="flex-start">
               <Text fontSize="25px" fontWeight="bold">
                 Comments

@@ -130,3 +130,10 @@ body {
   pointer-events: none;
   height: 0;
 }
+
+.renderer {
+  all: revert;
+  * {
+    all: revert;
+  }
+}
