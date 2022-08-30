@@ -59,6 +59,10 @@ const MyPosts: React.FC = () => {
             Sometimes due to network or Relay connection issues the data
             doesn&apos;t load properly.
           </Text>
+          <Text>
+            It could also be just that you don&apos;t have made any posts yet,
+            start writing by clicking on the &quot;Post Blog&quot; button
+          </Text>
           {loadTime < 5500 ? (
             <Button onClick={increaseLoadTime}>Reload</Button>
           ) : (

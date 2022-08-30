@@ -2,29 +2,37 @@ import {
   Box,
   Button,
   Flex,
+  Heading,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   useColorModeValue,
+  useDisclosure,
   useToast,
 } from "@chakra-ui/react";
 import Placeholder from "@tiptap/extension-placeholder";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import React, { useEffect, useState } from "react";
-import createDOMPurify from "dompurify";
 
 import { MenuBar } from "./Menubar";
 import { publishPost } from "../../service/nostrOps";
 import { useAtomValue } from "jotai";
 import { relayPoolAtom } from "../../atoms/relayPoolAtom";
+import { useRouter } from "next/router";
 
 const Editor = () => {
   const pool = useAtomValue(relayPoolAtom);
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
-  // const [content, setContent] = useState<any>();
   const [titleError, setTitleError] = useState(false);
   const toast = useToast();
-  const DOMPurify =
-    typeof window !== "undefined" ? createDOMPurify(window) : undefined;
+  const router = useRouter();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     if (titleError)
@@ -54,9 +62,10 @@ const Editor = () => {
       toast({
         title: "Posted Successfully",
         status: "success",
-        duration: 2000,
+        duration: 1000,
         isClosable: true,
       });
+      setTimeout(() => router.push("/myposts"), 2000);
     } catch (error) {
       toast({
         title: "Failed to post",
@@ -76,24 +85,9 @@ const Editor = () => {
       StarterKit,
       Placeholder.configure({
         showOnlyCurrent: false,
-        // placeholder: ({ node }) => {
-        //   if (node.type.name === "heading") {
-        //     return "What’s the title?";
-        //   }
-        //   if (node.type.name === "paragraph") {
-        //     return "Your content here";
-        //   }
-        //   return "Can you add some further context?";
-        // },
         placeholder: "Your content goes here!",
       }),
     ],
-    // content: `
-    //   <h1>
-    //   </h1>
-    //   <p>
-    //   </p>
-    // `,
   });
 
   return (
@@ -113,20 +107,46 @@ const Editor = () => {
           onChange={(e) => setTitle(e.target.value)}
         />
         <Box border="1px solid #CBCBCB" p="15px" mt="10px" cursor="text">
-          <EditorContent editor={editor} />
+          <EditorContent autoFocus editor={editor} />
         </Box>
-        <Flex mt="15px" justifyContent="center">
+        <Flex mt="15px" justifyContent="center" columnGap="15px">
+          <Button
+            fontSize="xl"
+            variant="ghost"
+            border="2px solid"
+            borderColor="brand.100"
+            onClick={onOpen}
+          >
+            Preview
+          </Button>
           <Button fontSize="xl" onClick={handlePost} isLoading={loading}>
             Post
           </Button>
         </Flex>
-        {/* {DOMPurify && content && (
-        <div
-          style={{ fontSize: "20px" }}
-          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
-        />
-      )} */}
       </Box>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Post Preview</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody className="preview">
+            <Heading>{title}</Heading>
+            {editor !== null ? (
+              <div
+                dangerouslySetInnerHTML={{ __html: editor.getHTML() }}
+                className="renderer"
+              />
+            ) : (
+              "Start Writing!"
+            )}
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 };

@@ -137,3 +137,24 @@ body {
     all: revert;
   }
 }
+
+.writer {
+  all: revert;
+  * {
+    all: revert;
+  }
+  outline: none;
+}
+
+.writer *:focus {
+  outline: none;
+}
+
+.preview {
+  all: revert;
+  * {
+    all: revert;
+  }
+  background: rgba(0, 0, 0, 0.3);
+  outline: none;
+}

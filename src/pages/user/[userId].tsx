@@ -1,4 +1,4 @@
-import { Button, Flex, Spinner, Text } from "@chakra-ui/react";
+import { Avatar, Button, Divider, Flex, Spinner, Text } from "@chakra-ui/react";
 import { useAtomValue } from "jotai";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -42,6 +42,17 @@ const MyPosts: React.FC = () => {
       <Head>
         <title>Second Exchange</title>
       </Head>
+      <Flex
+        p="15px"
+        width="100%"
+        alignItems="center"
+        columnGap="15px"
+        justifyContent="center"
+      >
+        <Avatar size="lg" />
+        <Text>{userId}</Text>
+      </Flex>
+      <Divider />
       {!showPosts && (
         <Flex position="absolute" top="45%" left="47%">
           <Spinner size="xl" />
