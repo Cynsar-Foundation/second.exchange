@@ -17,10 +17,12 @@ import {
 import { useAtom } from "jotai";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { followListState } from "../../atoms/followListAtom";
 import { followModalState } from "../../atoms/followModalAtom";
 
 const FollowModal: React.FC = () => {
   const [followModalOpen, setFollowModalOpen] = useAtom(followModalState);
+  const [followListStatus, setFollowListStatus] = useAtom(followListState);
   const [followList, setFollowList] = useState<string[]>([]);
   const [userId, setUserId] = useState("");
   const toast = useToast();
@@ -41,6 +43,15 @@ const FollowModal: React.FC = () => {
   const addUserId = () => {
     if (userId.match(/^[a-f0-9A-F]{64}$/)) {
       // Add check for existing
+      if (followList.includes(userId)) {
+        toast({
+          title: "Already following the user",
+          duration: 1500,
+          status: "warning",
+          isClosable: true,
+        });
+        return;
+      }
       // @ts-ignore
       setFollowList((prev) => [...prev, userId]);
       const newFollowList = [...followList, userId];
@@ -52,7 +63,7 @@ const FollowModal: React.FC = () => {
         duration: 2000,
         isClosable: true,
       });
-      return;
+      setFollowListStatus(!followListStatus);
     }
   };
 
@@ -71,6 +82,7 @@ const FollowModal: React.FC = () => {
       duration: 2000,
       isClosable: true,
     });
+    setFollowListStatus(!followListStatus);
   };
 
   return (
