@@ -49,8 +49,8 @@ const MyPosts: React.FC = () => {
         columnGap="15px"
         justifyContent="center"
       >
-        <Avatar size="lg" />
-        <Text>{userId}</Text>
+        <Avatar size={{ base: "sm", md: "lg" }} />
+        <Text maxW={{ base: "250px", md: "500px" }}>{userId}</Text>
       </Flex>
       <Divider />
       {!showPosts && (

@@ -57,7 +57,7 @@ const PostPage: React.FC = () => {
             flexDirection="column"
             justifyContent="center"
             mt="30px"
-            maxWidth="700px"
+            width="700px"
             rowGap="10px"
           >
             <Flex alignItems="center" columnGap="15px">

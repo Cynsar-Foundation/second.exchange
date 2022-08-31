@@ -12,6 +12,7 @@ const Footer: React.FC<FooterProps> = () => {
       display="flex"
       flexDirection="column"
       alignItems="center"
+      textAlign="center"
       justifyContent="center"
       rowGap="5px"
       position="absolute"
