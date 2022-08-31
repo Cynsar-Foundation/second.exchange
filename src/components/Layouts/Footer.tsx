@@ -27,7 +27,15 @@ const Footer: React.FC<FooterProps> = () => {
           href="https://github.com/muellners"
           color={useColorModeValue("brand.100", "brand.200")}
         >
-          Muellners Foundation
+          with the help of Muellners Foundation
+          and funded by 
+          <a
+          rel="noreferrer"
+          target="_blank"
+          href="https://github.com/cynsar-foundation/second.exchange"
+          color={useColorModeValue("brand.100", "brand.200")}
+        > Cynsar Foundation</a>
+          
         </a>
       </Text>
       <Flex alignItems="center">
