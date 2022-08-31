@@ -13,14 +13,9 @@ export const initConnection = async (pool: any) => {
       localStorage.getItem("follow-list") !== null
         ? JSON.parse(JSON.stringify(localStorage.getItem("follow-list")))
         : [];
-    // console.log(JSON.parse(userIdList));
     userList = JSON.parse(userIdList);
-    // userList =
-    //   typeof userIdList === "object" ? JSON.parse(userIdList) : userList;
   }
   defaultRelays.map(async (relayUrl: string) => await pool.addRelay(relayUrl));
-
-  console.log(userList);
 
   await pool.sub(
     {

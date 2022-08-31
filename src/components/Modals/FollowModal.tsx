@@ -28,13 +28,8 @@ const FollowModal: React.FC = () => {
 
   useEffect(() => {
     const arr = localStorage.getItem("follow-list")
-      ? [
-          JSON.parse(
-            JSON.stringify(localStorage.getItem("follow-list")) || "{}"
-          ),
-        ] || []
+      ? JSON.parse(localStorage.getItem("follow-list") || "{}") || []
       : [];
-    console.log(typeof arr);
     arr.length > 0 &&
       arr.map(
         (
@@ -45,10 +40,17 @@ const FollowModal: React.FC = () => {
 
   const addUserId = () => {
     if (userId.match(/^[a-f0-9A-F]{64}$/)) {
+      // Add check for existing
       // @ts-ignore
       setFollowList((prev) => [...prev, userId]);
       const newFollowList = [...followList, userId];
       localStorage.setItem("follow-list", JSON.stringify(newFollowList));
+      toast({
+        title: "User added to follow list!",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
       return;
     }
   };
