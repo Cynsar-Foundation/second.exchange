@@ -34,6 +34,7 @@ const FollowModal: React.FC = () => {
           ),
         ] || []
       : [];
+    console.log(typeof arr);
     arr.length > 0 &&
       arr.map(
         (
@@ -42,15 +43,12 @@ const FollowModal: React.FC = () => {
       );
   }, []);
 
-  useEffect(() => {
-    if (followList.length > 0)
-      localStorage.setItem("follow-list", JSON.stringify(followList));
-  }, [followList]);
-
   const addUserId = () => {
     if (userId.match(/^[a-f0-9A-F]{64}$/)) {
       // @ts-ignore
       setFollowList((prev) => [...prev, userId]);
+      const newFollowList = [...followList, userId];
+      localStorage.setItem("follow-list", JSON.stringify(newFollowList));
       return;
     }
   };

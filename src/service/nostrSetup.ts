@@ -2,14 +2,26 @@ import { defaultRelays } from "../config/defaultRelays";
 
 export const initConnection = async (pool: any) => {
   const fetchedEvents: NostrEvent[] = [];
+  let userList = [];
   if (typeof window !== undefined) {
     const privKey =
       localStorage.getItem("keys") !== null
         ? JSON.parse(localStorage.getItem("keys")!).privateKey
         : null;
     if (privKey !== null) pool.setPrivateKey(privKey);
+    const userIdList =
+      localStorage.getItem("follow-list") !== null
+        ? JSON.parse(JSON.stringify(localStorage.getItem("follow-list")))
+        : [];
+    // console.log(JSON.parse(userIdList));
+    userList = JSON.parse(userIdList);
+    // userList =
+    //   typeof userIdList === "object" ? JSON.parse(userIdList) : userList;
   }
   defaultRelays.map(async (relayUrl: string) => await pool.addRelay(relayUrl));
+
+  console.log(userList);
+
   await pool.sub(
     {
       cb: async (event: NostrEvent) => {
@@ -23,9 +35,7 @@ export const initConnection = async (pool: any) => {
       },
       filter: [
         {
-          authors: [
-            "dfb0b888e9b322e90c3ee3b06fe5d3e79bc2f3bdf1ffe31002919512d90129a4",
-          ],
+          authors: userList,
           kinds: [0, 1, 3],
         },
       ],

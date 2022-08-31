@@ -84,6 +84,7 @@ const AuthModal: React.FC = () => {
     if (typeof window !== "undefined") {
       try {
         localStorage.removeItem("keys");
+        localStorage.removeItem("follow-list");
       } catch (error) {
         console.log("handleLogout error", error);
       } finally {
