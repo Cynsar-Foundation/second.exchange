@@ -21,7 +21,7 @@ import { followModalState } from "../../atoms/followModalAtom";
 
 const FollowModal: React.FC = () => {
   const [followModalOpen, setFollowModalOpen] = useAtom(followModalState);
-  const [followList, setFollowList] = useState([]);
+  const [followList, setFollowList] = useState<string[]>([]);
   const [userId, setUserId] = useState("");
   const toast = useToast();
   const router = useRouter();
@@ -45,6 +45,7 @@ const FollowModal: React.FC = () => {
       setFollowList((prev) => [...prev, userId]);
       const newFollowList = [...followList, userId];
       localStorage.setItem("follow-list", JSON.stringify(newFollowList));
+      setUserId("");
       toast({
         title: "User added to follow list!",
         status: "success",
@@ -55,7 +56,22 @@ const FollowModal: React.FC = () => {
     }
   };
 
-  const removeUserId = () => {};
+  const removeUserId = (userId: string) => {
+    if (!followList || followList.length === 0 || followList === null) return;
+    let newFollowList = [...followList];
+    let index = newFollowList.indexOf(userId);
+    if (index !== -1) {
+      newFollowList.splice(index, 1);
+    }
+    setFollowList(newFollowList);
+    localStorage.setItem("follow-list", JSON.stringify(newFollowList));
+    toast({
+      title: "User unfollowed",
+      status: "info",
+      duration: 2000,
+      isClosable: true,
+    });
+  };
 
   return (
     <>
@@ -69,15 +85,25 @@ const FollowModal: React.FC = () => {
             <UnorderedList>
               {followList && followList.length > 0
                 ? followList.map((item) => (
-                    <ListItem mb="5px" color="gray.400" key={item}>
-                      {item}
-                    </ListItem>
+                    <Flex key={item} alignItems="center" mb="10px">
+                      <ListItem color="gray.400" maxW="300px">
+                        {item}
+                      </ListItem>
+                      <Button
+                        variant="ghost"
+                        color="red.400"
+                        onClick={() => removeUserId(item)}
+                      >
+                        Remove
+                      </Button>
+                    </Flex>
                   ))
                 : "Not following anyone yet"}
             </UnorderedList>
             <Flex mt="15px" alignItems="center" columnGap="5px">
               <Input
                 type="text"
+                value={userId}
                 onKeyDown={(event) => {
                   if (event.key === "Enter") addUserId();
                 }}
