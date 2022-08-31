@@ -75,7 +75,27 @@ const AuthModal: React.FC = () => {
           duration: 3000,
           isClosable: true,
         });
+        setTimeout(() => {
+          const pubKey =
+            localStorage.getItem("keys") !== null
+              ? JSON.parse(localStorage.getItem("keys")!).publicKey
+              : null;
+          console.log(pubKey);
+          let initAuthor;
+          if (pubKey)
+            initAuthor = [
+              "dfb0b888e9b322e90c3ee3b06fe5d3e79bc2f3bdf1ffe31002919512d90129a4",
+              pubKey,
+            ];
+          else
+            initAuthor = [
+              "dfb0b888e9b322e90c3ee3b06fe5d3e79bc2f3bdf1ffe31002919512d90129a4",
+            ];
+          setUserAuthenticated(localStorage.getItem("keys") !== null);
+          localStorage.setItem("follow-list", JSON.stringify(initAuthor));
+        }, 1000);
         handleClose();
+        setTimeout(() => router.reload(), 2000);
       }
     }
   };
