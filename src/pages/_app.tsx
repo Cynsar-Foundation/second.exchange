@@ -1,5 +1,5 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import { useSetAtom, useAtom, useAtomValue } from "jotai";
+import { useSetAtom, useAtom } from "jotai";
 import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
 
@@ -12,14 +12,12 @@ import { initConnection } from "../service/nostrSetup";
 import "../global.scss";
 import { defaultRelays } from "../config/defaultRelays";
 import { relayPoolAtom } from "../atoms/relayPoolAtom";
-import { followListState } from "../atoms/followListAtom";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [feed, setFeed] = useAtom(homeFeed);
   const setUserAuthenticated = useSetAtom(authAtom);
   const [pool, setPool] = useAtom(relayPoolAtom);
   const [load, setLoad] = useState(false);
-  const followListStatus = useAtomValue(followListState);
 
   useEffect(() => {
     setLoad(true);
@@ -62,9 +60,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       }
     };
     setTimeout(() => init(), 1000);
-
-    console.log(followListStatus);
-  }, [pool, followListStatus]);
+  }, [pool]);
 
   if (load)
     return (

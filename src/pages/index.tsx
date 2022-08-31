@@ -11,7 +11,8 @@ import Head from "next/head";
 const Home: NextPage = () => {
   const postList = useAtomValue(homeFeed);
   const [showPosts, setShowPosts] = useState(false);
-  const [loadTime, setLoadTime] = useState(1000);
+  const [loadTime, setLoadTime] = useState(1500);
+  const [posts, setPosts] = useState<any>();
 
   const increaseLoadTime = () => {
     setShowPosts(false);
@@ -21,6 +22,10 @@ const Home: NextPage = () => {
   useEffect(() => {
     setTimeout(() => setShowPosts(true), loadTime);
   }, [loadTime]);
+
+  useEffect(() => {
+    setPosts(postList);
+  }, [postList]);
 
   return (
     <>
@@ -65,7 +70,7 @@ const Home: NextPage = () => {
           mt="25px"
           rowGap="25px"
         >
-          {getUniquePosts(postList).map((post) => {
+          {getUniquePosts(posts).map((post) => {
             const postContent: Post = JSON.parse(post.content);
             const postBody = postContent.content.replace(/<[^>]+>/g, "");
             return (

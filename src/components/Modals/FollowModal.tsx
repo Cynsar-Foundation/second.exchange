@@ -17,12 +17,10 @@ import {
 import { useAtom } from "jotai";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { followListState } from "../../atoms/followListAtom";
 import { followModalState } from "../../atoms/followModalAtom";
 
 const FollowModal: React.FC = () => {
   const [followModalOpen, setFollowModalOpen] = useAtom(followModalState);
-  const [followListStatus, setFollowListStatus] = useAtom(followListState);
   const [followList, setFollowList] = useState<string[]>([]);
   const [userId, setUserId] = useState("");
   const toast = useToast();
@@ -59,11 +57,12 @@ const FollowModal: React.FC = () => {
       setUserId("");
       toast({
         title: "User added to follow list!",
+        description: "Refreshing...",
         status: "success",
-        duration: 2000,
+        duration: 2500,
         isClosable: true,
       });
-      setFollowListStatus(!followListStatus);
+      setTimeout(() => router.reload(), 2500);
     }
   };
 
@@ -78,11 +77,12 @@ const FollowModal: React.FC = () => {
     localStorage.setItem("follow-list", JSON.stringify(newFollowList));
     toast({
       title: "User unfollowed",
+      description: "Refreshing...",
       status: "info",
-      duration: 2000,
+      duration: 2500,
       isClosable: true,
     });
-    setFollowListStatus(!followListStatus);
+    setTimeout(() => router.reload(), 2500);
   };
 
   return (
