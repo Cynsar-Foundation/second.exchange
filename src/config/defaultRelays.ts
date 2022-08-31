@@ -6,3 +6,14 @@ export const defaultRelays = [
   "wss://nostr.oxtr.dev",
   "wss://nostr-relay.untethr.me",
 ];
+
+// Good for testing stuff locally
+export const localRelays = [
+  "ws://localhost:3001/ws"
+]
+
+// Foundation Relays 
+
+export const foundationRelays = [
+  "wss://relay.cynsar.foundation"
+]

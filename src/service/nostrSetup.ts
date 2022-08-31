@@ -1,4 +1,5 @@
-import { defaultRelays } from "../config/defaultRelays";
+import { defaultRelays, foundationRelays, localRelays } from "../config/defaultRelays";
+
 
 export const initConnection = async (pool: any) => {
   const fetchedEvents: NostrEvent[] = [];
@@ -18,7 +19,14 @@ export const initConnection = async (pool: any) => {
     // userList =
     //   typeof userIdList === "object" ? JSON.parse(userIdList) : userList;
   }
-  defaultRelays.map(async (relayUrl: string) => await pool.addRelay(relayUrl));
+  // Check if local or dev mode one then switch to local 
+  if (process.env.LOCAL){
+    // choose local relays
+    localRelays.map(async (relayUrl: string) => await pool.addRelay(relayUrl));
+  } else {
+    defaultRelays.map(async (relayUrl: string) => await pool.addRelay(relayUrl));
+  }
+  
 
   console.log(userList);
 
