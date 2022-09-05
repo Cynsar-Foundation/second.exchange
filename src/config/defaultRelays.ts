@@ -34,7 +34,7 @@ export const getRelays  = async(type?: any) => {
   }
 
   if (type == 'default'){
-    logger.info('We are going non-profit this time')
+    logger.info('We are going non-profit this time , connecting to default relays')
     return runTimeConfig.publicRuntimeConfig.relays[type]
   }
 
