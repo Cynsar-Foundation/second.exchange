@@ -43,7 +43,18 @@ const About: NextPage = () => {
   useEffect(() => {
     setPosts(postList);
   }, [postList]);
-
+  // Maybe they can go in config
+  const colorOne = useColorModeValue('red.50', 'red.400')
+  const colorTwo = useColorModeValue('blue.50', 'blue.900')
+  const borderColor = useColorModeValue('gray.100', 'gray.700')
+  const iconBgOne =  useColorModeValue('yellow.100', 'yellow.900')
+  const icongBgTwo = useColorModeValue('green.100', 'green.900')
+  const icongBgThree = useColorModeValue('purple.100', 'purple.900')
+  const bgOne = useColorModeValue('blue.50', 'blue.900')
+  const borderOne = useColorModeValue('gray.100', 'gray.700')
+  const iconBgFour = useColorModeValue('yellow.100', 'yellow.900')
+  const iconBgFive = useColorModeValue('green.100', 'green.900')
+  const iconBgSix = useColorModeValue('purple.100', 'purple.900')
   return (
     <>
       <Head>
@@ -127,7 +138,7 @@ const About: NextPage = () => {
             top={'-20%'}
             left={0}
             zIndex={-1}
-            color={useColorModeValue('red.50', 'red.400')}
+            color={colorOne}
           />
           <Box
             position={'relative'}
@@ -197,7 +208,7 @@ const About: NextPage = () => {
             color={'blue.400'}
             fontWeight={600}
             fontSize={'sm'}
-            bg={useColorModeValue('blue.50', 'blue.900')}
+            bg={colorTwo}
             p={2}
             alignSelf={'flex-start'}
             rounded={'md'}>
@@ -211,26 +222,26 @@ const About: NextPage = () => {
             spacing={4}
             divider={
               <StackDivider
-                borderColor={useColorModeValue('gray.100', 'gray.700')}
+                borderColor={borderColor}
               />
             }>
             <Feature
               icon={
                 <Icon as={IoAnalyticsSharp} color={'yellow.500'} w={5} h={5} />
               }
-              iconBg={useColorModeValue('yellow.100', 'yellow.900')}
+              iconBg={iconBgOne}
               text={'We dont ask for your phone number'}
             />
             <Feature
               icon={<Icon as={IoLogoBitcoin} color={'green.500'} w={5} h={5} />}
-              iconBg={useColorModeValue('green.100', 'green.900')}
+              iconBg={icongBgTwo}
               text={'We dont want to know who you are'}
             />
             <Feature
               icon={
                 <Icon as={IoSearchSharp} color={'purple.500'} w={5} h={5} />
               }
-              iconBg={useColorModeValue('purple.100', 'purple.900')}
+              iconBg={icongBgThree}
               text={'Create your backup key and start using second exchange'}
             />
           </Stack>
@@ -267,7 +278,7 @@ const About: NextPage = () => {
             color={'blue.400'}
             fontWeight={600}
             fontSize={'sm'}
-            bg={useColorModeValue('blue.50', 'blue.900')}
+            bg={bgOne}
             p={2}
             alignSelf={'flex-start'}
             rounded={'md'}>
@@ -282,26 +293,26 @@ const About: NextPage = () => {
             spacing={4}
             divider={
               <StackDivider
-                borderColor={useColorModeValue('gray.100', 'gray.700')}
+                borderColor={borderOne}
               />
             }>
             <Feature
               icon={
                 <Icon as={IoAnalyticsSharp} color={'yellow.500'} w={5} h={5} />
               }
-              iconBg={useColorModeValue('yellow.100', 'yellow.900')}
+              iconBg={iconBgFour}
               text={'Expect the same tool you are familiar with'}
             />
             <Feature
               icon={<Icon as={IoLogoBitcoin} color={'green.500'} w={5} h={5} />}
-              iconBg={useColorModeValue('green.100', 'green.900')}
+              iconBg={iconBgFive}
               text={'Growth Analytics if you are coming from substack'}
             />
             <Feature
               icon={
                 <Icon as={IoSearchSharp} color={'purple.500'} w={5} h={5} />
               }
-              iconBg={useColorModeValue('purple.100', 'purple.900')}
+              iconBg={iconBgSix}
               text={'Decide on your terms how you like to share content'}
             />
           </Stack>
