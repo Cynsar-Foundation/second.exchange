@@ -43,7 +43,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           localStorage.getItem("keys") !== null
             ? JSON.parse(localStorage.getItem("keys")!).privateKey
             : null;
-        if (privKey !== null) tempPool.setPrivateKey(privKey);
+        if (privKey !== null) tempPool.setPrivateKey(privKey)
       }
       const defaultRelays = await getRelays();
       defaultRelays.map(

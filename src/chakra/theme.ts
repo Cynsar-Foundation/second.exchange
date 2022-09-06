@@ -24,7 +24,7 @@ const components = {
 };
 
 const fonts = {
-  body: "Roboto, sans-serif",
+  body: "Open Sans, sans-serif",
 };
 
 const colors = {
