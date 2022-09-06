@@ -286,8 +286,8 @@ const About: NextPage = () => {
           </Text>
           <Heading>Censor Resistant</Heading>
           <Text color={'gray.500'} fontSize={'lg'}>
-            We use nostr relays to share your content, when you create content the signed data is sent to a dumb relay that shares it acroos the internet
-            just like peer gossipping but knowing what is the content, so your content is protected from censorship.
+            We use nostr relays to share your content, when you create content the signed data is sent to a dumb relay that shares it across the internet
+            to other relays, so your content is protected from censorship.
           </Text>
           <Stack
             spacing={4}
