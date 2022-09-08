@@ -51,4 +51,4 @@ The code in this repository has not been audited.
 
 ## Deployed Instance
 
-https://splendid-scone-c4f247.netlify.app/
+https://luxury-paprenjak-ead4b5.netlify.app/

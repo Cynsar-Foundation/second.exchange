@@ -1,4 +1,4 @@
-import { defaultRelays } from "../config/defaultRelays";
+import { getRelays } from "../config/defaultRelays";
 
 export const initConnection = async (pool: any) => {
   const fetchedEvents: NostrEvent[] = [];
@@ -13,9 +13,14 @@ export const initConnection = async (pool: any) => {
       localStorage.getItem("follow-list") !== null
         ? JSON.parse(JSON.stringify(localStorage.getItem("follow-list")))
         : [];
+    // console.log(JSON.parse(userIdList));
     userList = JSON.parse(userIdList);
+    // userList =
+    //   typeof userIdList === "object" ? JSON.parse(userIdList) : userList;
   }
-  defaultRelays.map(async (relayUrl: string) => await pool.addRelay(relayUrl));
+  // Check if local or dev mode one then switch to local
+  const relays = await getRelays();
+  relays.map(async (relayUrl: string) => await pool.addRelay(relayUrl));
 
   await pool.sub(
     {
@@ -48,6 +53,7 @@ export const reconnect = async (pool: any) => {
         : null;
     if (privKey !== null) pool.setPrivateKey(privKey);
   }
-  defaultRelays.map(async (relayUrl: string) => await pool.addRelay(relayUrl));
+  const relays = await getRelays();
+  relays.map(async (relayUrl: string) => await pool.addRelay(relayUrl));
   return pool;
 };

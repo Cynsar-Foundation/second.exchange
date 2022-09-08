@@ -10,7 +10,7 @@ import MainLayout from "../components/Layouts/MainLayout";
 import { initConnection } from "../service/nostrSetup";
 
 import "../global.scss";
-import { defaultRelays } from "../config/defaultRelays";
+import { getRelays } from "../config/defaultRelays";
 import { relayPoolAtom } from "../atoms/relayPoolAtom";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -45,6 +45,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             : null;
         if (privKey !== null) tempPool.setPrivateKey(privKey);
       }
+      const defaultRelays = await getRelays();
       defaultRelays.map(
         async (relayUrl: string) => await tempPool.addRelay(relayUrl)
       );
