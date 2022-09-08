@@ -3,8 +3,10 @@ import {
   Divider,
   Flex,
   Heading,
+  Input,
   Spinner,
   Text,
+  Textarea,
   Tooltip,
 } from "@chakra-ui/react";
 import { useAtomValue } from "jotai";
@@ -13,6 +15,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { relayPoolAtom } from "../../atoms/relayPoolAtom";
+import AutoResizeTextarea from "../../components/Post/AutoGrowTextarea";
 import { useNostrOps } from "../../service/nostrOps";
 import { toDateTime } from "../../utils/index";
 
@@ -24,6 +27,7 @@ const PostPage: React.FC = () => {
   const [postContent, setPostContent] = useState<PostStructure | undefined>(
     undefined
   );
+  const [commentText, setCommentText] = useState("");
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -83,6 +87,13 @@ const PostPage: React.FC = () => {
               <Text fontSize="25px" fontWeight="bold">
                 Comments
               </Text>
+            </Flex>
+            <Flex>
+              <AutoResizeTextarea
+                flexGrow={1}
+                placeholder="Leave a comment"
+                onChange={(event) => setCommentText(event.target.value)}
+              />
             </Flex>
           </Flex>
         </Flex>

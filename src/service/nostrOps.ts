@@ -108,5 +108,19 @@ export const useNostrOps = () => {
     );
   };
 
+  const getPostComments = async (pool: any, postId: string) => {
+    await pool.sub({
+      filter: [
+        {
+          "#e": [postId],
+          kinds: [1],
+        },
+      ],
+      cb: async (event: NostrEvent) => {
+        console.log(event);
+      },
+    });
+  };
+
   return { getPostById, fetchedPost, getUserPostsById, fetchedUserPosts };
 };

@@ -92,7 +92,14 @@ const Editor = () => {
 
   return (
     <>
-      <Box m={3} maxWidth={900} marginLeft={"auto"} marginRight={"auto"} p={3}>
+      <Box
+        m={3}
+        maxWidth={900}
+        marginLeft={"auto"}
+        marginRight={"auto"}
+        p={3}
+        overflow="hidden"
+      >
         <MenuBar editor={editor} />
         <input
           style={{
