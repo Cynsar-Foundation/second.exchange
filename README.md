@@ -26,7 +26,7 @@ yarn build
 
 ## The first exchange was not good, this one is really good
 
-Second exchange is an experimental social media service that lets anyone, anywhere in the world to create content. Second Exchange uses peer-to-peer technology to operate with no central authority, Second Exchange Core is the name of open source software which enables the use of this service.
+Second exchange is an experimental social media service that lets anyone, anywhere in the world to create content. Second Exchange uses nostr technology to operate with no central authority, Second Exchange Core is the name of open source software which enables the use of this service.
 
 1. Create a blog post/content or collections that is stored on client side only and is realyed using nostr.
 2. Follow people and content
