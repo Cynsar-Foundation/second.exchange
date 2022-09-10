@@ -1,5 +1,17 @@
 # second.exchange
 
+## What is second.exchange?
+
+Right now, this tool can be used to promote content freely anywhere by anyone, we intend to make this tool for anyone to learn, discuss ideas with value associated to it. In our experiment, 1)communities tend to form around value, 2) the existing social media is free to use hence no quality output gets generated, 3) then there are issues of valuation.
+
+What if we all who create content over the internet can make some value out of it? This is the goal of second.exchange
+
+We intend to solve these issues by having this experiment in place.
+
+## How is it different from other ?
+
+Its kinda of lot of different ,this tool is censor resistant , we are just polishing content with some actions or value associated so that people who create can make a living out of it.
+
 Based on Nostr-tools https://github.com/fiatjaf/nostr-tools
 
 Powered by Netlify Open Source Program https://www.netlify.com/
@@ -30,8 +42,9 @@ Second exchange is an experimental social media service that lets anyone, anywhe
 
 1. Create a blog post/content or collections that is stored on client side only and is realyed using nostr.
 2. Follow people and content
-3. Group content
+3. Group content based on your likes and topics
 4. Feature in future like adding tips, votes, and more in pipeline
+5. Pay for content
 
 ## Contribute back
 
@@ -51,4 +64,4 @@ The code in this repository has not been audited.
 
 ## Deployed Instance
 
-https://luxury-paprenjak-ead4b5.netlify.app/
+https://second.exchange
