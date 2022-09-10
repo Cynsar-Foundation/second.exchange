@@ -49,11 +49,11 @@ Second exchange is an experimental social media service that lets anyone, anywhe
 
 👋 Get started contributing with a good first issue
 
-Before explaining how you can contribute, It's worth mentioning that we use develop branch as the default one. This makes it easier for us to have all the latest, development changes without affecting the current production version. Though, We don't use release branches to make the process a little bit easier!
+Before explaining how you can contribute, It's worth mentioning that we use `main` branch as the default one. This makes it easier for us to have all the latest, development changes without affecting the current production version. Though, We don't use release branches to make the process a little bit easier!
 
-Pushing to develop branch via PR deploys changes to testing environments(currently only rinkeby).
-Pushing to master branch via PR from develop deploys changes to production servers(mainnet).
-Pushing to master|develop directly will be restricted to make sure the PR's are reviewed.
+Pushing to develop branch via PR deploys changes to testing environments.
+Pushing to main branch via PR from develop deploys changes to production servers.
+Pushing to main|develop directly will be restricted to make sure the PR's are reviewed.
 Creating PRs end up in relation to develop by default.
 Don't be shy to contribute even the smallest tweak. Everyone will be especially nice and helpful to beginners to help you get started!
 
