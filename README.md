@@ -14,7 +14,6 @@ Its kinda of lot of different ,this tool is censor resistant , we are just polis
 
 Based on Nostr-tools https://github.com/fiatjaf/nostr-tools
 
-Powered by Netlify Open Source Program https://www.netlify.com/
 
 ## Dev Setup
 
@@ -65,3 +64,13 @@ The code in this repository has not been audited.
 ## Deployed Instance
 
 https://second.exchange
+
+## Supported by 
+
+[Muellners Foundation](https://muellners.org)
+
+Netlify Open Source Program https://www.netlify.com/
+
+## Donation 
+
+We are working this out, hang on!
