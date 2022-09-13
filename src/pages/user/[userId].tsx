@@ -91,9 +91,9 @@ const MyPosts: React.FC = () => {
           mt="25px"
           rowGap="25px"
         >
-          {getUniquePosts(postList).map((post) => {
+          {getUniquePosts(postList, true).map((post) => {
             const postContent: Post = JSON.parse(post.content);
-            const postBody = postContent.content.replace(/<[^>]+>/g, "");
+            const postBody = postContent?.content?.replace(/<[^>]+>/g, "");
             return (
               <PostItem
                 key={String(post.id)}

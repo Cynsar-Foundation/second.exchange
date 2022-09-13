@@ -20,12 +20,13 @@ import StarterKit from "@tiptap/starter-kit";
 import React, { useEffect, useState } from "react";
 
 import { MenuBar } from "./Menubar";
-import { publishPost } from "../../service/nostrOps";
 import { useAtomValue } from "jotai";
 import { relayPoolAtom } from "../../atoms/relayPoolAtom";
 import { useRouter } from "next/router";
+import { useNostrOps } from "../../service/nostrOps";
 
 const Editor = () => {
+  const { publishPost } = useNostrOps();
   const pool = useAtomValue(relayPoolAtom);
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);

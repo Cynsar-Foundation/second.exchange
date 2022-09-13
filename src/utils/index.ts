@@ -25,9 +25,23 @@ export const toDateTime = (secs: number) => {
   return t;
 };
 
-export const getUniquePosts = (posts: NostrEvent[]) => {
-  const uniquePosts = posts.filter(
-    (value, index, self) => index === self.findIndex((t) => t.id === value.id)
-  );
+export const getUniquePosts = (posts: NostrEvent[], post?: boolean) => {
+  let uniquePosts: NostrEvent[] = [];
+  if (!post) {
+    uniquePosts = posts.filter(
+      (value, index, self) => index === self.findIndex((t) => t.id === value.id)
+    );
+  } else {
+    uniquePosts = posts.filter(
+      (value, index, self) =>
+        index ===
+        self.findIndex(
+          (t) => t.id === value.id && post && value.tags.length === 0
+        )
+    );
+  }
+  // if (post) {
+  //   uniquePosts = posts.filter((post) => post.tags.length === 0);
+  // }
   return uniquePosts;
 };
