@@ -20,12 +20,13 @@ import StarterKit from "@tiptap/starter-kit";
 import React, { useEffect, useState } from "react";
 
 import { MenuBar } from "./Menubar";
-import { publishPost } from "../../service/nostrOps";
 import { useAtomValue } from "jotai";
 import { relayPoolAtom } from "../../atoms/relayPoolAtom";
 import { useRouter } from "next/router";
+import { useNostrOps } from "../../service/nostrOps";
 
 const Editor = () => {
+  const { publishPost } = useNostrOps();
   const pool = useAtomValue(relayPoolAtom);
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
@@ -92,7 +93,14 @@ const Editor = () => {
 
   return (
     <>
-      <Box m={3} maxWidth={900} marginLeft={"auto"} marginRight={"auto"} p={3}>
+      <Box
+        m={3}
+        maxWidth={900}
+        marginLeft={"auto"}
+        marginRight={"auto"}
+        p={3}
+        overflow="hidden"
+      >
         <MenuBar editor={editor} />
         <input
           style={{

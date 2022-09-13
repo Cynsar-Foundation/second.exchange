@@ -2,19 +2,6 @@ import { useState } from "react";
 import { getPublicKey } from "../utils";
 import { reconnect } from "./nostrSetup";
 
-export const publishPost = async (postContent: Post, pool: any) => {
-  if (!pool) pool = await reconnect(pool);
-  const publicKey = getPublicKey();
-  const event = {
-    pubkey: publicKey,
-    created_at: Math.floor(Date.now() / 1000),
-    kind: 1,
-    tags: [],
-    content: JSON.stringify(postContent),
-  };
-  await pool.publish(event);
-};
-
 // Returns logged in user's posts if no userId is provided otherwise returns posts of given userId
 export const getUserPosts = async (pool: any, userId?: string) => {
   if (!pool) pool = reconnect(pool);
@@ -52,33 +39,7 @@ export const useNostrOps = () => {
   const [fetchedPost, setFetchedPost] = useState<NostrEvent | undefined>(
     undefined
   );
-  const [fetchedUserPosts, setFetchedUserPosts] = useState<NostrEvent[]>();
-
-  const getUserPostsById = async (pool: any, userId: string) => {
-    if (!pool) pool = reconnect(pool);
-    const fetchedEvents: NostrEvent[] = [];
-    await pool.sub(
-      {
-        cb: async (event: NostrEvent) => {
-          switch (event.kind) {
-            case 0:
-            case 1:
-            case 2:
-              // fetchedEvents.push(event);
-              if (fetchedUserPosts) setFetchedUserPosts((prev) => [event]);
-              return;
-          }
-        },
-        filter: [
-          {
-            authors: [userId],
-            kinds: [0, 1, 3],
-          },
-        ],
-      },
-      "profile-browser"
-    );
-  };
+  const [fetchedComments, setFetchedComments] = useState<NostrEvent[]>([]);
 
   const getPostById = async (pool: any, postId: string) => {
     if (!pool) {
@@ -108,5 +69,58 @@ export const useNostrOps = () => {
     );
   };
 
-  return { getPostById, fetchedPost, getUserPostsById, fetchedUserPosts };
+  const getPostComments = async (pool: any, postId: string) => {
+    await pool.sub({
+      cb: async (event: NostrEvent) => {
+        if (!fetchedComments.includes(event)) {
+          setFetchedComments((prev) => [...prev, event]);
+        }
+      },
+      filter: [
+        {
+          "#e": [postId],
+          kinds: [1],
+        },
+      ],
+    });
+  };
+
+  const publishPost = async (postContent: Post, pool: any) => {
+    if (!pool) pool = await reconnect(pool);
+    const publicKey = getPublicKey();
+    const event = {
+      pubkey: publicKey,
+      created_at: Math.floor(Date.now() / 1000),
+      kind: 1,
+      tags: [],
+      content: JSON.stringify(postContent),
+    };
+    await pool.publish(event);
+  };
+
+  const publishComment = async (
+    commentText: string,
+    tags: any = [],
+    pool: any
+  ) => {
+    if (!pool) pool = await reconnect(pool);
+    const publicKey = getPublicKey();
+    const event = {
+      pubkey: publicKey,
+      created_at: Math.floor(Date.now() / 1000),
+      kind: 1,
+      tags: tags,
+      content: JSON.stringify(commentText),
+    };
+    await pool.publish(event);
+  };
+
+  return {
+    getPostById,
+    fetchedPost,
+    fetchedComments,
+    publishPost,
+    getPostComments,
+    publishComment,
+  };
 };

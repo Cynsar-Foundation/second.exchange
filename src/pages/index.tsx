@@ -70,9 +70,9 @@ const Home: NextPage = () => {
           mt="25px"
           rowGap="25px"
         >
-          {getUniquePosts(posts).map((post) => {
+          {getUniquePosts(posts, true).map((post) => {
             const postContent: Post = JSON.parse(post.content);
-            const postBody = postContent.content.replace(/<[^>]+>/g, "");
+            const postBody = postContent?.content?.replace(/<[^>]+>/g, "");
             return (
               <PostItem
                 key={String(post.id)}

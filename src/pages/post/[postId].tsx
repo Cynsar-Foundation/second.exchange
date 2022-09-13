@@ -1,11 +1,13 @@
 import {
   Avatar,
+  Button,
   Divider,
   Flex,
   Heading,
   Spinner,
   Text,
   Tooltip,
+  useToast,
 } from "@chakra-ui/react";
 import { useAtomValue } from "jotai";
 import moment from "moment";
@@ -13,17 +15,51 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { relayPoolAtom } from "../../atoms/relayPoolAtom";
+import AutoResizeTextarea from "../../components/Post/AutoGrowTextarea";
+import CommentItem from "../../components/Post/CommentItem";
 import { useNostrOps } from "../../service/nostrOps";
 import { toDateTime } from "../../utils/index";
+import { getUniquePosts } from "../../utils/index";
 
 const PostPage: React.FC = () => {
-  const { getPostById, fetchedPost } = useNostrOps();
+  const {
+    getPostById,
+    fetchedPost,
+    fetchedComments,
+    getPostComments,
+    publishComment,
+  } = useNostrOps();
+  const toast = useToast();
   const router = useRouter();
   const pool = useAtomValue(relayPoolAtom);
   const postId = router.query.postId;
   const [postContent, setPostContent] = useState<PostStructure | undefined>(
     undefined
   );
+  const [commentText, setCommentText] = useState("");
+  const [commentList, setCommentList] = useState<NostrEvent[]>([]);
+
+  const handleCommentPost = async () => {
+    if (commentText.length === 0) return;
+
+    try {
+      await publishComment(commentText, [["e", postId]], pool);
+      toast({
+        title: "Comment Posted!",
+        duration: 2000,
+        isClosable: true,
+        status: "success",
+      });
+    } catch (error) {
+      console.log("handleCommentPost: ", error);
+      toast({
+        title: "Error posting comment",
+        duration: 2000,
+        isClosable: true,
+        status: "error",
+      });
+    }
+  };
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -40,6 +76,19 @@ const PostPage: React.FC = () => {
         authorId: fetchedPost.pubkey,
       });
   }, [pool, postId, fetchedPost]);
+
+  useEffect(() => {
+    setCommentList(fetchedComments);
+  }, [fetchedComments]);
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      if (postId) {
+        await getPostComments(pool, String(postId));
+      }
+    };
+    fetchComments();
+  }, [postId]);
 
   return (
     <>
@@ -81,8 +130,28 @@ const PostPage: React.FC = () => {
             />
             <Flex mt="20px" justifyContent="flex-start">
               <Text fontSize="25px" fontWeight="bold">
-                Comments
+                Comments:
               </Text>
+            </Flex>
+            <Flex flexDirection="column">
+              <AutoResizeTextarea
+                flexGrow={1}
+                placeholder="Leave a comment"
+                onChange={(event) => setCommentText(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") handleCommentPost();
+                }}
+              />
+              <Button mt="15px" width="150px" onClick={handleCommentPost}>
+                Post Comment
+              </Button>
+              {commentList && (
+                <Flex direction="column" rowGap="20px" mt="30px">
+                  {getUniquePosts(commentList, false).map((comment) => (
+                    <CommentItem comment={comment} key={comment.id} />
+                  ))}
+                </Flex>
+              )}
             </Flex>
           </Flex>
         </Flex>

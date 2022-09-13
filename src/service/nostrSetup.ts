@@ -18,10 +18,9 @@ export const initConnection = async (pool: any) => {
     // userList =
     //   typeof userIdList === "object" ? JSON.parse(userIdList) : userList;
   }
-  // Check if local or dev mode one then switch to local 
+  // Check if local or dev mode one then switch to local
   const relays = await getRelays();
   relays.map(async (relayUrl: string) => await pool.addRelay(relayUrl));
-  
 
   await pool.sub(
     {
