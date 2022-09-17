@@ -83,12 +83,12 @@ const PostPage: React.FC = () => {
 
   useEffect(() => {
     const fetchComments = async () => {
-      if (postId) {
+      if (postId && pool) {
         await getPostComments(pool, String(postId));
       }
     };
     fetchComments();
-  }, [postId]);
+  }, [postId, pool]);
 
   return (
     <>
