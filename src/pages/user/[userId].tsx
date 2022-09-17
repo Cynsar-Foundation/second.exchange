@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { relayPoolAtom } from "../../atoms/relayPoolAtom";
 import PostItem from "../../components/Post/PostItem";
-import { getUserPosts } from "../../service/nostrOps";
+import { useNostrOpsService } from "../../service/nostrOps";
 import { getUniquePosts, toDateTime } from "../../utils";
 
 const MyPosts: React.FC = () => {
@@ -15,10 +15,11 @@ const MyPosts: React.FC = () => {
   const [postList, setPostList] = useState<NostrEvent[]>([]);
   const router = useRouter();
   const userId = router.query.userId;
+  const opsService = useNostrOpsService();
 
   const fetchMyPosts = async () => {
     if (pool && postList.length === 0) {
-      const myPosts = await getUserPosts(pool, String(userId));
+      const myPosts = await opsService.getUserPosts(pool, String(userId));
       setPostList(myPosts);
     }
   };

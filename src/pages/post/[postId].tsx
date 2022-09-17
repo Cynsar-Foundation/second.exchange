@@ -17,18 +17,12 @@ import React, { useEffect, useState } from "react";
 import { relayPoolAtom } from "../../atoms/relayPoolAtom";
 import AutoResizeTextarea from "../../components/Post/AutoGrowTextarea";
 import CommentItem from "../../components/Post/CommentItem";
-import { useNostrOps } from "../../service/nostrOps";
+import { useNostrOpsService } from "../../service/nostrOps";
 import { toDateTime } from "../../utils/index";
 import { getUniquePosts } from "../../utils/index";
 
 const PostPage: React.FC = () => {
-  const {
-    getPostById,
-    fetchedPost,
-    fetchedComments,
-    getPostComments,
-    publishComment,
-  } = useNostrOps();
+  const opsService = useNostrOpsService();
   const toast = useToast();
   const router = useRouter();
   const pool = useAtomValue(relayPoolAtom);
@@ -36,6 +30,8 @@ const PostPage: React.FC = () => {
   const [postContent, setPostContent] = useState<PostStructure | undefined>(
     undefined
   );
+  let fetchedPost: any
+  let fetchedComments: any
   const [commentText, setCommentText] = useState("");
   const [commentList, setCommentList] = useState<NostrEvent[]>([]);
 
@@ -43,7 +39,7 @@ const PostPage: React.FC = () => {
     if (commentText.length === 0) return;
 
     try {
-      await publishComment(commentText, [["e", postId]], pool);
+      await opsService.publishComment(commentText, [["e", postId]], pool);
       toast({
         title: "Comment Posted!",
         duration: 2000,
@@ -62,9 +58,13 @@ const PostPage: React.FC = () => {
   };
 
   useEffect(() => {
+    const _fetched = async () => {
+      fetchedPost = await opsService._fetchedPost();
+    }
+    _fetched()
     const fetchPost = async () => {
       if (pool) {
-        await getPostById(pool, String(postId));
+        await opsService.getPostById(pool, String(postId));
       }
     };
     if (!fetchedPost) setTimeout(() => fetchPost(), 2000);
@@ -84,7 +84,7 @@ const PostPage: React.FC = () => {
   useEffect(() => {
     const fetchComments = async () => {
       if (postId) {
-        await getPostComments(pool, String(postId));
+        await opsService.getPostComments(pool, String(postId));
       }
     };
     fetchComments();

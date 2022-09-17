@@ -4,7 +4,7 @@ import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import { relayPoolAtom } from "../atoms/relayPoolAtom";
 import PostItem from "../components/Post/PostItem";
-import { getUserPosts } from "../service/nostrOps";
+import { useNostrOpsService } from "../service/nostrOps";
 import { getUniquePosts, toDateTime } from "../utils";
 
 const MyPosts: React.FC = () => {
@@ -12,10 +12,11 @@ const MyPosts: React.FC = () => {
   const [showPosts, setShowPosts] = useState(false);
   const [loadTime, setLoadTime] = useState(1000);
   const [postList, setPostList] = useState<NostrEvent[]>([]);
+  const opsService = useNostrOpsService()
 
   const fetchMyPosts = async () => {
     if (pool && postList.length === 0) {
-      const myPosts = await getUserPosts(pool);
+      const myPosts = await opsService.getUserPosts(pool);
       setPostList(myPosts);
     }
   };

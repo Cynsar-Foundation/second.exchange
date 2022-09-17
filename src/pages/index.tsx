@@ -7,12 +7,14 @@ import { homeFeed } from "../atoms/homeFeedAtom";
 import PostItem from "../components/Post/PostItem";
 import { getUniquePosts, toDateTime } from "../utils";
 import Head from "next/head";
+import { useNostrSetupService } from "../service/nostrSetup";
 
 const Home: NextPage = () => {
   const postList = useAtomValue(homeFeed);
   const [showPosts, setShowPosts] = useState(false);
   const [loadTime, setLoadTime] = useState(1500);
   const [posts, setPosts] = useState<any>();
+  const setupServices = useNostrSetupService()
 
   const increaseLoadTime = () => {
     setShowPosts(false);
@@ -20,6 +22,8 @@ const Home: NextPage = () => {
   };
 
   useEffect(() => {
+    setupServices.initPool()
+    setupServices.initConnection()
     setTimeout(() => setShowPosts(true), loadTime);
   }, [loadTime]);
 
