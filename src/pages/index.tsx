@@ -1,5 +1,5 @@
 import { Button, Flex, Spinner, Text } from "@chakra-ui/react";
-import { useAtomValue } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 
@@ -8,13 +8,14 @@ import PostItem from "../components/Post/PostItem";
 import { getUniquePosts, toDateTime } from "../utils";
 import Head from "next/head";
 import { useNostrSetupService } from "../service/nostrSetup";
+import { authAtom } from "../atoms/authStateAtom";
 
 const Home: NextPage = () => {
   const postList = useAtomValue(homeFeed);
   const [showPosts, setShowPosts] = useState(false);
   const [loadTime, setLoadTime] = useState(1500);
   const [posts, setPosts] = useState<any>();
-  const setupServices = useNostrSetupService()
+  const {initPool, pool, initConnection} = useNostrSetupService()
 
   const increaseLoadTime = () => {
     setShowPosts(false);
@@ -22,8 +23,13 @@ const Home: NextPage = () => {
   };
 
   useEffect(() => {
-    setupServices.initPool()
-    setupServices.initConnection()
+    if(!pool){
+      initPool()
+    }
+    if (pool){
+      initConnection()
+    }
+    
     setTimeout(() => setShowPosts(true), loadTime);
   }, [loadTime]);
 

@@ -11,8 +11,7 @@ export const getRelays = async (type?: any) => {
   // set local if we are in local dev
   if (isEmpty(type)) {
     logger.info(
-      "The type value is not set please define the type in function getRelays(local), types are local, default, foundation",
-      type
+      `The type value is ${type} not set please define the type in function getRelays(local), types are local, default, foundation.`
     );
     if (process.env.NEXT_PUBLIC_LOCAL_SETUP) {
       logger.info("Setting type as local , we determined that we are in local");

@@ -16,7 +16,7 @@ import {
 import { useAtom, useAtomValue } from "jotai";
 import { authModalState } from "../../atoms/authModalStateAtom";
 import { authAtom } from "../../atoms/authStateAtom";
-import { initConnection } from "../../service/nostrSetup";
+import { useNostrSetupService } from "../../service/nostrSetup";
 import { useRouter } from "next/router";
 import { relayPoolAtom } from "../../atoms/relayPoolAtom";
 
@@ -28,6 +28,7 @@ const AuthModal: React.FC = () => {
   const [privateKey, setPrivateKey] = useState("");
   const [publicKey, setPublicKey] = useState("");
   const [userAuthenticated, setUserAuthenticated] = useAtom(authAtom);
+  const { initConnection } = useNostrSetupService()
 
   const handleClose = () => {
     setModalOpen(false);
@@ -68,7 +69,7 @@ const AuthModal: React.FC = () => {
       } finally {
         setUserAuthenticated(true);
         setPrivateKey("");
-        initConnection(pool);
+        initConnection();
         toast({
           title: "Logged in!",
           status: "success",

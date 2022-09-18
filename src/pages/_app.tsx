@@ -19,10 +19,12 @@ import NostrOpsService from "../service/nostrOps";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [load, setLoad] = useState(false);
-  // const nostrSetupService = useNostrSetupService()
-
+  //const nostrSetupService = useNostrSetupService()
+  const setUserAuthenticated = useSetAtom(authAtom)
   useEffect(() => {
     setLoad(true);
+    
+    setUserAuthenticated(localStorage.getItem('keys') !==  null)
   }, []);
   
   // useEffect(() => {
@@ -31,6 +33,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   //   }
     
   // });
+
 
   if (load)
     return (

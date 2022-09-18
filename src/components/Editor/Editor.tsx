@@ -23,10 +23,9 @@ import { MenuBar } from "./Menubar";
 import { useAtomValue } from "jotai";
 import { relayPoolAtom } from "../../atoms/relayPoolAtom";
 import { useRouter } from "next/router";
-import { useNostrOps } from "../../service/nostrOps";
+import { useNostrOpsService } from "../../service/nostrOps";
 
 const Editor = () => {
-  const { publishPost } = useNostrOps();
   const pool = useAtomValue(relayPoolAtom);
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
@@ -34,6 +33,7 @@ const Editor = () => {
   const toast = useToast();
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { publishPost } = useNostrOpsService()
 
   useEffect(() => {
     if (titleError)
