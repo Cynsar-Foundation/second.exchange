@@ -1,4 +1,5 @@
 import { useCallback, useState, useEffect } from "react"
+import { logger } from "../../utils/logger"
 import initialData from "./data.json"
 
 export const dataKey = "editorData"
@@ -26,12 +27,16 @@ export const useSetData = (editor: any, data: any) => {
       return
     }
 
-    editor.isReady.then(() => {
-      // fixing an annoying warning in Chrome `addRange(): The given range isn't in document.`
-      setTimeout(() => {
-        editor.render(data)
-      }, 100)
-    })
+        editor.isReady.then(() => {
+            // fixing an annoying warning in Chrome `addRange(): The given range isn't in document.`
+            logger.info('Editor is ready for the work', editor)
+            if (typeof editor.render === 'function') {
+                setTimeout(() => {
+                    editor.render(data)
+                     }, 100)
+            }
+            
+          })
   }, [editor, data])
 }
 

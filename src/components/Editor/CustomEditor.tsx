@@ -82,13 +82,6 @@ export const EditorContainer = ({ editorRef, children, data, options }: any ) =>
     <React.Fragment>
       {!children && <div className="container" id="editor-js"></div>}
       {children}
-      <style jsx>{`
-        .container {
-          width: 100%;
-          border: 1px solid #c0c0c0;
-          padding: 2px 0;
-        }
-      `}</style>
     </React.Fragment>
   )
 }

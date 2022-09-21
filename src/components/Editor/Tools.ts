@@ -19,6 +19,7 @@ export const tools = {
   header: {
     class: Header,
     inlineToolbar: ["link"],
+    levels: [2, 3, 4]
   },
   list: {
     class: List,
