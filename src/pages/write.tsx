@@ -8,6 +8,7 @@ import {
   useSetData,
   useClearDataCallback,
 } from "../components/Editor"
+import { Button, Heading, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react"
 
 const Editor = dynamic<{
   editorRef: any
@@ -38,6 +39,8 @@ export default function EditorPage() {
   const disabled = editor === null || loading
 
   return (
+    <>
     <Editor editorRef={setEditor} options={options} data={data} />
+      </>
   )
 }

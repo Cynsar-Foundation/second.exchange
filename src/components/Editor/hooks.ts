@@ -30,7 +30,7 @@ export const useSetData = (editor: any, data: any) => {
         editor.isReady.then(() => {
             // fixing an annoying warning in Chrome `addRange(): The given range isn't in document.`
             logger.info('Editor is ready for the work', editor)
-            if (typeof editor.render === 'function') {
+            if (typeof editor === 'function') {
                 setTimeout(() => {
                     editor.render(data)
                      }, 100)

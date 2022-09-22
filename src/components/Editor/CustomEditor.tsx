@@ -42,7 +42,7 @@ export const useEditor = (
        */
       data: data || {},
 
-      initialBlock: "paragraph",
+      defaultBlock: "paragraph",
 
       // Override editor options
       ...editorOptions,
