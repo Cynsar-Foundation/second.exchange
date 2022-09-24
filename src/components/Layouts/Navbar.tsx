@@ -2,32 +2,41 @@
 import {
   Box,
   Flex,
-  Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
+  HStack,
   useColorModeValue,
   CloseButton,
   useColorMode,
   Text,
   Input,
+  MenuButton,
   useDisclosure,
+  MenuItem,
   FlexProps,
+  MenuDivider,
   Icon,
+  Avatar,
+  VStack,
   Link,
   BoxProps,
   Drawer,
+  MenuList,
   DrawerContent,
-  IconButton
+  IconButton,
+  Spacer,
+  Container,
+  Stack,
+  Menu
 } from "@chakra-ui/react";
 import {
   FiHome,
   FiTrendingUp,
   FiCompass,
+  FiChevronDown,
   FiStar,
   FiSettings,
   FiMenu,
+  FiEdit,
+  FiBell
 } from 'react-icons/fi';
 import { ChevronDownIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { IoKeySharp, IoNewspaperSharp } from "react-icons/io5";
@@ -60,10 +69,11 @@ interface LinkItemProps {
 
 const LinkItems: Array<LinkItemProps> = [
   { name: 'Home', icon: FiHome,  where: '/' },
+  { name: 'Write', icon: FiEdit, where: 'write' },
   { name: 'Trending', icon: FiTrendingUp , where: 'trend'},
   { name: 'Explore', icon: FiCompass, where: 'explore' },
   { name: 'Favourites', icon: FiStar,  where: 'fav' },
-  { name: 'Settings', icon: FiSettings, where: 'set' },
+  { name: 'Settings', icon: FiSettings, where: 'set' }
 ];
 
 export default function Navbar({children} : {children: ReactNode}) {
@@ -87,7 +97,8 @@ export default function Navbar({children} : {children: ReactNode}) {
 
   return (
     <>
-      <Box minH={'100vh'} bg={useColorModeValue("white", "gray.900")}>
+      <Container maxW={"6xl"} > 
+      <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
       <SidebarContent
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
@@ -108,171 +119,81 @@ export default function Navbar({children} : {children: ReactNode}) {
       <Box ml={{ base: 0, md: 60 }} p="4">
         {children}
       </Box>
-        <Flex
-          h={16}
-          alignItems={"center"}
-          justifyContent={"space-between"}
-          borderBottom="1px solid"
-          borderColor={useColorModeValue("#cbcbcb", "transparent")}
+      <Stack
+            align={"center"}
+            spacing={{ base: 8, md: 10 }}
+            direction={{ base: "column", md: "row" }}
+          >
+        <Stack
+          flex={1} 
         >
-          <Flex columnGap="5px" alignItems="center">
-            <Input
-              onChange={(event) => setInputProfile(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter") navigateToUserProfile();
-              }}
-              placeholder="Search for profiles"
-              borderRadius="xl"
-              borderColor="gray.400"
-              width={{ base: "180px", md: "300px", lg: "450px" }}
-              fontSize={{ base: "12px", lg: "16px", md: "16px" }}
-            />
-            <BsSearch
-              fontSize="20px"
-              cursor="pointer"
-              onClick={() => navigateToUserProfile()}
-            />
-          </Flex>
-          <Flex alignItems={"center"}>
-            <Flex direction={"row"} gap={7}>
-              <Button
-                display={{ base: "none", lg: "flex", md: "flex" }}
-                alignItems="center"
-                cursor="pointer"
-                onClick={() => {
-                  userAuthenticated
-                    ? router.push("/write")
-                    : setAuthModalOpen(true);
-                }}
-              >
-                <RiPencilRulerFill />
-                <Text cursor="pointer" pl="5px">
-                  Post Blog
-                </Text>
-              </Button>
-              <Button
-                onClick={() => setFollowModalOpen(true)}
-                display={{ base: "none", lg: "flex", md: "none" }}
-              >
-                <FaUserPlus />
-                <Text cursor="pointer" pl="5px">
-                  Add User
-                </Text>
-              </Button>
-              <Button
-                onClick={toggleColorMode}
-                display={{ base: "none", lg: "flex", md: "none" }}
-              >
-                {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-              </Button>
-              <Menu>
-                <MenuButton
-                  cursor="pointer"
-                  minW={0}
-                  p="5px 10px 5px 10px"
-                  border={{ base: "none", md: "1px solid #cbcbcb" }}
-                  borderRadius="lg"
-                  _hover={{ border: "1px solid transparent" }}
-                >
-                  <Flex
-                    alignItems="center"
-                    display={{ lg: "flex", md: "flex", base: "none" }}
-                  >
-                    {userAuthenticated ? "Connected" : "Connect"}
-                    <ChevronDownIcon fontSize="20px" />
-                  </Flex>
-                  <Flex
-                    alignItems="center"
-                    display={{ lg: "none", md: "none", base: "flex" }}
-                  >
-                    <AiOutlineMenu fontSize="20px" />
-                  </Flex>
-                </MenuButton>
-                {!userAuthenticated ? (
-                  <MenuList alignItems="center">
-                    <MenuItem
-                      display="flex"
-                      onClick={() => setAuthModalOpen(true)}
-                    >
-                      <BiLogIn fontSize="20px" />
-                      <Text pl="10px">Login</Text>
-                    </MenuItem>
-                  </MenuList>
-                ) : (
-                  <MenuList alignItems="center">
-                    <MenuItem
-                      display="flex"
-                      onClick={() => router.push("/myposts")}
-                    >
-                      <IoNewspaperSharp fontSize="20px" />
-                      <Text pl="10px" cursor="pointer">
-                        My Posts
-                      </Text>
-                    </MenuItem>
-                    <MenuItem
-                      display="flex"
-                      onClick={() => router.push("/write")}
-                    >
-                      <GoPlus fontSize="20px" />
-                      <Text pl="10px" cursor="pointer">
-                        Create Post
-                      </Text>
-                    </MenuItem>
-                    <MenuItem
-                      display="flex"
-                      onClick={() => router.push("/messages")}
-                    >
-                      <BsFillChatRightTextFill fontSize="20px" />
-                      <Text pl="10px" cursor="pointer">
-                        My Chats
-                      </Text>
-                    </MenuItem>
-                    <MenuItem
-                      display="flex"
-                      onClick={() => router.push("/notifications")}
-                    >
-                      <BsBellFill fontSize="20px" />
-                      <Text pl="10px" cursor="pointer">
-                        Notifications
-                      </Text>
-                    </MenuItem>
-                    <MenuItem
-                      display="flex"
-                      onClick={() => setKeyModalOpen(true)}
-                    >
-                      <IoKeySharp fontSize="20px" />
-                      <Text pl="10px" cursor="pointer">
-                        My Keys
-                      </Text>
-                    </MenuItem>
-                    <MenuItem
-                      display="flex"
-                      onClick={() => router.push("/settings")}
-                    >
-                      <IoMdSettings fontSize="20px" />
-                      <Text pl="10px" cursor="pointer">
-                        Settings
-                      </Text>
-                    </MenuItem>
-                    <MenuItem
-                      display="flex"
-                      onClick={() => setAuthModalOpen(true)}
-                    >
-                      <BiLogOut fontSize="20px" />
-                      <Text pl="10px" cursor="pointer">
-                        Logout
-                      </Text>
-                    </MenuItem>
-                  </MenuList>
-                )}
-              </Menu>
-            </Flex>
-          </Flex>
+          <Flex
+      ml={{ base: 0, md: 60 }}
+      px={{ base: 4, md: 4 }}
+      height="20"
+      alignItems="center"
+      bg={useColorModeValue('white', 'gray.900')}
+      borderBottomWidth="1px"
+      position="static"
+      borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
+      justifyContent={{ base: 'space-between', md: 'flex-end' }}>
+  
+          <HStack spacing={{ base: '0', md: '6' }}>
+          <IconButton
+          size="lg"
+          variant="ghost"
+          aria-label="open menu"
+          icon={<FiBell />}
+        />
+        <Flex alignItems={'center'}>
+          <Menu>
+            <MenuButton
+              py={2}
+              transition="all 0.3s"
+              _focus={{ boxShadow: 'none' }}>
+              <HStack>
+                <Avatar
+                  size={'sm'}
+                  src={
+                    'https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
+                  }
+                />
+                <VStack
+                  display={{ base: 'none', md: 'flex' }}
+                  alignItems="flex-start"
+                  spacing="1px"
+                  ml="2">
+                  <Text fontSize="sm">Justina Clark</Text>
+                  <Text fontSize="xs" color="gray.600">
+                    Admin
+                  </Text>
+                </VStack>
+                <Box display={{ base: 'none', md: 'flex' }}>
+                  <FiChevronDown />
+                </Box>
+              </HStack>
+            </MenuButton>
+            <MenuList
+              bg={useColorModeValue('white', 'gray.900')}
+              borderColor={useColorModeValue('gray.200', 'gray.700')}>
+              <MenuItem>Profile</MenuItem>
+              <MenuItem>Settings</MenuItem>
+              <MenuItem>Billing</MenuItem>
+              <MenuDivider />
+              <MenuItem>Sign out</MenuItem>
+            </MenuList>
+          </Menu>
         </Flex>
-      </Box>
+
+          </HStack>
+          </Flex>
+        </Stack>
+      </Stack>
       <AuthModal />
       <KeyModal />
       {followModalOpen && <FollowModal />}
+      </Box>
+      </Container>
     </>
   );
 }
@@ -282,7 +203,9 @@ interface SidebarProps extends BoxProps {
 }
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+  // This is really 
   const router = useRouter()
+  const userAuthenticated = useAtomValue(authAtom);
   return (
     <Box
       bg={useColorModeValue('white', 'gray.900')}
@@ -299,7 +222,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} icon={link.icon} where={link.where}>
           {link.name}
         </NavItem>
       ))}
@@ -310,10 +233,12 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 interface NavItemProps extends FlexProps {
   icon: IconType;
   children: ReactText;
+  where: string;
 }
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+const NavItem = ({ icon, children, where, ...rest }: NavItemProps) => {
+  // For now this, but for better repurposing we are moving this to a core service such as AUTH(())
   return (
-    <Link href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+    <Link href={where} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
       <Flex
         align="center"
         p="4"
@@ -365,7 +290,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       />
 
       <Text fontSize="2xl" ml="8" fontFamily="monospace" fontWeight="bold">
-        Logo
+        2nd.Sexchange
       </Text>
     </Flex>
   );

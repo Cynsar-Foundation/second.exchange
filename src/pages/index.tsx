@@ -55,7 +55,7 @@ const Home: NextPage = () => {
           rowGap="15px"
           position="absolute"
           top="40%"
-          left="30%"
+          left="40%"
         >
           <Text>Looks like there is no data here :(</Text>
           <Text>
