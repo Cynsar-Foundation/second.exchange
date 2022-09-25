@@ -9,6 +9,7 @@ import { getUniquePosts, toDateTime } from "../utils";
 import Head from "next/head";
 import { useNostrSetupService } from "../service/nostrSetup";
 import { authAtom } from "../atoms/authStateAtom";
+import { main } from "../service/hyperspace";
 
 const Home: NextPage = () => {
   const postList = useAtomValue(homeFeed);
@@ -29,7 +30,7 @@ const Home: NextPage = () => {
     if (pool){
       initConnection()
     }
-    
+    main()
     setTimeout(() => setShowPosts(true), loadTime);
   }, [loadTime]);
 

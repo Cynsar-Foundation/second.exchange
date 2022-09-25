@@ -25,7 +25,8 @@ import {
   Spacer,
   Container,
   Stack,
-  Menu
+  Menu,
+  Button
 } from "@chakra-ui/react";
 import {
   FiHome,
@@ -74,8 +75,7 @@ const LinkItems: Array<LinkItemProps> = [
   { name: 'Explore', icon: FiCompass, where: 'explore' },
   { name: 'Favourites', icon: FiStar,  where: 'fav' },
   { name: 'Settings', icon: FiSettings, where: 'set' }
-];
-
+]; 
 export default function Navbar({children} : {children: ReactNode}) {
   const userAuthenticated = useAtomValue(authAtom);
   const { colorMode, toggleColorMode } = useColorMode();
@@ -116,7 +116,7 @@ export default function Navbar({children} : {children: ReactNode}) {
         </DrawerContent>
       </Drawer>
       <MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
+      <Box ml={{ base: 0, md: 60 }}>
         {children}
       </Box>
       <Stack
@@ -145,6 +145,15 @@ export default function Navbar({children} : {children: ReactNode}) {
           aria-label="open menu"
           icon={<FiBell />}
         />
+        <Box display={{ base: 'none', md: 'flex' }}>
+                <Button
+                onClick={toggleColorMode}
+                display={{ base: "none", lg: "flex", md: "none" }}
+              >
+                {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+              </Button>
+                </Box>
+             
         <Flex alignItems={'center'}>
           <Menu>
             <MenuButton
@@ -165,9 +174,10 @@ export default function Navbar({children} : {children: ReactNode}) {
                   ml="2">
                   <Text fontSize="sm">Justina Clark</Text>
                   <Text fontSize="xs" color="gray.600">
-                    Admin
+                  {userAuthenticated ? "Connected" : "Connect"}
                   </Text>
                 </VStack>
+                
                 <Box display={{ base: 'none', md: 'flex' }}>
                   <FiChevronDown />
                 </Box>
