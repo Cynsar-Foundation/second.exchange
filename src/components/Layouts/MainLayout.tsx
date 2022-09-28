@@ -1,5 +1,5 @@
 import { Box, Flex } from "@chakra-ui/react";
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, ReactNode } from "react";
 import Footer from "./Footer";
 
 import Navbar from "./Navbar";
@@ -13,7 +13,7 @@ const MainLayout: React.FC<PropsWithChildren<MainLayoutProps>> = ({
 }) => {
   return (
     <Box minHeight="100vh">
-      <Navbar />
+      <Navbar {...children} />
       <Box p="10px" pb="125px">
         {children}
       </Box>
