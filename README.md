@@ -67,10 +67,8 @@ https://second.exchange
 
 ## Supported by 
 
-[Muellners Foundation](https://muellners.org)
-
-Netlify Open Source Program https://www.netlify.com/
 
 ## Donation 
 
-We are working this out, hang on!
+We are working this out for BTC : 1JWX5LeF7FtraZu9faJ1ETzTH1CSrXZowS
+
