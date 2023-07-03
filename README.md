@@ -63,7 +63,7 @@ The code in this repository has not been audited.
 
 ## Deployed Instance
 
-https://second.exchange
+https://2nd.exchange
 
 ## Supported by 
 
