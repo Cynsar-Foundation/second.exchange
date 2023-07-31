@@ -1,74 +1,69 @@
-# second.exchange
+# Second.Exchange: An Open Source Social Media Experiment
 
-## What is second.exchange?
+## Introduction
 
-Right now, this tool can be used to promote content freely anywhere by anyone, we intend to make this tool for anyone to learn, discuss ideas with value associated to it. In our experiment, 1)communities tend to form around value, 2) the existing social media is free to use hence no quality output gets generated, 3) then there are issues of valuation.
+Welcome to Second.Exchange, an experimental social media platform that aims to revolutionize the way we create and consume content online. Our mission is to empower content creators by associating value with their work, thereby fostering quality output and meaningful discussions.
 
-What if we all who create content over the internet can make some value out of it? This is the goal of second.exchange
+Unlike traditional social media platforms, Second.Exchange is built on the principle of censorship resistance. We believe in the power of free speech and the exchange of ideas, and we're committed to maintaining a platform that upholds these values.
 
-We intend to solve these issues by having this experiment in place.
+Second.Exchange is built on the [Nostr](https://github.com/fiatjaf/nostr-tools) protocol, which operates without a central authority.
 
-## How is it different from other ?
+## Key Features
 
-Its kinda of lot of different ,this tool is censor resistant , we are just polishing content with some actions or value associated so that people who create can make a living out of it.
+1. Create blog posts, content, or collections that are stored on the client-side and relayed using Nostr.
+2. Follow people and content that interest you.
+3. Group content based on your preferences and topics of interest.
+4. Future features in the pipeline include adding tips, votes, and more.
+5. Pay for content to support creators.
 
-Based on Nostr-tools https://github.com/fiatjaf/nostr-tools
+## Getting Started
 
+### Development Setup
 
-## Dev Setup
-
-### Install the dependencies
+#### Install the dependencies
 
 ```bash
 yarn
 ```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
+#### Start the app in development mode (hot-code reloading, error reporting, etc.)
 
 ```bash
 yarn dev
 ```
 
-### Build the app for production
+#### Build the app for production
 
 ```bash
 yarn build
 ```
 
-## The first exchange was not good, this one is really good
+## Contribute to Second.Exchange
 
-Second exchange is an experimental social media service that lets anyone, anywhere in the world to create content. Second Exchange uses nostr technology to operate with no central authority, Second Exchange Core is the name of open source software which enables the use of this service.
+We welcome contributions from developers of all skill levels. If you're new to open source, we recommend starting with a [good first issue](https://github.com/second-exchange/second-exchange/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
 
-1. Create a blog post/content or collections that is stored on client side only and is realyed using nostr.
-2. Follow people and content
-3. Group content based on your likes and topics
-4. Feature in future like adding tips, votes, and more in pipeline
-5. Pay for content
+Please note that we use the `main` branch as the default one. All the latest development changes are merged here. The `develop` branch is used for testing, and changes are deployed to production servers via PRs from `develop` to `main`.
 
-## Contribute back
+Before submitting a PR, please ensure your changes have been thoroughly reviewed. Direct pushes to `main` or `develop` are restricted to maintain code quality.
 
-👋 Get started contributing with a good first issue
+## Security
 
-Before explaining how you can contribute, It's worth mentioning that we use `main` branch as the default one. This makes it easier for us to have all the latest, development changes without affecting the current production version. Though, We don't use release branches to make the process a little bit easier!
+Please note that the code in this repository has not been audited. Use at your own risk.
 
-Pushing to develop branch via PR deploys changes to testing environments.
-Pushing to main branch via PR from develop deploys changes to production servers.
-Pushing to main|develop directly will be restricted to make sure the PR's are reviewed.
-Creating PRs end up in relation to develop by default.
-Don't be shy to contribute even the smallest tweak. Everyone will be especially nice and helpful to beginners to help you get started!
+## Live Instance
 
-## Security Audit
+You can access the live instance of Second.Exchange at https://2nd.exchange.
 
-The code in this repository has not been audited.
+## Supported By
 
-## Deployed Instance
-
-https://2nd.exchange
-
-## Supported by 
+Second.Exchange is supported by the [Cynsar Foundation](https://cynsar.foundation).
 
 
-## Donation 
+## Donations
 
-We are working this out for BTC : 1JWX5LeF7FtraZu9faJ1ETzTH1CSrXZowS
+If you find value in what we're building, consider supporting us with a donation:
 
+BTC: 1JWX5LeF7FtraZu9faJ1ETzTH1CSrXZowS
+Fiat: Please reach out to admin@cynsar.foundation
+
+Your support helps us continue to innovate and push the boundaries of what's possible with social media. Thank you!
