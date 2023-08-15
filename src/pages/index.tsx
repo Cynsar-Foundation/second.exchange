@@ -22,8 +22,11 @@ const Home: NextPage = () => {
   };
 
   useEffect(() => {
-    setupServices.initPool()
-    setupServices.initConnection()
+    if(setupServices){
+      setupServices.initPool()
+      //setupServices.initConnection()
+    }
+    
     setTimeout(() => setShowPosts(true), loadTime);
   }, [loadTime]);
 

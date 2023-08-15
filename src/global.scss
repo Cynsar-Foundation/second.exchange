@@ -4,6 +4,10 @@ body {
   background-color: #f8f9fa;
 }
 
+.blur-background {
+  filter: blur(4px);
+}
+
 .editor {
   background: white;
   box-shadow: rgba(14, 23, 31, 0.15) 0px 1px 3px 1px;

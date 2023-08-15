@@ -16,11 +16,14 @@ import ErrorBoundary from "../utils/errorBoundary";
 import NostrSetupService  from "../service/nostrSetup";
 import HomeFeedService from "../service/homefeed";
 import NostrOpsService from "../service/nostrOps";
+import PrivateKeyModal from "../components/Modals/PrivateKeyModal";
+
+import React from "react"
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [load, setLoad] = useState(false);
   // const nostrSetupService = useNostrSetupService()
-
+  const contentRef = React.useRef(null);
   useEffect(() => {
     setLoad(true);
   }, []);
@@ -34,7 +37,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   if (load)
     return (
+      <div ref={contentRef}>
       <ErrorBoundary>
+        <PrivateKeyModal contentRef={contentRef}></PrivateKeyModal>
         <NostrSetupService>
         <HomeFeedService>
           <NostrOpsService>
@@ -47,6 +52,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       </HomeFeedService>
       </NostrSetupService>
       </ErrorBoundary>
+      </div>
     );
 }
 

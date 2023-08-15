@@ -16,7 +16,7 @@ import {
 import { useAtom, useAtomValue } from "jotai";
 import { authModalState } from "../../atoms/authModalStateAtom";
 import { authAtom } from "../../atoms/authStateAtom";
-import { initConnection } from "../../service/nostrSetup";
+import initConnection  from "../../service/nostrSetup";
 import { useRouter } from "next/router";
 import { relayPoolAtom } from "../../atoms/relayPoolAtom";
 
