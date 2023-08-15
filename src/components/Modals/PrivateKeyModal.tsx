@@ -50,26 +50,31 @@ const PrivateKeyModal = ({ contentRef }: any) => {
 
   return (
     <Modal
-      isOpen={showModal}
-      onClose={() => setShowModal(false)}
-      closeOnOverlayClick={false}
-      isCentered={true}
-      colorScheme={colorMode === "light" ? "dark" : "light"}
+    isOpen={showModal}
+    onClose={() => setShowModal(false)}
+    closeOnOverlayClick={false}
+    isCentered={true}
+    colorScheme={colorMode === "light" ? "dark" : "light"}
+  >
+    <ModalOverlay />
+    <ModalContent
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      ml={["0", "25%", "30%", "35%"]} // Adjusting for responsive design
     >
-      <ModalOverlay />
-      <ModalContent ml={["0", "25%", "30%", "35%"]}>  {/* Adjusting for responsive design */}
-        <ModalHeader>No Key Found</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
-          The required private key was not found in local storage.
-        </ModalBody>
-        <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={handleOk}>
-            Ok
-          </Button>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
+      <ModalHeader>No Key Found</ModalHeader>
+      <ModalCloseButton />
+      <ModalBody>
+        The required private key was not found in local storage.
+      </ModalBody>
+      <ModalFooter>
+        <Button colorScheme="blue" mr={3} onClick={handleOk}>
+          Ok
+        </Button>
+      </ModalFooter>
+    </ModalContent>
+  </Modal>
   );
 };
 

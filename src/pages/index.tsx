@@ -9,24 +9,25 @@ import { getUniquePosts, toDateTime } from "../utils";
 import Head from "next/head";
 import { useNostrSetupService } from "../service/nostrSetup";
 
+type PostType = {
+  id: string;
+  created_at: string;
+  pubkey: string;
+  content: string;
+  title: string;
+};
+
 const Home: NextPage = () => {
   const postList = useAtomValue(homeFeed);
   const [showPosts, setShowPosts] = useState(false);
   const [loadTime, setLoadTime] = useState(1500);
-  const [posts, setPosts] = useState<any>();
-  const setupServices = useNostrSetupService()
-
-  const increaseLoadTime = () => {
-    setShowPosts(false);
-    setLoadTime(loadTime + 1000);
-  };
+  const [posts, setPosts] = useState<PostType[]>([]);
+  const setupServices = useNostrSetupService();
 
   useEffect(() => {
-    if(setupServices){
-      setupServices.initPool()
-      //setupServices.initConnection()
+    if (setupServices) {
+      setupServices.initPool();
     }
-    
     setTimeout(() => setShowPosts(true), loadTime);
   }, [loadTime]);
 
@@ -34,25 +35,23 @@ const Home: NextPage = () => {
     setPosts(postList);
   }, [postList]);
 
-  return (
-    <>
-      <Head>
-        <title>Second Exchange</title>
-      </Head>
-      {!showPosts && (
-        <Flex position="absolute" top="45%" left="47%">
+  const renderPosts = () => {
+    if (!showPosts) {
+      return (
+        <Flex justifyContent="center" alignItems="center" height="70vh">
           <Spinner size="xl" />
         </Flex>
-      )}
-      {showPosts && postList.length === 0 && (
+      );
+    }
+
+    if (posts.length === 0) {
+      return (
         <Flex
           justifyContent="center"
           alignItems="center"
           flexDirection="column"
-          rowGap="15px"
-          position="absolute"
-          top="40%"
-          left="30%"
+          gap="15px"
+          height="70vh"
         >
           <Text>Looks like there is no data here :(</Text>
           <Text>
@@ -60,39 +59,49 @@ const Home: NextPage = () => {
             doesn&apos;t load properly.
           </Text>
           {loadTime < 5500 ? (
-            <Button onClick={increaseLoadTime}>Reload</Button>
+            <Button onClick={() => setLoadTime((prev) => prev + 1000)}>
+              Reload
+            </Button>
           ) : (
             <Text>
               Maximum requests reached, please confirm that the data exists or
-              reload the page to try again
+              reload the page to try again.
             </Text>
           )}
         </Flex>
-      )}
-      {showPosts && (
-        <Flex
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-          mt="25px"
-          rowGap="25px"
-        >
-          {getUniquePosts(posts, true).map((post) => {
-            const postContent: Post = JSON.parse(post.content);
-            const postBody = postContent?.content?.replace(/<[^>]+>/g, "");
-            return (
-              <PostItem
-                key={String(post.id)}
-                date={toDateTime(post.created_at)}
-                authorId={post.pubkey}
-                postId={post.id!}
-                title={postContent.title}
-                body={postBody}
-              />
-            );
-          })}
-        </Flex>
-      )}
+      );
+    }
+
+    return posts.map((post) => {
+      const postContent = JSON.parse(post.content);
+      const postBody = postContent?.content?.replace(/<[^>]+>/g, "");
+      return (
+        <PostItem
+          key={post.id}
+          date={toDateTime(post.created_at)}
+          authorId={post.pubkey}
+          postId={post.id}
+          title={postContent.title}
+          body={postBody}
+        />
+      );
+    });
+  };
+
+  return (
+    <>
+      <Head>
+        <title>Second Exchange</title>
+      </Head>
+      <Flex
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        mt="25px"
+        gap="25px"
+      >
+        {renderPosts()}
+      </Flex>
     </>
   );
 };
