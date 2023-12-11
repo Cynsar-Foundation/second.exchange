@@ -3,8 +3,6 @@ export const getPrivateKey = () => {
   if (typeof window !== "undefined") {
     privKey =
       localStorage.getItem("keys") !== null
-        ? JSON.parse(localStorage.getItem("keys")!).privateKey
-        : null;
   }
   return privKey;
 };
@@ -14,8 +12,6 @@ export const getPublicKey = () => {
   if (typeof window !== "undefined")
     privKey =
       localStorage.getItem("keys") !== null
-        ? JSON.parse(localStorage.getItem("keys")!).publicKey
-        : null;
   return privKey;
 };
 

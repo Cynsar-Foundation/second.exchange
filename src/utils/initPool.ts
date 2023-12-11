@@ -1,22 +1,21 @@
-import { getRelays } from "../config/defaultRelays";
 import { logger } from "./logger";
 
-import { getLocalData } from './getLocalData';
+import { NDKRelay } from "@nostr-dev-kit/ndk";
 
-const {privKey} =  getLocalData()
 
-export const initPool = async () => {
-    // ... implementation ...
+
+
+export const initPool = async (relay: any, defaultService: any ) => {
+
     // return the initialized pool or relevant data
         logger.info('Initing the pool services')
-        const { relayPool } = await import("nostr-tools");
-        const tempPool = relayPool();
-        if(privKey){
-            tempPool.setPrivateKey(privKey)
+        const defaultRelays =  relay;
+        if (defaultRelays == undefined){
+          return
         }
-        const defaultRelays =  getRelays();
-        defaultRelays.map(
-          async (relayUrl: string) => await tempPool.addRelay(relayUrl)
+        const tempPool = defaultRelays.map(
+          async (relayUrl: string) => await defaultService.pool.addRelay(new NDKRelay(relayUrl))
         );
+        defaultService.connect()
         return tempPool
       };

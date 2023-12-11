@@ -12,26 +12,30 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import { checkPrivateKey } from "../../utils/checkPrivateKey";
+import ReturnFocus from "./AfterPrivateKey";
+import { useNostrSetupService } from "../../service/nostrSetup";
 
-const checkPrivKey = (setShowModal: any) => {
-  const privKey = checkPrivateKey()
-  if (!privKey) {
-    setShowModal(true); // Display UI modal
-  }
-  return privKey;
-};
+
 
 const PrivateKeyModal = ({ contentRef }: any) => {
   const [showModal, setShowModal] = useState(false);
+  const [showReturnFocusModal, setShowReturnFocusModal] = useState(false); // State // State to control ReturnFocus
   const { colorMode } = useColorMode();
+  const nostrService = useNostrSetupService();
+
 
   useEffect(() => {
-    checkPrivKey(setShowModal);
-  }, []);
+    if (!nostrService.isNDKInitialized()){
+      // checking local 
+      if (!nostrService.checkLocalStorage()){
+        setShowModal(true);
+      }
+    }
+  }, [nostrService]);
 
   useEffect(() => {
     const contentEl = contentRef.current;
-    if (showModal && contentEl) {
+    if ((showModal || showReturnFocusModal)&& contentEl) {
       contentEl.classList.add("blur-background");
     } else if (contentEl){
       contentEl.classList.remove("blur-background");
@@ -41,14 +45,20 @@ const PrivateKeyModal = ({ contentRef }: any) => {
         contentEl.classList.remove("blur-background");
       }
     };
-  }, [showModal, contentRef]);
+  }, [showModal, showReturnFocusModal, contentRef]);
 
   const handleOk = () => {
     setShowModal(false);
     // Additional actions (like redirection) can be added here.
+    setShowReturnFocusModal(true);
+  };
+
+  const handleCloseReturnFocus = () => {
+    setShowReturnFocusModal(false); // Close ReturnFocus modal
   };
 
   return (
+    <>
     <Modal
     isOpen={showModal}
     onClose={() => setShowModal(false)}
@@ -70,11 +80,13 @@ const PrivateKeyModal = ({ contentRef }: any) => {
       </ModalBody>
       <ModalFooter>
         <Button colorScheme="blue" mr={3} onClick={handleOk}>
-          Ok
+          Ok, create my keys
         </Button>
       </ModalFooter>
     </ModalContent>
   </Modal>
+  <ReturnFocus isOpen={showReturnFocusModal} onClose={handleCloseReturnFocus} />
+  </>
   );
 };
 

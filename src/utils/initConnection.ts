@@ -1,47 +1,24 @@
-import { getRelays } from "../config/defaultRelays";
-import { getLocalData } from "./getLocalData";
-import { initPool } from "./initPool";
 
-const { privKey, userList } = getLocalData();
+import {logger} from "./logger"
 
-export const initConnection = async (pool:any): Promise<NostrEvent[]> => {
-  if (pool == undefined){
-    // no pool meaning check for pool
-    initPool()
+
+
+export const initConnection = async (pool: any, ndk: any) => {
+  if (pool === undefined) {
+    // Handle the case when no pool is provided
+    // You might want to initialize the pool here or handle the error
+    logger.error("No pool provided");
   } else {
-     // ... implementation ...
-    // return the fetchedEvents or relevant data
-    const fetchedEvents: NostrEvent[] = [];
-      let userList: any[] = [];
-        if (privKey) {
-            pool.setPrivateKey(privKey);
-        }
-      // Check if local or dev mode one then switch to local
-      const relays = getRelays();
-      relays.map(
-        async (relayUrl: string) => await pool.addRelay(relayUrl)
-        );
-
-      await pool.sub(
-        {
-          cb: async (event: NostrEvent) => {
-            switch (event.kind) {
-              case 0:
-              case 1:
-              case 2:
-                fetchedEvents.push(event);
-                return;
-            }
-          },
-          filter: [
-            {
-              authors: userList,
-              kinds: [0, 1, 3],
-            },
-          ],
-        },
-        "profile-browser"
-      );
-      return fetchedEvents;
+    // Existing implementation when pool is provided
+    // Assuming ndk.connect(6000) returns a Promise
+    try {
+      return ndk.connect(6000);
+       // Return the result of ndk.connect
+    } catch (error) {
+      // Handle any errors that occur during the connection
+      logger.error("Error in ndk.connect:", error);
+      throw error; // Rethrow or handle the error appropriately
+    }
   }
 };
+

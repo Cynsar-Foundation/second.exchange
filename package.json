@@ -16,6 +16,7 @@
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@fontsource/roboto": "^4.5.7",
+    "@nostr-dev-kit/ndk": "^2.2.0",
     "@tiptap/extension-heading": "^2.0.0-beta.29",
     "@tiptap/extension-highlight": "^2.0.0-beta.35",
     "@tiptap/extension-mention": "^2.0.0-beta.102",
@@ -23,6 +24,8 @@
     "@tiptap/extension-typography": "^2.0.0-beta.22",
     "@tiptap/react": "^2.0.0-beta.114",
     "@tiptap/starter-kit": "^2.0.0-beta.191",
+    "@type-cacheable/core": "^13.0.0",
+    "@type-cacheable/redis-adapter": "^16.0.1",
     "dompurify": "^2.3.10",
     "framer-motion": "^6.4.3",
     "html-to-react": "^1.5.0",
@@ -39,6 +42,7 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
     "react-textarea-autosize": "^8.3.4",
+    "redis": "^4.6.11",
     "sass": "^1.53.0"
   },
   "devDependencies": {
