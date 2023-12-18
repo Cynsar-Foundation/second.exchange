@@ -1,244 +1,63 @@
-/* eslint-disable react/no-children-prop */
+import React from 'react';
 import {
   Box,
   Flex,
-  Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  useColorModeValue,
-  useColorMode,
+  Avatar,
   Text,
-  Input,
-} from "@chakra-ui/react";
-import { ChevronDownIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { IoKeySharp, IoNewspaperSharp } from "react-icons/io5";
-import { BsBellFill, BsFillChatRightTextFill, BsSearch } from "react-icons/bs";
-import { IoMdSettings } from "react-icons/io";
-import { BiLogOut, BiLogIn } from "react-icons/bi";
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { RiPencilRulerFill } from "react-icons/ri";
-import { useRouter } from "next/router";
+  Button
+} from '@chakra-ui/react';
 
-import { authAtom } from "../../atoms/authStateAtom";
-import { authModalState } from "../../atoms/authModalStateAtom";
-import AuthModal from "../Modals/AuthModal";
-import KeyModal from "../Modals/KeyModal";
-import { keyModalState } from "../../atoms/keyModalStateAtom";
-import { AiOutlineMenu } from "react-icons/ai";
-import { GoPlus } from "react-icons/go";
-import { FaUserPlus } from "react-icons/fa";
-import { useState } from "react";
-import { followModalState } from "../../atoms/followModalAtom";
-import FollowModal from "../Modals/FollowModal";
-
-export default function Navbar() {
-  const userAuthenticated = useAtomValue(authAtom);
-  const { colorMode, toggleColorMode } = useColorMode();
-  const setAuthModalOpen = useSetAtom(authModalState);
-  const setKeyModalOpen = useSetAtom(keyModalState);
-  const [followModalOpen, setFollowModalOpen] = useAtom(followModalState);
-  const router = useRouter();
-  const [inputProfile, setInputProfile] = useState("");
-
-  const navigateToUserProfile = () => {
-    const profileId = inputProfile.trim().toLowerCase();
-    if (profileId.match(/^[a-f0-9A-F]{64}$/)) {
-      router.push("/user/" + profileId);
-      setInputProfile("");
-      return;
-    }
-  };
+const SideBar = ({ isUserPresent, profileName  }: any) => {
+  
+  const userBarWidth = "51.2px"; // 20% of 256px
+  const drawerWidth = "204.8px"; // 80% of 256px
 
   return (
-    <>
-      <Box bg={useColorModeValue("white", "gray.900")} px={{ base: 2, lg: 4 }}>
-        <Flex
-          h={16}
-          alignItems={"center"}
-          justifyContent={"space-between"}
-          borderBottom="1px solid"
-          borderColor={useColorModeValue("#cbcbcb", "transparent")}
-        >
-          <Text
-            fontSize={{ lg: "2xl", md: "xl", base: "md" }}
-            fontWeight="bold"
-            onClick={() => router.push("/")}
-            cursor="pointer"
-          >
-            <Text
-              display={{ base: "none", lg: "flex", md: "flex" }}
-              cursor="pointer"
-            >
-              Second Exchange
+    <Flex height="100vh" position="relative">
+      {/* User Sidebar */}
+      <Box
+        width={userBarWidth}
+        bg={isUserPresent ? "white" : "gray.200"}
+        p={2}
+        textAlign="center"
+        zIndex={2} // Higher z-index to keep it on top
+      >
+        {isUserPresent ? (
+          <>
+            <Avatar name={profileName.name} size="sm" />
+            <Text fontSize="sm" mt={2}>
+              {}
             </Text>
-            <Text
-              pl={{ base: "20px" }}
-              cursor="pointer"
-              display={{ base: "flex", lg: "none", md: "none" }}
-            >
-              SE
-            </Text>
-          </Text>
-          <Flex columnGap="5px" alignItems="center">
-            <Input
-              onChange={(event) => setInputProfile(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter") navigateToUserProfile();
-              }}
-              placeholder="Search for profiles"
-              borderRadius="xl"
-              borderColor="gray.400"
-              width={{ base: "180px", md: "300px", lg: "450px" }}
-              fontSize={{ base: "12px", lg: "16px", md: "16px" }}
-            />
-            <BsSearch
-              fontSize="20px"
-              cursor="pointer"
-              onClick={() => navigateToUserProfile()}
-            />
-          </Flex>
-          <Flex alignItems={"center"}>
-            <Flex direction={"row"} gap={7}>
-              <Button
-                display={{ base: "none", lg: "flex", md: "flex" }}
-                alignItems="center"
-                cursor="pointer"
-                onClick={() => {
-                  userAuthenticated
-                    ? router.push("/write")
-                    : setAuthModalOpen(true);
-                }}
-              >
-                <RiPencilRulerFill />
-                <Text cursor="pointer" pl="5px">
-                  Post Blog
-                </Text>
-              </Button>
-              <Button
-                onClick={() => setFollowModalOpen(true)}
-                display={{ base: "none", lg: "flex", md: "none" }}
-              >
-                <FaUserPlus />
-                <Text cursor="pointer" pl="5px">
-                  Add User
-                </Text>
-              </Button>
-              <Button
-                onClick={toggleColorMode}
-                display={{ base: "none", lg: "flex", md: "none" }}
-              >
-                {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-              </Button>
-              <Menu>
-                <MenuButton
-                  cursor="pointer"
-                  minW={0}
-                  p="5px 10px 5px 10px"
-                  border={{ base: "none", md: "1px solid #cbcbcb" }}
-                  borderRadius="lg"
-                  _hover={{ border: "1px solid transparent" }}
-                >
-                  <Flex
-                    alignItems="center"
-                    display={{ lg: "flex", md: "flex", base: "none" }}
-                  >
-                    {userAuthenticated ? "Connected" : "Connect"}
-                    <ChevronDownIcon fontSize="20px" />
-                  </Flex>
-                  <Flex
-                    alignItems="center"
-                    display={{ lg: "none", md: "none", base: "flex" }}
-                  >
-                    <AiOutlineMenu fontSize="20px" />
-                  </Flex>
-                </MenuButton>
-                {!userAuthenticated ? (
-                  <MenuList alignItems="center">
-                    <MenuItem
-                      display="flex"
-                      onClick={() => setAuthModalOpen(true)}
-                    >
-                      <BiLogIn fontSize="20px" />
-                      <Text pl="10px">Login</Text>
-                    </MenuItem>
-                  </MenuList>
-                ) : (
-                  <MenuList alignItems="center">
-                    <MenuItem
-                      display="flex"
-                      onClick={() => router.push("/myposts")}
-                    >
-                      <IoNewspaperSharp fontSize="20px" />
-                      <Text pl="10px" cursor="pointer">
-                        My Posts
-                      </Text>
-                    </MenuItem>
-                    <MenuItem
-                      display="flex"
-                      onClick={() => router.push("/write")}
-                    >
-                      <GoPlus fontSize="20px" />
-                      <Text pl="10px" cursor="pointer">
-                        Create Post
-                      </Text>
-                    </MenuItem>
-                    <MenuItem
-                      display="flex"
-                      onClick={() => router.push("/messages")}
-                    >
-                      <BsFillChatRightTextFill fontSize="20px" />
-                      <Text pl="10px" cursor="pointer">
-                        My Chats
-                      </Text>
-                    </MenuItem>
-                    <MenuItem
-                      display="flex"
-                      onClick={() => router.push("/notifications")}
-                    >
-                      <BsBellFill fontSize="20px" />
-                      <Text pl="10px" cursor="pointer">
-                        Notifications
-                      </Text>
-                    </MenuItem>
-                    <MenuItem
-                      display="flex"
-                      onClick={() => setKeyModalOpen(true)}
-                    >
-                      <IoKeySharp fontSize="20px" />
-                      <Text pl="10px" cursor="pointer">
-                        My Keys
-                      </Text>
-                    </MenuItem>
-                    <MenuItem
-                      display="flex"
-                      onClick={() => router.push("/settings")}
-                    >
-                      <IoMdSettings fontSize="20px" />
-                      <Text pl="10px" cursor="pointer">
-                        Settings
-                      </Text>
-                    </MenuItem>
-                    <MenuItem
-                      display="flex"
-                      onClick={() => setAuthModalOpen(true)}
-                    >
-                      <BiLogOut fontSize="20px" />
-                      <Text pl="10px" cursor="pointer">
-                        Logout
-                      </Text>
-                    </MenuItem>
-                  </MenuList>
-                )}
-              </Menu>
-            </Flex>
-          </Flex>
-        </Flex>
+          </>
+        ) : (
+          <Text fontSize="sm">No User</Text>
+        )}
       </Box>
-      <AuthModal />
-      <KeyModal />
-      {followModalOpen && <FollowModal />}
-    </>
+
+      {/* Drawer */}
+      {isUserPresent && (
+        <Box
+          width={drawerWidth}
+          bg="lightslategrey" // Light color for the drawer
+          p={4}
+          left={userBarWidth}
+          top={0}
+          bottom={0}
+          zIndex={1} // Lower z-index to be behind the main content
+        > 
+         <Avatar name={profileName.name} size="lg" placeContent={'centre'}/>
+          <Text fontSize="lg" mb={4}>{profileName.name}</Text>
+          <Button colorScheme="blue" w="100%" mb={4}>
+            Post
+          </Button>
+          {/* Add more buttons or content as needed */}
+        </Box>
+      )}
+
+      {/* Main Content Area */}
+
+    </Flex>
   );
-}
+};
+
+export default SideBar;

@@ -29,7 +29,7 @@ const Footer: React.FC<FooterProps> = () => {
           href="https://github.com/muellners"
           color={useColorModeValue("brand.100", "brand.200")}
         >
-          Muellners Foundation
+          Pulkit Vyas and others
         </a>{" "}
         and funded by{" "}
         <a

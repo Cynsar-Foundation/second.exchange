@@ -11,7 +11,6 @@ import {
   Button,
   useColorMode,
 } from "@chakra-ui/react";
-import { checkPrivateKey } from "../../utils/checkPrivateKey";
 import ReturnFocus from "./AfterPrivateKey";
 import { useNostrSetupService } from "../../service/nostrSetup";
 

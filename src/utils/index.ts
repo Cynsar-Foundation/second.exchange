@@ -1,3 +1,9 @@
+import { checkPrivateKey } from "./checkPrivateKey";
+import { generateKey } from "./generateKey";
+import { initPool } from "./initPool";
+import { getRelays  } from "../config/defaultRelays";
+import { initConnection } from "./initConnection";
+ 
 export const getPrivateKey = () => {
   let privKey;
   if (typeof window !== "undefined") {
@@ -41,3 +47,12 @@ export const getUniquePosts = (posts: NostrEvent[], post?: boolean) => {
   // }
   return uniquePosts;
 };
+
+
+export {
+  checkPrivateKey,
+  generateKey,
+  initPool,
+  getRelays,
+  initConnection,
+}

@@ -1,3 +1,3 @@
 import { atom } from "jotai";
 
-export const homeFeed = atom<NostrEvent[] | []>([]);
+export const homeFeedAtoms = atom<NostrEvent[] | []>([]);

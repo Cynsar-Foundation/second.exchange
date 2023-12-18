@@ -1,9 +1,17 @@
-import React, { PropsWithChildren, useContext } from "react";
-import { useSetAtom } from "jotai";
+import React, { PropsWithChildren, useContext, useEffect } from "react";
+import { useAtom, useSetAtom } from "jotai";
 import { authAtom } from "../atoms/authStateAtom";
-
+import NostrSetupService, { useNostrSetupService } from "./nostrSetup";
+import { useNostrOpsService } from "./nostrOps";
+import { homeFeedAtoms } from "../atoms/homeFeedAtom";
+/**
+ * The home feed services fetches from the list of the follow list or the list stored somewhere in the world for the keys 
+ * the approach should  be that where a user keys --> follow if no list then just simply ask the user to search from a list of keys , like how tags , etc
+ * So that we can match the user follow and auto follow them and store them 
+ */
 export interface IHomeFeedService {
   setHomeFeed(): any;
+  getUserDetails(): any
 }
 
 export const HomeFeedServiceContext = React.createContext<IHomeFeedService | undefined>(undefined);
@@ -17,23 +25,31 @@ const useHomeFeedContext = () => {
 };
 
 const HomeFeedService: React.FunctionComponent<PropsWithChildren> = ({ children }: any) => {
-  const setUserAuthenticated = useSetAtom(authAtom);
-
+  const service  = useNostrOpsService()
+  const [feed, setFeed] = useAtom(homeFeedAtoms)
   const homeFeed = {
     async setHomeFeed() {
-      if (typeof window !== "undefined") {
-        const initAuthor = [
-          "dfb0b888e9b322e90c3ee3b06fe5d3e79bc2f3bdf1ffe31002919512d90129a4",
-        ];
-        setUserAuthenticated(localStorage.getItem("keys") !== null);
+    
+      const initAuthor = {
+          pubkey: "04c915daefee38317fa734444acee390a8269fe5810b2241e5e6dd343dfbecc9",
+          relayUrl: 'wss://nostr.wine/'
 
-        if (!localStorage.getItem("follow-list")) {
-          localStorage.setItem("follow-list", JSON.stringify(initAuthor));
-        }
-      }
+      } ;
+      // Get the user Details 
       return;
     },
+    async getUserDetails() {
+      const initAuthors = ["04c915daefee38317fa734444acee390a8269fe5810b2241e5e6dd343dfbecc9",
+                           "e88a691e98d9987c964521dff60025f60700378a4879180dcbbb4a5027850411"];
+    
+      try {
+        const users = await service.getUserFromOtherRelay(initAuthors);
+      } catch (error) {
+        console.error('Error fetching user details:', error);
+      }
+    }    
   };
+
 
   return (
     <HomeFeedServiceContext.Provider value={homeFeed}>

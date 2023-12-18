@@ -13,7 +13,8 @@ const nextConfig = {
   publicRuntimeConfig: {
     relays: {
       local: [
-        'ws://localhost:8008'
+        'ws://localhost:8008',
+        'wss://nostr.wine'
       ],
       default: [
       "wss://nostr-pub.wellorder.net",

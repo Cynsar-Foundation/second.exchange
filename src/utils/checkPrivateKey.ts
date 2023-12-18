@@ -12,7 +12,13 @@ export const  checkPrivateKey = (type: 'nip07' | 'privateKey', ndk: NDK): any | 
     }
     return privKey;
   } else if (type == 'nip07'){
-    return 
+    return true
   }
     
   };
+
+
+  export const checkSignerType = (): any => {
+    return localStorage.getItem("type")
+    
+  }
