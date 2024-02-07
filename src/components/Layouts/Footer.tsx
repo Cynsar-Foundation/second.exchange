@@ -15,8 +15,6 @@ const Footer: React.FC<FooterProps> = () => {
       textAlign="center"
       justifyContent="center"
       rowGap="5px"
-      position="absolute"
-      bottom={0}
       width="100%"
       p="5px"
     >

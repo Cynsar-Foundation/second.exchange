@@ -14,14 +14,11 @@ type MainLayoutProps = {
 const MainLayout: React.FC<PropsWithChildren<MainLayoutProps>> = ({
   children,
 }) => {
+  const ndk = useAtomValue(ndkAtom);
 
-  const ndk = useAtomValue(ndkAtom)
-
-  const service = useNostrSetupService()
-  const nostrOps = useNostrOpsService()
+  const service = useNostrSetupService();
+  const nostrOps = useNostrOpsService();
   const [currentUser, setCurrentUser] = useState(null);
-
-
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
@@ -30,7 +27,7 @@ const MainLayout: React.FC<PropsWithChildren<MainLayoutProps>> = ({
           const user = await nostrOps.getCurrentUser();
           setCurrentUser(user);
         } catch (error) {
-          console.error('Error fetching current user:', error);
+          console.error("Error fetching current user:", error);
           // Handle error appropriately
         }
       }
@@ -43,9 +40,9 @@ const MainLayout: React.FC<PropsWithChildren<MainLayoutProps>> = ({
   // Setting user as present
   return (
     <Flex direction="column" minHeight="100vh">
-      <Flex flexGrow={1} overflow="hidden">
-        <SideBar isUserPresent={isUserPresent} profileName={currentUser}/>
-        <Box flex={1} p="10px" overflow="auto" marginLeft="0">
+      <Flex>
+        <SideBar isUserPresent={isUserPresent} profileName={currentUser} />
+        <Box flex={1} p="10px" ml="0">
           {children}
         </Box>
       </Flex>

@@ -14,6 +14,35 @@ const theme = extendTheme({
       body: {
         bg: mode("white", "#00171f")(props),
       },
+      "h1, h2, h3, h4, h5, h6": {
+        fontFamily: "Roboto, sans-serif", // or any other font family
+        fontWeight: "bold", // Example of a common weight, adjust as necessary
+      },
+      h1: {
+        fontSize: "3xl", // or your specific size
+        fontWeight: 'bold' // Example color, adjust as necessary
+      },
+      h2: {
+        fontSize: "2xl", // or your specific size
+        fontWeight: 'semi-bold' // Example color, adjust as necessary
+      },
+      h3: {
+        fontSize: "xl", // or your specific size
+        fontWeight: 'semi-bold' // Example color, adjust as necessary
+      },
+      h4: {
+        fontSize: "lg",
+        fontWeight: 'semi-bold'
+      },
+      h5: {
+        fontSize: "base",
+        fontWeight: 'semi-bold'
+      },
+      h6: {
+        fontSize: "base",
+        fontWeight: 'semi-bold'
+      }
+
     }),
   },
   components: {
@@ -43,6 +72,13 @@ const theme = extendTheme({
         footer: {
           padding: "4",
         },
+      },
+    },
+    EditorContainer: {
+      // baseStyle, sizes, variants, defaultProps can be defined here
+      baseStyle: {
+        mt: "4rem", // assuming navbar height is 4rem
+        transition: "margin-left 0.5s",
       },
     },
   },

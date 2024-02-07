@@ -1,16 +1,16 @@
-import Head from "next/head";
-import React from "react";
-import Editor from "../components/Editor/Editor";
+import React, { useState } from "react";
+import dynamic from "next/dynamic";
+import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
 
-const Write: React.FC = () => {
-  return (
-    <>
-      <Head>
-        <title>Blog Editor</title>
-      </Head>
-      <Editor />
-    </>
-  );
-};
+const CustomEditorNoSSR = dynamic(
+  () => import("../components/Editor/CustomEditor"),
+  {
+    ssr: false, // Disable server-side rendering
+  }
+);
 
-export default Write;
+export default function EditorPage() {
+  const [data, setData] = useState();
+  const bgColor = useColorModeValue("white", "gray.700");
+  return <CustomEditorNoSSR data={data} onChange={setData} />;
+}

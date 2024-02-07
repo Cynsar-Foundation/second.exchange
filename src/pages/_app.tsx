@@ -26,15 +26,15 @@ function MyApp({ Component, pageProps }: AppProps) {
     <div ref={contentRef}>
       <ErrorBoundary>
         <NostrSetupService {...pageProps}>
-        <NostrOpsService>
-          <HomeFeedService>        
+          <NostrOpsService>
+            <HomeFeedService>
               <ChakraProvider theme={theme}>
-              <PrivateKeyModal contentRef={contentRef} />
+                <PrivateKeyModal contentRef={contentRef} />
                 <MainLayout>
                   <Component {...pageProps} />
                 </MainLayout>
               </ChakraProvider>
-          </HomeFeedService>
+            </HomeFeedService>
           </NostrOpsService>
         </NostrSetupService>
       </ErrorBoundary>
