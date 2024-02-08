@@ -8,14 +8,13 @@ import { ndkAtom } from "../../atoms/ndkAtom";
 import { useNostrOpsService } from "../../service/nostrOps";
 
 type MainLayoutProps = {
-  children: any;
+  children: React.ReactNode; // Better typing for children
 };
 
 const MainLayout: React.FC<PropsWithChildren<MainLayoutProps>> = ({
   children,
 }) => {
   const ndk = useAtomValue(ndkAtom);
-
   const service = useNostrSetupService();
   const nostrOps = useNostrOpsService();
   const [currentUser, setCurrentUser] = useState(null);
@@ -28,7 +27,6 @@ const MainLayout: React.FC<PropsWithChildren<MainLayoutProps>> = ({
           setCurrentUser(user);
         } catch (error) {
           console.error("Error fetching current user:", error);
-          // Handle error appropriately
         }
       }
     };
@@ -37,15 +35,20 @@ const MainLayout: React.FC<PropsWithChildren<MainLayoutProps>> = ({
   }, [ndk, nostrOps, service]);
 
   let isUserPresent = Boolean(currentUser);
-  // Setting user as present
+
   return (
     <Flex direction="column" minHeight="100vh">
-      <Flex>
+      {/* Header or Navbar can be placed here */}
+
+      <Flex flex="1" direction={{ base: "column", md: "row" }}>
         <SideBar isUserPresent={isUserPresent} profileName={currentUser} />
-        <Box flex={1} p="10px" ml="0">
+
+        {/* Main content area */}
+        <Box flex="1" p="4">
           {children}
         </Box>
       </Flex>
+
       <Footer />
     </Flex>
   );

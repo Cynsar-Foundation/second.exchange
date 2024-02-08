@@ -12,6 +12,14 @@ body {
   -webkit-touch-callout: none;
 }
 
+.affine-format-bar-widget {
+  position: absolute; /* Position the widget absolutely within a relative container */
+  left: 50%; /* Start by positioning at the horizontal center of the selection */
+  transform: translateX(-50%); /* Use transform to perfectly center the widget */
+  bottom: 100%; /* Position the widget above the selected text */
+  margin-bottom: 8px; /* Add some space between the widget and the selected text */
+}
+
 .blur-background {
   filter: blur(4px);
 }

@@ -11,6 +11,7 @@ import HomeFeedService from "../service/homefeed";
 import NostrOpsService from "../service/nostrOps";
 
 import "../global.scss";
+import EarthStarService from "../service/earthstar";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [load, setLoad] = useState(false);
@@ -28,12 +29,14 @@ function MyApp({ Component, pageProps }: AppProps) {
         <NostrSetupService {...pageProps}>
           <NostrOpsService>
             <HomeFeedService>
-              <ChakraProvider theme={theme}>
-                <PrivateKeyModal contentRef={contentRef} />
-                <MainLayout>
-                  <Component {...pageProps} />
-                </MainLayout>
-              </ChakraProvider>
+              <EarthStarService>
+                <ChakraProvider theme={theme}>
+                  <PrivateKeyModal contentRef={contentRef} />
+                  <MainLayout>
+                    <Component {...pageProps} />
+                  </MainLayout>
+                </ChakraProvider>
+              </EarthStarService>
             </HomeFeedService>
           </NostrOpsService>
         </NostrSetupService>
