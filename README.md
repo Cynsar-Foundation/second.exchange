@@ -1,5 +1,6 @@
 # Second.Exchange: An Open Source Social Media Experiment
 
+
 ## Introduction
 
 Welcome to Second.Exchange, an experimental social media platform that aims to revolutionize the way we create and consume content online. Our mission is to empower content creators by associating value with their work, thereby fostering quality output and meaningful discussions.
@@ -24,11 +25,12 @@ We are working on releasing version based on willow protocol, check [willow](htt
 
 ## Key Features
 
-1. Create blog posts, content, or collections that are stored on the client-side and relayed using Nostr.
-2. Follow people and content that interest you.
-3. Group content based on your preferences and topics of interest.
+1. Create blog posts, content, or collections that are stored on the client-side and can be synced by anyone over the internet.
+2. Follow people and content that interest you live peer syncing only when you want.
+3. Group content based on your preferences and topics of interest only when you want.
 4. Future features in the pipeline include adding tips, votes, and more.
 5. Pay for content to support creators.
+6. Take away your content to other services such as Nostr, Blue Sky, etc.
 
 ## Getting Started
 
